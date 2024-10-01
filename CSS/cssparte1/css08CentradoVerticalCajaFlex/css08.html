@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imágenes Dispersas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #ffffff;
+            text-align: center;
+        }
+        #container {
+            display: flex; 
+            justify-content: space-between;
+            align-items: center; 
+            flex-wrap: wrap; 
+            width: 100%; 
+            margin: auto; 
+            padding: 20px; 
+            background-color: #e8da0e; 
+            border: 5px solid #000000; 
+        }
+        .image {
+            width: 30%;
+            max-width: 150px; 
+            height: auto; 
+            transition: transform 0.3s; 
+        }
+        .image:hover {
+            transform: scale(1.5);
+        }
+    </style>
+</head>
+<body>
+
+<h1>Imágenes Dispersas en un Contenedor</h1>
+
+<div id="container">
+    <img src="/CSS/cssparte1/css08CentradoVerticalCajaFlex/images.jpeg" alt="Imagen 1" class="image">
+    <img src="/CSS/cssparte1/css08CentradoVerticalCajaFlex/great-wall-china-massive-series-600nw-2490374633.webp" alt="Imagen 2" class="image">
+    <img src="/CSS/cssparte1/css08CentradoVerticalCajaFlex/nationalgeographic2710344.jpg" alt="Imagen 3" class="image">
+</div>
+
+</body>
+</html>

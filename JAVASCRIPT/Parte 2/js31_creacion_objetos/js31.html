@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear y Limpiar Divs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #container {
+            margin-top: 20px;
+            padding: 10px;
+            border: 4px dashed #000000;
+            min-height: 100px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            box-sizing: border-box;
+            align-items: center;
+        }
+        .nuevo-div {
+            background-color: #e8da0e;
+            color: rgb(0, 0, 0);
+            padding: 10px;
+            margin: 5px;
+            width: 200px;
+        }
+        .btn {
+            margin: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            color: rgb(0, 0, 0);
+            background-color: #e8da0e;
+        }
+        .btn:hover {
+            background-color: #b30000;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Crear y Limpiar Divs</h2>
+<button class="btn" onclick="crearDiv()">Crear</button>
+<button class="btn" onclick="limpiarDivs()">Limpiar</button>
+
+<div id="container"></div>
+
+<script>
+    let contador = 0;
+
+    function crearDiv() {
+        contador++; 
+        const container = document.getElementById("container");
+
+        const nuevoDiv = document.createElement("div");
+        nuevoDiv.className = "nuevo-div"; 
+        nuevoDiv.innerText = "Div " + contador; 
+
+        container.appendChild(nuevoDiv);
+    }
+
+    function limpiarDivs() {
+        const container = document.getElementById("container");
+        container.innerHTML = "";
+        contador = 0;
+    }
+</script>
+
+</body>
+</html>

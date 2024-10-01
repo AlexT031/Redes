@@ -1,0 +1,28 @@
+{
+    "articulos": [
+        {
+            "codart": "alm00",
+            "familia": "alimentos",
+            "descripcion": "Almendras",
+            "precio": 150,
+            "stock": 50,
+            "fecha_ingreso": "2024-09-24"
+        },
+        {
+            "codart": "beb01",
+            "familia": "bebidas",
+            "descripcion": "Jugo de Naranja",
+            "precio": 80,
+            "stock": 120,
+            "fecha_ingreso": "2024-09-23"
+        },
+        {
+            "codart": "lim02",
+            "familia": "limpieza",
+            "descripcion": "Detergente",
+            "precio": 200,
+            "stock": 75,
+            "fecha_ingreso": "2024-09-22"
+        }
+    ]
+}

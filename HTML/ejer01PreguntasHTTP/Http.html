@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario de Solo Texto</title>
+</head>
+
+<body>
+
+    <h1>Preguntas HTTP</h1>
+
+    <a href="../EjerHT.html">Volver</a>
+
+    <hr>
+
+    <b>
+        <p>1. Plantear un caso de uso de encriptación unidireccional?</p>
+    </b>
+    <a>Cuando un usuario crea una cuenta, su contraseña se convierte en un hash usando un algoritmo como SHA-256 o
+        bcrypt. El hash resultante, no la contraseña en sí, se almacena en la base de datos. Cuando el usuario intenta
+        iniciar sesión, su contraseña ingresada se convierte en un hash y se compara con el hash almacenado. Dado que
+        los hashes son unidireccionales (no se pueden revertir a la contraseña original), incluso si la base de datos es
+        comprometida, las contraseñas reales no quedan expuestas.</a>
+
+    <hr>
+
+    <b>
+        <p>2. Cuáles son las ventajas y las desventajas de la encriptación simétrica?</p>
+    </b>
+
+    <b>
+        <p>Ventajas de la encriptación simétrica:</p>
+    </b>
+    <p>Rapidez: Es más rápida que la encriptación asimétrica, lo que la hace adecuada para grandes volúmenes de datos.
+        <br>Eficiencia: Consume menos recursos computacionales.
+        <br>Simplicidad: Utiliza la misma clave para cifrar y descifrar, lo que facilita su implementación.
+    </p>
+
+    <b>
+        <p>Desventajas de la encriptación simétrica:</p>
+    </b>
+
+    <p>Distribución de claves: La misma clave debe ser compartida entre las partes de manera segura, lo que puede ser
+        complicado.
+        <br>Seguridad limitada: Si una clave es comprometida, el atacante puede tanto cifrar como descifrar los datos.
+        <br>Escalabilidad: A medida que crece el número de usuarios, gestionar las claves de forma segura se vuelve más
+        difícil.
+    </p>
+
+
+    <hr>
+
+    <b>
+        <p>3. Como encriptaríamos para obtener confidencialidad en la transferencia de datos?</p>
+    </b>
+    <p>Para garantizar la confidencialidad en la transferencia de datos, se utiliza una combinación de encriptación
+        asimétrica y simétrica. Primero, la encriptación asimétrica, como RSA, asegura el intercambio de una clave de
+        sesión temporal entre el emisor y el receptor. Una vez establecida, se emplea encriptación simétrica, como AES,
+        para cifrar los datos durante la transferencia, ya que es más rápida y eficiente. Esto garantiza que solo el
+        destinatario con la clave correcta pueda descifrar y leer los datos, manteniendo la información segura.</p>
+
+    <hr>
+
+    <b>
+        <p>4. Como encriptaríamos para autenticar un documento usando firma electrónica?</p>
+    </b>
+    <p>Para autenticar un documento con una firma electrónica, primero se genera un hash del documento usando una
+        función de hash. Este hash se cifra con la clave privada del firmante para crear la firma electrónica, que se
+        adjunta al documento junto con el certificado digital del firmante. El receptor puede verificar la autenticidad
+        desencriptando la firma con la clave pública del firmante y comparando el hash obtenido con un nuevo hash del
+        documento. Si ambos coinciden, la firma confirma que el documento no ha sido alterado y proviene del firmante
+        legítimo.</p>
+
+    <hr>
+
+    <b>
+        <p>5.Que tipo de encriptación se usa en la WEB?</p>
+    </b>
+    <p>En la web, se utiliza una combinación de encriptación asimétrica y simétrica para asegurar las comunicaciones. La
+        encriptación asimétrica, como RSA, se emplea en el proceso de establecimiento de una conexión segura mediante
+        certificados SSL/TLS para autenticar el servidor y negociar una clave de sesión. Una vez establecida la
+        conexión, se usa encriptación simétrica, como AES, para cifrar los datos transmitidos, asegurando la
+        confidencialidad e integridad de la información entre el navegador y el servidor. Esta combinación de métodos es
+        fundamental para proteger las comunicaciones en línea.</p>
+
+</body>
+
+</html>

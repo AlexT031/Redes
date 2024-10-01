@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuadrados</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .square {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #e8da0e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .square:nth-child(2) {
+            padding: 20px;
+            
+        }
+
+        .square:nth-child(3) {
+            padding: 20px;
+            box-sizing: border-box;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <a href="../cssparte1.html">Volver</a>
+    </div>
+
+    <div class="container">
+        <div class="square">1 - En el interior del cuadrado</div>
+        <div class="square">2 - En el interior con padding sin box-sizing</div>
+        <div class="square">3 - En el interior con padding y con box-sizing</div>
+    </div>
+
+</body>
+
+</html>

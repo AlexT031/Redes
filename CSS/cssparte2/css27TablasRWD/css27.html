@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla Responsiva</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        h1 {
+            text-align: center;
+            color: #000000;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin: auto;
+            max-width: 100%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #e8da0e; 
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 2px solid #000000;
+        }
+        th {
+            background-color: #000000; 
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Tabla de Ejemplo</h1>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Ciudad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Ana</td>
+                <td>28</td>
+                <td>Madrid</td>
+            </tr>
+            <tr>
+                <td>Pedro</td>
+                <td>35</td>
+                <td>Barcelona</td>
+            </tr>
+            <tr>
+                <td>María</td>
+                <td>22</td>
+                <td>Valencia</td>
+            </tr>
+            <tr>
+                <td>Luis</td>
+                <td>45</td>
+                <td>Sevilla</td>
+            </tr>
+            <tr>
+                <td>Laura</td>
+                <td>30</td>
+                <td>Bilbao</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

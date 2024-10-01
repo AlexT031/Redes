@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Container con Divs Estilizados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        #container {
+            display: flex; 
+            gap: 20px; 
+            justify-content: flex-end;
+        }
+        .div {
+            width: 300px;
+            height: 300px;
+            border-radius: 5px;
+        }
+        .div1 {
+            background-color: #e8da0e;
+        }
+        .div2 {
+            background: linear-gradient(135deg, #ff00b3, #0014f5);
+        }
+        .div3 {
+            background-image: url('/CSS/cssparte1/css03DivsEnFila/images.jpeg'); 
+            background-size: cover;
+            background-position: center;
+        }
+        .div4 {
+            background-color: #fff;
+        }
+        .div5 {
+            background: repeating-linear-gradient(
+                45deg,
+                #ffcc00,
+                #ff6666 20px
+            );
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <div class="div div1">Div 1</div>
+    <div class="div div2">Div 2</div>
+    <div class="div div3">Div 3</div>
+    <div class="div div4">Div 4</div>
+    <div class="div div5">Div 5</div>
+</div>
+
+</body>
+</html>

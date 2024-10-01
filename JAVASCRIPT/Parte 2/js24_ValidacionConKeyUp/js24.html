@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación Día y Mes</title>
+    <style>
+        .error {
+            color: rgb(255, 0, 0);
+        }
+        .success {
+            color: rgb(0, 255, 0);
+        }
+    </style>
+</head>
+<body>
+    <h2>Formulario de Validación de Día y Mes</h2>
+
+    <label for="dia">Día del Mes (1-30):</label>
+    <input type="number" id="dia" onkeyup="validarFecha()" min="1" max="30">
+    <br>
+
+    <label for="mes">Mes (1-12):</label>
+    <input type="number" id="mes" onkeyup="validarFecha()" min="1" max="12">
+    <br>
+
+    <p id="mensaje"></p>
+
+    <script>
+
+    function validarFecha() {
+        const dia = document.getElementById("dia").value;
+        const mes = document.getElementById("mes").value;
+        const mensaje = document.getElementById("mensaje");
+
+        const diaNum = parseInt(dia);
+        const mesNum = parseInt(mes);
+
+        if (diaNum < 1 || diaNum > 30 || mesNum < 1 || mesNum > 12) {
+
+            mensaje.textContent = "El día debe estar entre 1 y 30.";
+            mensaje.className = "error";
+            alert("El día y el mes ingresado no es válido. El dia Debe estar entre 1 y 30. Y el mes entre 1 y 12.");
+
+        } else if (mesNum < 1 || mesNum > 12) {
+            mensaje.textContent = "El mes debe estar entre 1 y 12.";
+            mensaje.className = "error";
+        } else if (diaNum < 1 || diaNum > 30) {
+            mensaje.textContent = "El día debe estar entre 1 y 30.";
+            mensaje.className = "error";
+            alert("El día ingresado no es válido. Debe estar entre 1 y 30.");
+
+        }else {
+            mensaje.textContent = "Fecha válida.";
+            mensaje.className = "success";
+        }
+    }
+
+    </script>
+</body>
+</html>

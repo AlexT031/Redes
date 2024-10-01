@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar Estilo de Texto</title>
+    <style>
+        #texto {
+            font-size: 20px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn {
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            color: white;
+        }
+        .estilo1 {
+            background-color: rgb(255, 0, 0);
+            font-size: 24px;
+            color: rgb(0, 0, 0);
+            font-family: Arial, sans-serif;
+        }
+        .estilo2 {
+            background-color: rgb(0, 17, 255);
+            font-size: 26px;
+            color: yellow;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .estilo3 {
+            background-color: rgb(0, 255, 0);
+            font-size: 28px;
+            color: rgb(242, 0, 255);
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .estilo4 {
+            background-color: rgb(242, 255, 0);
+            font-size: 30px;
+            color: rgb(0, 0, 0);
+            font-family: Verdana, Geneva, sans-serif;
+        }
+        .btn-red {
+            background-color: rgb(255, 0, 0);
+        }
+        .btn-blue {
+            background-color: rgb(0, 17, 255);
+        }
+        .btn-green {
+            background-color: rgb(0, 255, 0);
+        }
+        .btn-purple {
+            color: black;
+            background-color: rgb(242, 255, 0);
+        }
+    </style>
+</head>
+<body>
+
+<div id="texto">ESTILO</div>
+
+<button class="btn btn-red" onclick="cambiarEstilo('estilo1')">Estilo 1</button>
+<button class="btn btn-blue" onclick="cambiarEstilo('estilo2')">Estilo 2</button>
+<button class="btn btn-green" onclick="cambiarEstilo('estilo3')">Estilo 3</button>
+<button class="btn btn-purple" onclick="cambiarEstilo('estilo4')">Estilo 4</button>
+
+<script>
+    function cambiarEstilo(estilo) {
+        const texto = document.getElementById("texto");
+        
+        texto.className = "";
+        
+        texto.classList.add(estilo);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Personas</title>
+    <style>
+        #tablaPersonas {
+            display: none;
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        #tablaPersonas, #tablaPersonas th, #tablaPersonas td {
+            border: 1px solid black;
+        }
+        #tablaPersonas th, #tablaPersonas td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestión de Personas</h1>
+
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre">
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad">
+        <label for="profesion">Profesión:</label>
+        <input type="text" id="profesion">
+        <button onclick="agregarPersona()">Agregar Persona</button>
+        <button onclick="mostrarPersonas()">Mostrar Personas</button>
+        <button onclick="ocultarTabla()">Ocultar Tabla</button>
+    </div>
+
+    <div id="contenedorTabla">
+        <table id="tablaPersonas">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Profesión</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <p id="longitudArray"></p>
+    </div>
+
+    <script>
+        const personas = [];
+
+        function agregarPersona() {
+            const nombre = document.getElementById('nombre').value;
+            const edad = document.getElementById('edad').value;
+            const profesion = document.getElementById('profesion').value;
+
+            if (nombre && edad && profesion) {
+                const nuevaPersona = {
+                    nombre: nombre,
+                    edad: parseInt(edad),
+                    profesion: profesion
+                };
+
+                personas.push(nuevaPersona);
+                
+                document.getElementById('nombre').value = '';
+                document.getElementById('edad').value = '';
+                document.getElementById('profesion').value = '';
+
+            }
+        }
+
+        function mostrarPersonas() {
+            const tabla = document.getElementById('tablaPersonas');
+            const cuerpoTabla = tabla.querySelector('tbody');
+            const longitudArray = document.getElementById('longitudArray');
+
+            cuerpoTabla.innerHTML = '';
+
+            personas.forEach((persona, index) => {
+                const fila = document.createElement('tr');
+
+                const celdaNombre = document.createElement('td');
+                celdaNombre.textContent = persona.nombre;
+
+                const celdaEdad = document.createElement('td');
+                celdaEdad.textContent = persona.edad;
+
+                const celdaProfesion = document.createElement('td');
+                celdaProfesion.textContent = persona.profesion;
+
+                fila.appendChild(celdaNombre);
+                fila.appendChild(celdaEdad);
+                fila.appendChild(celdaProfesion);
+
+                cuerpoTabla.appendChild(fila);
+            });
+
+            if (personas.length > 0) {
+                tabla.style.display = 'table';
+            }
+
+            longitudArray.textContent = `Total de personas: ${personas.length}`;
+        }
+
+        function ocultarTabla() {
+            const tabla = document.getElementById('tablaPersonas');
+            const longitudArray = document.getElementById('longitudArray');
+
+            tabla.style.display = 'none';
+            longitudArray.textContent = '';
+        }
+    </script>
+</body>
+</html>

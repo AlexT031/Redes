@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal con Formulario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #e8da0e;
+            color: rgb(0, 0, 0);
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #b72d2d;
+        }
+
+        .modal {
+            display: none;
+            
+            position: fixed;
+            
+            z-index: 1;
+            
+            left: 0;
+            top: 0;
+            width: 100%;
+            
+            height: 100%;
+            
+            overflow: auto;
+            
+            background-color: rgba(0, 0, 0, 0.796);
+           
+        }
+
+        .modal-content {
+            background-color: #e8da0e;
+            margin: 15% auto;
+            padding: 20px;
+            width: 400px;
+        }
+
+        .close-btn {
+            color: #000000;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: rgb(223, 0, 0);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        h2 {
+            text-align: center;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Ejemplo de Modal</h1>
+        <button id="open-modal-btn">Abrir Formulario</button>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>Formulario de Artículos</h2>
+                <form id="articulo-form">
+                    <label for="codart">Código del Artículo:</label>
+                    <input type="text" id="codart" name="codart" required>
+
+                    <label for="familia">Familia:</label>
+                    <input type="text" id="familia" name="familia" required>
+
+                    <label for="descripcion">Descripción:</label>
+                    <input type="text" id="descripcion" name="descripcion" required>
+
+                    <label for="precio">Precio:</label>
+                    <input type="number" id="precio" name="precio" required>
+
+                    <label for="stock">Stock:</label>
+                    <input type="number" id="stock" name="stock" required>
+
+                    <label for="fecha_ingreso">Fecha de Ingreso:</label>
+                    <input type="date" id="fecha_ingreso" name="fecha_ingreso" required>
+
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('modal');
+        const openModalBtn = document.getElementById('open-modal-btn');
+        const closeModalBtn = document.querySelector('.close-btn');
+
+        openModalBtn.addEventListener('click', () => {
+            modal.style.display = 'block';
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>

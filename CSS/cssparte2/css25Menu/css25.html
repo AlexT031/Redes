@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Desplegable</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        nav {
+            background-color: #e8da0e;
+            padding: 10px;
+        }
+        .nav-item {
+            position: relative;
+            display: inline-block;
+            margin-right: 20px;
+            color: #000000;
+            padding: 10px 15px;
+            border: none;
+            background: none;
+        }
+        .nav-item:hover {
+            background-color: rgb(255, 0, 0); 
+        }
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #e8da0e; 
+            z-index: 1;
+        }
+        .nav-item:hover .submenu {
+            display: block;
+        }
+        .submenu-item {
+            padding: 10px 15px; 
+            color: #333; 
+            display: block;
+        }
+        .submenu-item:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <button class="nav-item">Inicio</button>
+    <button class="nav-item">
+        Menu
+        <div class="submenu">
+            <a href="#" class="submenu-item">Opcion 1</a>
+            <a href="#" class="submenu-item">Opcion 2</a>
+            <a href="#" class="submenu-item">Opcion 3</a>
+        </div>
+    </button>
+    <button class="nav-item">Nada</button>
+</nav>
+
+</body>
+</html>

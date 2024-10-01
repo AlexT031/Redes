@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Completo</title>
+</head>
+
+<body>
+    <h1>Formulario</h1>
+    <form action="#" method="post">
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" placeholder="Introduce tu nombre" required>
+        <br><br>
+
+        <label for="email">Correo electrónico:</label>
+        <input type="email" placeholder="Introduce tu correo electrónico" required>
+        <br><br>
+
+        <label for="edad">Edad:</label>
+        <input type="number" min="0" max="120" placeholder="Introduce tu edad">
+        <br><br>
+
+        <label for="contraseña">Contraseña:</label>
+        <input type="password" placeholder="Introduce tu contraseña" required>
+        <br><br>
+
+        <label for="fecha">Fecha:</label>
+        <input type="date">
+        <br><br>
+
+        <label for="pais">País:</label>
+        <select>
+            <option value="usa">Estados Unidos</option>
+            <option value="espana">España</option>
+            <option value="mexico">México</option>
+            <option value="argentina">Argentina</option>
+        </select>
+        <br><br>
+
+        <label for="aceptar">
+            <input type="checkbox" required>
+            Acepto los términos y condiciones
+        </label>
+        <br><br>
+
+        <fieldset>
+            <legend>Género:</legend>
+            <label for="masculino">
+                <input type="radio" value="masculino">
+                Masculino
+            </label>
+            <br>
+            <label for="femenino">
+                <input type="radio" value="femenino">
+                Femenino
+            </label>
+            <br>
+            <label for="otro">
+                <input type="radio" value="otro">
+                Otro
+            </label>
+        </fieldset>
+        <br>
+
+        <label for="comentarios">Comentarios:</label>
+        <textarea rows="4" cols="50"
+            placeholder="Introduce tus comentarios aquí"></textarea>
+        <br><br>
+
+        <button type="submit">Enviar</button>
+        <button type="reset">Restablecer</button>
+    </form>
+    <div>
+        <a href="../EjerHT.html">Volver</a>
+    </div>
+
+</body>
+
+</html>

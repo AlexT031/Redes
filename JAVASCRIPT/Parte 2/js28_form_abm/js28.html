@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABM al Hacer Click</title>
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+        }
+        #formularioABM {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #e8da0e;
+            padding: 20px;
+            z-index: 1000;
+        }
+        #cerrarBtn, #submitBtn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #submitBtn {
+            background-color: green;
+        }
+        .textoFondo {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        #fondoOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.71);
+            z-index: 999;
+        }
+        #submitBtn[disabled] {
+            background-color: rgba(0, 0, 0, 0.134);
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<div class="textoFondo">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
+    <p>Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat.</p>
+    <p>Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue.</p>
+</div>
+
+<div id="fondoOverlay"></div>
+<div id="formularioABM">
+    <h3>Formulario</h3>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" onkeyup="verificarCampos()">
+    <br><br>
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" onkeyup="verificarCampos()">
+    <br><br>
+    <label for="accion">Trabajo:</label>
+    <select id="accion" onchange="verificarCampos()">
+        <option value="">Seleccione de que trabaja:</option>
+        <option value="alta">Profesor</option>
+        <option value="baja">FreeLance</option>
+        <option value="modificacion">Arquitecto</option>
+    </select>
+    <br><br>
+    <button id="cerrarBtn">Cerrar</button>
+    <button id="submitBtn" disabled>Enviar</button>
+</div>
+
+<script>
+    document.body.onclick = function() {
+        mostrarFormulario();
+    }
+
+    function mostrarFormulario() {
+        document.getElementById("formularioABM").style.display = "block";
+        document.getElementById("fondoOverlay").style.display = "block";
+    }
+
+    function verificarCampos() {
+        const nombre = document.getElementById("nombre").value;
+        const apellido = document.getElementById("apellido").value;
+        const accion = document.getElementById("accion").value;
+        const submitBtn = document.getElementById("submitBtn");
+
+        if (nombre !== "" && apellido !== "" && accion !== "") {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
+        }
+    }
+</script>
+
+</body>
+</html>
