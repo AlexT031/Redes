@@ -31,6 +31,46 @@
             background: #fff;
             margin-bottom: 20px;
         }
+
+        nav {
+            background-color: #e8da0e;
+            padding: 10px;
+        }
+
+        .nav-item {
+            position: relative;
+            display: inline-block;
+            margin-right: 20px;
+            color: #000000;
+            padding: 10px 15px;
+            border: none;
+            background: none;
+        }
+        .nav-item:hover {
+            background-color: rgb(255, 0, 0); 
+        }
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #e8da0e; 
+            z-index: 1;
+        }
+        .nav-item:hover .submenu {
+            display: block;
+        }
+        .submenu-item {
+            padding: 10px 15px; 
+            color: #333; 
+            display: block;
+        }
+        .submenu-item:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        
     </style>
 </head>
 
@@ -41,16 +81,74 @@
         </div>
     </header>
 
-    <section id="inicio">
-        <div class="container">
-            <p>Cuestionarios:</p>
-            <a href="HTML/EjerHT.html">HTML</a>
-            <a href="CSS/cssejer.html"><br>CSS</a>
-            <a href="JAVASCRIPT/JavaScript.html"><br>JavaScript</a>
-            <a href="Especiales/espHt.html"><br>Especiales</a>
+    <nav>
+        <button class="nav-item">
+            HTML
+            <div class="submenu">
+                <a href="html/ejer01PreguntasHTTP/Http.html" class="submenu-item">ejer01PreguntasHTTP</a>
+                <a href="html/ejer02Tablas/tablas.html" class="submenu-item">ejer02Tablas</a>
+                <a href="html/ejer03Formularios/Formulario.html" class="submenu-item">ejer03Formularios</a>
+                <a href="html/ejer04Frame/Frame.html" class="submenu-item">ejer04Frame</a>
+            </div>
 
-        </div>
-    </section>
+        </button>
+        
+        <button class="nav-item">
+            CSS Parte 1
+            <div class="submenu">
+                <a href="css/cssparte1/css01CentradoYPadding/centradoypadding.html" class="submenu-item"><br>Centrado y padding</a>
+                <a href="css/cssparte1/css02DivsEnPila/css02.html" class="submenu-item"><br>Divs En Pila</a>
+                <a href="css/cssparte1/css03DivsEnFila/css03.html" class="submenu-item"><br>Divs En Fila</a>
+                <a href="css/cssparte1/css04DivsInternosEnColumnas/css04.html" class="submenu-item"><br>Divs Internos En Columnas</a>
+                <a href="css/cssparte1/css05SelectoresDeEvento/css05.html" class="submenu-item"><br>Selectores De Evento</a>
+                <a href="css/cssparte1/css06DivsInternosRelativos/css06.html" class="submenu-item"><br>Divs Internos Relativos</a>
+                <a href="css/cssparte1/css07DivsInternosAbsolutos/css07.html" class="submenu-item"><br>Divs Internos Absolutos</a>
+                <a href="css/cssparte1/css08CentradoVerticalCajaFlex/css08.html" class="submenu-item"><br>Centrado Vertical CajaFlex</a>
+            </div>
+        </button>
+
+        <button class="nav-item">
+            CSS Parte 2
+            <div class="submenu">
+                <a href="css/cssparte2/css25Menu/css25.html" class="submenu-item"><br>Menu</a>
+                <a href="css/cssparte2/css26FormsRWD/CSS26.HTML" class="submenu-item"><br>Forms RWD</a>
+                <a href="css/cssparte2/css27TablasRWD/css27.html" class="submenu-item"><br>Tablas RWD</a>
+            </div>
+        </button>
+        
+        <button class="nav-item">
+            JAVASCRIPT Parte 1
+            <div class="submenu">
+                <a href="css/cssparte2/css25Menu/css25.html" class="submenu-item"><br>Menu</a>
+                <a href="css/cssparte2/css26FormsRWD/CSS26.HTML" class="submenu-item"><br>Forms RWD</a>
+                <a href="css/cssparte2/css27TablasRWD/css27.html" class="submenu-item"><br>Tablas RWD</a>
+            </div>
+        </button>
+
+        <button class="nav-item">
+            JAVASCRIPT Parte 2
+            <div class="submenu">
+                <a href="javascript/Parte 2/js12_variables_objeto_dato/js12.html" class="submenu-item"><br>variables objeto dato</a>
+                <a href="javascript/Parte 2/js24_ValidacionConKeyUp/js24.html" class="submenu-item"><br>validacionconkeyup</a>
+                <a href="javascript/Parte 2/js28_form_abm/js28.html" class="submenu-item"><br>form abm</a>
+                <a href="javascript/Parte 2/js30_conmutacion_clase/js30.html" class="submenu-item"><br>conmutacion clase</a>
+                <a href="javascript/Parte 2/js31_creacion_objetos/js31.html" class="submenu-item"><br>creacion objetos</a>
+            </div>
+        </button>
+
+        <button class="nav-item">
+            ESPECIALES
+            <div class="submenu">
+                <a href="Especiales/esp05FormVariableArregloDeObjetos/formvariable.html" class="submenu-item"><br>esp05FormVariableArregloDeObjetos</a>
+                <a href="Especiales/esp10TablaVariableArregloDeObjetos/tabla.html" class="submenu-item"><br>esp10TablaVariableArregloDeObjetos</a>
+                <a href="Especiales/esp15VentanaModal/ventanamodal.html" class="submenu-item"><br>esp15VentanaModal</a>
+                <a href="Especiales/esp20TablaFormulario/fi.html" class="submenu-item"><br>esp20TablaFormulario</a>
+            </div>
+
+
+        </button>
+    </nav>
+
 </body>
 
 </html>
