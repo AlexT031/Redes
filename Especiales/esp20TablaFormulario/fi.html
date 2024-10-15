@@ -102,6 +102,13 @@
         td {
             color: rgb(0, 0, 0)
         }
+
+        @media (max-width: 768px) {
+            .col-stock, 
+            td:nth-child(5) { 
+                display: none;
+            }
+        }
     </style>
 </head>
 
@@ -121,7 +128,7 @@
                     <th>Familia</th>
                     <th>Descripción</th>
                     <th>Precio</th>
-                    <th>Stock</th>
+                    <th class="col-stock">Stock</th>
                     <th>Fecha de Ingreso</th>
                 </tr>
             </thead>

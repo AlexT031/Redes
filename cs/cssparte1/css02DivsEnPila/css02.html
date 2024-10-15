@@ -23,9 +23,13 @@
             padding: 20px;
             text-align: center;
         }
-        .div1.changed {
-            background-color: rgb(47, 255, 0); 
+        
+        @media (min-width: 1080px) {
+            .div1 {
+                background-color: rgb(47, 255, 0); 
+            }
         }
+
         .div2 {
             background: radial-gradient(circle, #4dff00, #fe5a5a);
             height: 150px; 
@@ -58,22 +62,6 @@
     <div class="div4">Div 4: Texto alineado a la izquierda con padding</div>
     <div class="div5">Div 5: Texto alineado a la izquierda sin padding</div>
 </div>
-
-<script>
-
-    function cambiarDiv() {
-        const div1 = document.getElementById("div1");
-        if (window.innerWidth > 1080) {
-            div1.classList.add("changed");
-        } else {
-            div1.classList.remove("changed");
-        }
-    }
-
-    cambiarDiv();
-
-    window.addEventListener("resize", cambiarDiv);
-</script>
 
 </body>
 </html>
