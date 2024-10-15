@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerta y Texto Grande</title>
+    <style>
+        #lorem-text {
+            display: none;
+            font-size: 2em; 
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            alert("¡Bienvenido!");
+
+            document.getElementById("lorem-text").style.display = "block";
+        }
+    </script>
+</head>
+<body>
+    <p id="lorem-text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula urna vitae lacus gravida, 
+        at fermentum quam venenatis. Integer convallis, orci eget facilisis fringilla, ex dui dignissim leo, 
+        in viverra ligula nisi vel urna. Pellentesque habitant morbi tristique senectus et netus et malesuada 
+        fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+        Curabitur varius sapien a massa lobortis, id vulputate erat cursus.
+    </p>
+</body>
+</html>

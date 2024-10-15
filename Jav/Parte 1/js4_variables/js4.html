@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variable</title>
+
+    <style>
+
+        .Cuadro{
+            background-color: #e8da0e;
+            color: #000000;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            height: 50px;
+
+        }
+    </style>
+</head>
+
+
+
+
+<body>
+
+    <script>
+        var A = 20;
+        var B = 50;
+        var C = "10"
+
+        function MostrarA() {
+            document.querySelector(".Cuadro").innerHTML = "Valor de numero A: " + A;
+        }
+
+        function MostrarB() {
+            document.querySelector(".Cuadro").innerHTML = "Valor de numero B: " + B;
+        }
+
+        function MostrarC() {
+            document.querySelector(".Cuadro").innerHTML = "Valor de string C: " + C;
+        }
+
+
+
+
+        function SumarAyB() {
+            var Resultado = A + B;
+            document.querySelector(".Cuadro").innerHTML = "A + B = " + Resultado;
+        }
+
+        function UnirByC() {
+            var Resultado = B + C;
+            document.querySelector(".Cuadro").innerHTML = "B U C = " + Resultado;
+        }
+
+        function UnirAyC() {
+            var Resultado = A + C;
+            document.querySelector(".Cuadro").innerHTML = "A U C = " + Resultado;
+        }
+    
+    </script>
+
+
+
+
+
+    <button onclick="MostrarA()"> A Info </button>
+    <button onclick="MostrarB()"> B Info </button>
+    <button onclick="MostrarC()"> C Info </button>
+    <button onclick="SumarAyB()"> A + B </button>
+    <button onclick="UnirByC()"> B U C </button>
+    <button onclick="UnirAyC()"> A U C </button>
+
+
+
+    <p> <div class="Cuadro"> Cuadro de texto </div> </p>
+</body>
+</html>

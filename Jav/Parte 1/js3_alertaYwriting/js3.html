@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botones de Alerta y Escribir</title>
+    <script>
+        function mostrarAlerta() {
+            alert("¡Alerta activada!");
+        }
+
+        function escribirTexto() {
+            document.body.innerHTML = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>";
+        }
+    </script>
+</head>
+<body>
+    <button onclick="mostrarAlerta()">Alerta</button>
+    <button onclick="escribirTexto()">Escribir</button>
+</body>
+</html>
