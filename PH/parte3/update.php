@@ -10,12 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $tipo = $_POST['tipo'];
     $id_marca = $_POST['id_marca'];
     $id_local = $_POST['id_local'];
-    
-    // Actualizar el producto
+
+    // Actualizar datos
     $stmt = $db->prepare("
-        UPDATE productos
-        SET nombre = :nombre, codigo = :codigo, tipo = :tipo, id_marca = :id_marca, id_local = :id_local
-        WHERE id_producto = :id_producto
+        UPDATE productos SET nombre = :nombre, codigo = :codigo, tipo = :tipo, 
+        id_marca = :id_marca, id_local = :id_local WHERE id_producto = :id_producto
     ");
     $stmt->bindParam(':nombre', $nombre);
     $stmt->bindParam(':codigo', $codigo);
@@ -23,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bindParam(':id_marca', $id_marca);
     $stmt->bindParam(':id_local', $id_local);
     $stmt->bindParam(':id_producto', $id_producto);
+
     $stmt->execute();
     
     echo "Producto actualizado correctamente.";

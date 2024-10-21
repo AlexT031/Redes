@@ -4,21 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD Productos</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Agregar Producto</h1>
-    <form action="create.php" method="POST" enctype="multipart/form-data">
-        <input type="text" name="nombre" placeholder="Nombre del producto" required>
-        <input type="text" name="codigo" placeholder="Código del producto" required>
-        <input type="text" name="tipo" placeholder="Tipo del producto" required>
-        <select name="id_marca">
-            <!-- Opciones de marca generadas desde la base de datos -->
-        </select>
-        <select name="id_local">
-            <!-- Opciones de local generadas desde la base de datos -->
-        </select>
-        <input type="file" name="archivo_pdf" required>
-        <button type="submit">Agregar</button>
-    </form>
+    <div class="container">
+        <h1>Gestión de Productos</h1>
+
+        <!-- Formulario para agregar producto -->
+        <form id="productForm" action="create.php" method="POST" enctype="multipart/form-data">
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre del producto" required>
+            <input type="text" name="codigo" id="codigo" placeholder="Código del producto" required>
+            <input type="text" name="tipo" id="tipo" placeholder="Tipo del producto" required>
+            
+            <select name="id_marca" id="id_marca">
+                <!-- Opciones de marca cargadas dinámicamente -->
+            </select>
+
+            <select name="id_local" id="id_local">
+                <!-- Opciones de local cargadas dinámicamente -->
+            </select>
+            
+            <input type="file" name="archivo_pdf" id="archivo_pdf" required>
+            <button type="submit">Agregar Producto</button>
+        </form>
+
+        <h2>Lista de Productos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Código</th>
+                    <th>Tipo</th>
+                    <th>Marca</th>
+                    <th>Local</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="productList">
+                <!-- Los productos serán cargados aquí dinámicamente -->
+            </tbody>
+        </table>
+
+        <!-- Formulario de edición de productos -->
+        <h2>Editar Producto</h2>
+        <form id="updateForm" action="update.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id_producto" id="id_producto">
+            <input type="text" name="nombre" id="update_nombre" placeholder="Nombre del producto" required>
+            <input type="text" name="codigo" id="update_codigo" placeholder="Código del producto" required>
+            <input type="text" name="tipo" id="update_tipo" placeholder="Tipo del producto" required>
+            
+            <select name="id_marca" id="update_id_marca">
+                <!-- Opciones de marca cargadas dinámicamente -->
+            </select>
+
+            <select name="id_local" id="update_id_local">
+                <!-- Opciones de local cargadas dinámicamente -->
+            </select>
+            
+            <input type="file" name="archivo_pdf" id="update_archivo_pdf">
+            <button type="submit">Actualizar Producto</button>
+        </form>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
