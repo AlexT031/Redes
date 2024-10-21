@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Elementos</title>
-    <link rel="stylesheet" href="style.css">
+    <title>CRUD Productos</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Lista de Elementos</h1>
-        
-        <form id="elementForm">
-            <input type="text" id="elementInput" placeholder="Agregar elemento">
-            <button type="submit">Agregar</button>
-        </form>
-        
-        <ul id="elementList"></ul>
-    </div>
-    
-    <script src="app.js"></script>
+    <h1>Agregar Producto</h1>
+    <form action="create.php" method="POST" enctype="multipart/form-data">
+        <input type="text" name="nombre" placeholder="Nombre del producto" required>
+        <input type="text" name="codigo" placeholder="Código del producto" required>
+        <input type="text" name="tipo" placeholder="Tipo del producto" required>
+        <select name="id_marca">
+            <!-- Opciones de marca generadas desde la base de datos -->
+        </select>
+        <select name="id_local">
+            <!-- Opciones de local generadas desde la base de datos -->
+        </select>
+        <input type="file" name="archivo_pdf" required>
+        <button type="submit">Agregar</button>
+    </form>
 </body>
 </html>
