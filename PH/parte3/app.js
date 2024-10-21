@@ -1,122 +1,117 @@
 document.addEventListener('DOMContentLoaded', function() {
-    loadProducts();
-    loadMarcas();
+    loadMarcas(); // Llama a la función para cargar las marcas al cargar la página
+    loadProducts(); // Llama a la función para cargar los productos
 
-    // Función para cargar todos los productos en la tabla
-    function loadProducts() {
-        fetch('read.php')
-        .then(response => response.json())
-        .then(products => {
-            const productList = document.getElementById('productList');
-            productList.innerHTML = '';
-            
-            products.forEach(product => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${product.producto}</td>
-                    <td>${product.codigo}</td>
-                    <td>${product.marca}</td>
-                    <td>
-                        <button class="editBtn" data-id="${product.id_producto}">Editar</button>
-                        <button class="deleteBtn" data-id="${product.id_producto}">Eliminar</button>
-                    </td>
-                `;
-                productList.appendChild(row);
-            });
+    // Manejo del evento del formulario para agregar productos
+    const productForm = document.getElementById('productForm');
+    productForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita que el formulario se envíe de la manera tradicional
+        addProduct(); // Llama a la función para agregar el producto
+    });
 
-            document.querySelectorAll('.deleteBtn').forEach(button => {
-                button.addEventListener('click', deleteProduct);
-            });
+    // Manejo del evento del formulario de actualización
+    const updateForm = document.getElementById('updateForm');
+    updateForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita el envío del formulario
+        updateProduct(); // Llama a la función para actualizar el producto
+    });
+});
 
-            document.querySelectorAll('.editBtn').forEach(button => {
-                button.addEventListener('click', loadProductForEdit);
-            });
-        });
-    }
-
-    function loadMarcas() {
-        fetch('getMarcas.php')
-        .then(response => response.json())
-        .then(marcas => {
-            const marcaSelect = document.getElementById('id_marca');
-            marcaSelect.innerHTML = '';
-            marcas.forEach(marca => {
-                let option = document.createElement('option');
-                option.value = marca.id_marca;
-                option.text = marca.nombre;
-                marcaSelect.appendChild(option);
-            });
-        });
-    }
-
-    function deleteProduct(event) {
-        const id = event.target.getAttribute('data-id');
-        fetch(`delete.php?id_producto=${id}`, { method: 'GET' })
-        .then(response => response.text())
-        .then(data => {
-            console.log(data);
-            loadProducts();
-        });
-    }
-
-    function loadMarcas() {
-        fetch('getMarcas.php')
+// Función para cargar marcas desde el servidor
+function loadMarcas() {
+    fetch('getMarcas.php')
         .then(response => response.json())
         .then(marcas => {
             const marcaSelect = document.getElementById('id_marca');
             const updateMarcaSelect = document.getElementById('update_id_marca');
-    
+
             marcaSelect.innerHTML = '';
             updateMarcaSelect.innerHTML = '';
-    
+
             marcas.forEach(marca => {
                 let option = document.createElement('option');
                 option.value = marca.id_marca;
                 option.text = marca.nombre;
                 marcaSelect.appendChild(option);
-    
-                // También añadimos las opciones para el formulario de actualización
+
+                // Añadir opciones para el formulario de actualización
                 let updateOption = document.createElement('option');
                 updateOption.value = marca.id_marca;
                 updateOption.text = marca.nombre;
                 updateMarcaSelect.appendChild(updateOption);
             });
         });
-    }
+}
 
-    function loadProductForEdit(event) {
-        const id = event.target.getAttribute('data-id');
-        fetch(`getProductById.php?id_producto=${id}`)
+// Función para cargar productos desde el servidor
+function loadProducts() {
+    fetch('getProducts.php')
         .then(response => response.json())
-        .then(product => {
-            document.getElementById('update_id_producto').value = product.id_producto;
-            document.getElementById('update_nombre').value = product.nombre;
-            document.getElementById('update_codigo').value = product.codigo;
-            document.getElementById('update_id_marca').value = product.id_marca;
-            document.getElementById('updateFormContainer').style.display = 'block';
-        });
-    }
+        .then(products => {
+            const productList = document.getElementById('productList');
+            productList.innerHTML = '';
 
-    document.getElementById('productForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(this);
-        fetch('create.php', { method: 'POST', body: formData })
-        .then(response => response.text())
-        .then(data => {
-            console.log(data);
-            loadProducts();
+            products.forEach(product => {
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.nombre}</td>
+                    <td>${product.codigo}</td>
+                    <td>${product.nombre_marca}</td>
+                    <td>
+                        <button onclick="editProduct(${product.id_producto})">Editar</button>
+                        <button onclick="deleteProduct(${product.id_producto})">Eliminar</button>
+                    </td>
+                `;
+                productList.appendChild(row);
+            });
         });
-    });
+}
 
-    document.getElementById('updateForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(this);
-        fetch('update.php', { method: 'POST', body: formData })
-        .then(response => response.text())
-        .then(data => {
-            console.log(data);
-            loadProducts();
-            document.getElementById('updateFormContainer').style.display = 'none';
-        });
+// Función para agregar un producto
+function addProduct() {
+    const formData = new FormData(document.getElementById('productForm'));
+
+    fetch('create.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            loadProducts(); // Recargar productos
+            document.getElementById('productForm').reset(); // Reiniciar el formulario
+        } else {
+            console.error(data.message); // Manejo de errores
+        }
     });
-});
+}
+
+// Función para editar un producto
+function editProduct(id) {
+    // Aquí iría la lógica para cargar los datos del producto en el formulario de actualización
+}
+
+// Función para eliminar un producto
+function deleteProduct(id) {
+    // Aquí iría la lógica para eliminar el producto
+}
+
+// Función para actualizar un producto
+function updateProduct() {
+    const formData = new FormData(document.getElementById('updateForm'));
+
+    fetch('update.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            loadProducts(); // Recargar productos
+            document.getElementById('updateFormContainer').style.display = 'none'; // Ocultar formulario de actualización
+            document.getElementById('updateForm').reset(); // Reiniciar el formulario
+        } else {
+            console.error(data.message); // Manejo de errores
+        }
+    });
+}
