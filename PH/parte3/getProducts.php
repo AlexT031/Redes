@@ -6,22 +6,20 @@ header('Content-Type: application/json');
 
 require 'db.php';
 
-if (isset($_GET['id_producto'])) {
-    $id_producto = $_GET['id_producto'];
-    $db = getDBConnection();
+header('Content-Type: application/json');
+$db = new SQLite3('path_to_your_database.db');
 
-    $stmt = $db->prepare("SELECT * FROM productos WHERE id_producto = ?");
-    $stmt->execute([$id_producto]);
+$query = "SELECT p.id_producto, p.nombre, p.codigo, m.nombre AS nombre_marca
+          FROM producto p
+          JOIN marca m ON p.id_marca = m.id_marca";
+$result = $db->query($query);
 
-    $producto = $stmt->fetch(PDO::FETCH_ASSOC);
-    header('Content-Type: application/json');
-    echo json_encode($producto);
+$productos = [];
+while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+    $productos[] = $row;
 }
-$productos = [
-    ['id_producto' => 1, 'nombre' => 'Manzana', 'codigo' => '001', 'nombre_marca' => 'Marca A'],
-    ['id_producto' => 2, 'nombre' => 'Carne', 'codigo' => '002', 'nombre_marca' => 'Marca B'],
-    // Agrega más productos según sea necesario
-];
 
 echo json_encode($productos);
+?>
+
 ?>

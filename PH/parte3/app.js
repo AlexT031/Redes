@@ -47,15 +47,8 @@ function loadMarcas() {
 // Función para cargar productos desde el servidor
 function loadProducts() {
     fetch('getProducts.php')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-        }
-        return response.text(); // Cambiar a text para manejar la respuesta cruda
-    })
-    .then(data => {
-        if (data) {
-            const products = JSON.parse(data); // Intenta analizar como JSON
+        .then(response => response.json())
+        .then(products => {
             const productList = document.getElementById('productList');
             productList.innerHTML = '';
 
@@ -72,13 +65,10 @@ function loadProducts() {
                 `;
                 productList.appendChild(row);
             });
-        } else {
-            console.error('La respuesta está vacía');
-        }
-    })
-    .catch(error => console.error('Error loading products:', error));
-
+        })
+        .catch(error => console.error('Error al cargar productos:', error));
 }
+
 
 // Función para agregar un producto
 function addProduct() {
