@@ -40,7 +40,8 @@ function loadMarcas() {
                 updateOption.text = marca.nombre;
                 updateMarcaSelect.appendChild(updateOption);
             });
-        });
+        })
+        .catch(error => console.error('Error loading marcas:', error));
 }
 
 // Función para cargar productos desde el servidor
@@ -64,7 +65,8 @@ function loadProducts() {
                 `;
                 productList.appendChild(row);
             });
-        });
+        })
+        .catch(error => console.error('Error loading products:', error));
 }
 
 // Función para agregar un producto
@@ -75,29 +77,50 @@ function addProduct() {
         method: 'POST',
         body: formData
     })
-    .then(response => response.text()) // Cambiar a .text() para ver la respuesta cruda
+    .then(response => response.json()) // Cambiar a .json() para recibir un JSON válido
     .then(data => {
-        console.log(data); // Imprimir el contenido
-        const jsonData = JSON.parse(data); // Intenta analizarlo como JSON
-        if (jsonData.success) {
+        if (data.success) {
             loadProducts(); // Recargar productos
             document.getElementById('productForm').reset(); // Reiniciar el formulario
         } else {
-            console.error(jsonData.message); // Manejo de errores
+            console.error(data.message); // Manejo de errores
         }
     })
     .catch(error => console.error('Error:', error));
-    
 }
 
 // Función para editar un producto
 function editProduct(id) {
-    // Aquí iría la lógica para cargar los datos del producto en el formulario de actualización
+    // Lógica para obtener el producto por ID
+    fetch(`getProduct.php?id=${id}`)
+        .then(response => response.json())
+        .then(product => {
+            document.getElementById('update_id_producto').value = product.id_producto;
+            document.getElementById('update_nombre').value = product.nombre;
+            document.getElementById('update_codigo').value = product.codigo;
+            document.getElementById('update_id_marca').value = product.id_marca;
+
+            document.getElementById('updateFormContainer').style.display = 'block'; // Muestra el formulario de actualización
+        })
+        .catch(error => console.error('Error fetching product for edit:', error));
 }
 
 // Función para eliminar un producto
 function deleteProduct(id) {
-    // Aquí iría la lógica para eliminar el producto
+    if (confirm("¿Estás seguro de que quieres eliminar este producto?")) {
+        fetch(`delete.php?id=${id}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                loadProducts(); // Recargar productos
+            } else {
+                console.error(data.message); // Manejo de errores
+            }
+        })
+        .catch(error => console.error('Error deleting product:', error));
+    }
 }
 
 // Función para actualizar un producto
@@ -117,5 +140,6 @@ function updateProduct() {
         } else {
             console.error(data.message); // Manejo de errores
         }
-    });
+    })
+    .catch(error => console.error('Error updating product:', error));
 }
