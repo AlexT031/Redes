@@ -1,19 +1,17 @@
 <?php
 require 'db.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_GET['id_producto'])) {
+    $id_producto = $_GET['id_producto'];
     $db = getDBConnection();
-    $id_producto = $_POST['id_producto'];
 
-    // Eliminar de la tabla de relación
-    $stmt = $db->prepare("DELETE FROM productos_locales_marcas WHERE id_producto = :id_producto");
-    $stmt->bindParam(':id_producto', $id_producto);
-    $stmt->execute();
+    // Eliminar archivo PDF asociado
+    $stmt = $db->prepare("DELETE FROM pdfs WHERE id_producto = ?");
+    $stmt->execute([$id_producto]);
 
-    // Eliminar el producto
-    $stmt = $db->prepare("DELETE FROM productos WHERE id_producto = :id_producto");
-    $stmt->bindParam(':id_producto', $id_producto);
-    $stmt->execute();
+    // Eliminar producto
+    $stmt = $db->prepare("DELETE FROM productos WHERE id_producto = ?");
+    $stmt->execute([$id_producto]);
 
     echo "Producto eliminado correctamente.";
 }
