@@ -41,5 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
     echo json_encode($response);
 }
+$success = true; // o false, dependiendo del resultado de la operación
 
+echo json_encode(['success' => $success, 'message' => 'Producto agregado exitosamente']);
 ?>

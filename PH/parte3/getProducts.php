@@ -16,4 +16,8 @@ if (isset($_GET['id_producto'])) {
     header('Content-Type: application/json');
     echo json_encode($producto);
 }
+$productos = []; // Tu lógica para llenar este array
+
+echo json_encode($productos);
+?>
 ?>
