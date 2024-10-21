@@ -1,6 +1,7 @@
 <?php
-error_reporting(E_ALL);
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 header('Content-Type: application/json');
 
 require 'db.php';
@@ -16,8 +17,11 @@ if (isset($_GET['id_producto'])) {
     header('Content-Type: application/json');
     echo json_encode($producto);
 }
-$productos = []; // Tu lógica para llenar este array
+$productos = [
+    ['id_producto' => 1, 'nombre' => 'Manzana', 'codigo' => '001', 'nombre_marca' => 'Marca A'],
+    ['id_producto' => 2, 'nombre' => 'Carne', 'codigo' => '002', 'nombre_marca' => 'Marca B'],
+    // Agrega más productos según sea necesario
+];
 
 echo json_encode($productos);
-?>
 ?>
