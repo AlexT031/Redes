@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Cargar productos y mostrarlos en la tabla
+
+    // Función para cargar todos los productos en la tabla
     function loadProducts() {
         fetch('read.php')
         .then(response => response.json())
@@ -41,6 +42,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 productList.appendChild(row);
             });
 
+            // Asignar eventos a los botones de eliminar y editar
+            document.querySelectorAll('.deleteBtn').forEach(button => {
+                button.addEventListener('click', deleteProduct);
+            });
+
+            document.querySelectorAll('.editBtn').forEach(button => {
+                button.addEventListener('click', loadProductForEdit);
+            });
+        });
+    }
             // Asignar eventos a los botones de eliminar y editar
             document.querySelectorAll('.deleteBtn').forEach(button => {
                 button.addEventListener('click', deleteProduct);
