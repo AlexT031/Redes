@@ -3,54 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD de Productos</title>
-
-    
+    <title>Agregar Producto</title>
 </head>
 <body>
-    <h1>CRUD de Productos</h1>
-    
-    <form id="productForm" action="create.php" method="POST" enctype="multipart/form-data">
-        <input type="text" name="nombre" placeholder="Nombre del producto" required>
-        <input type="text" name="codigo" placeholder="Código del producto" required>
-        
-        <select name="id_marca" id="id_marca" required>
-        </select>
+    <h1>Agregar Producto</h1>
+    <form action="agregar_producto.php" method="post">
+        <label for="nombre">Nombre del producto:</label>
+        <input type="text" id="nombre" name="nombre" required><br><br>
 
-        <input type="file" name="pdf" accept="application/pdf">
-        <button type="submit">Agregar Producto</button>
+        <label for="codigo">Código del producto:</label>
+        <input type="text" id="codigo" name="codigo" required><br><br>
+
+        <label for="id_marca">ID de la marca:</label>
+        <input type="number" id="id_marca" name="id_marca" required><br><br>
+
+        <input type="submit" value="Agregar Producto">
     </form>
-
-    <h2>Lista de Productos</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Código</th>
-                <th>Marca</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="productList">
-            <!-- Productos cargados dinámicamente aquí -->
-        </tbody>
-    </table>
-
-    <div id="updateFormContainer" style="display:none;">
-        <h2>Actualizar Producto</h2>
-        <form id="updateForm" action="update.php" method="POST">
-            <input type="hidden" id="update_id_producto" name="id_producto">
-            <input type="text" id="update_nombre" name="nombre" placeholder="Nombre del producto" required>
-            <input type="text" id="update_codigo" name="codigo" placeholder="Código del producto" required>
-            
-            <select name="id_marca" id="update_id_marca" required>
-                <!-- Opciones de marca cargadas dinámicamente -->
-            </select>
-
-            <button type="submit">Actualizar Producto</button>
-        </form>
-    </div>
-
-    <script src="app.js" defer></script>
 </body>
 </html>
