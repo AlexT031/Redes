@@ -59,6 +59,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function loadMarcas() {
+        fetch('getMarcas.php')
+        .then(response => response.json())
+        .then(marcas => {
+            const marcaSelect = document.getElementById('id_marca');
+            const updateMarcaSelect = document.getElementById('update_id_marca');
+    
+            marcaSelect.innerHTML = '';
+            updateMarcaSelect.innerHTML = '';
+    
+            marcas.forEach(marca => {
+                let option = document.createElement('option');
+                option.value = marca.id_marca;
+                option.text = marca.nombre;
+                marcaSelect.appendChild(option);
+    
+                // También añadimos las opciones para el formulario de actualización
+                let updateOption = document.createElement('option');
+                updateOption.value = marca.id_marca;
+                updateOption.text = marca.nombre;
+                updateMarcaSelect.appendChild(updateOption);
+            });
+        });
+    }
+
     function loadProductForEdit(event) {
         const id = event.target.getAttribute('data-id');
         fetch(`getProductById.php?id_producto=${id}`)
