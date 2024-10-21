@@ -75,15 +75,19 @@ function addProduct() {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
+    .then(response => response.text()) // Cambiar a .text() para ver la respuesta cruda
     .then(data => {
-        if (data.success) {
+        console.log(data); // Imprimir el contenido
+        const jsonData = JSON.parse(data); // Intenta analizarlo como JSON
+        if (jsonData.success) {
             loadProducts(); // Recargar productos
             document.getElementById('productForm').reset(); // Reiniciar el formulario
         } else {
-            console.error(data.message); // Manejo de errores
+            console.error(jsonData.message); // Manejo de errores
         }
-    });
+    })
+    .catch(error => console.error('Error:', error));
+    
 }
 
 // Función para editar un producto

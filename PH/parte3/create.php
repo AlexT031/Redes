@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+header('Content-Type: application/json');
 require 'db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -24,6 +27,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$pdfName, $pdfEncrypted, $id_producto]);
     }
 
-    echo "Producto agregado correctamente.";
+    // Ejemplo de respuesta exitosa
+    $response = [
+        'success' => true,
+        'message' => 'Producto agregado exitosamente.'
+    ];
+    
+    echo json_encode($response);
+    } else {
+    $response = [
+        'success' => false,
+        'message' => 'Método no permitido.'
+    ];
+    echo json_encode($response);
 }
+
 ?>
