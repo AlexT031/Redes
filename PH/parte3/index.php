@@ -19,7 +19,6 @@
 
         <h2>Lista de Productos</h2>
         
-        <input type="text" id="searchInput" placeholder="Buscar productos...">
         <button class="button" onclick="reloadTable()">Recargar Tabla</button>
         <iframe id="productTable" src="read.php" style="width: 100%; height: 400px; border: none;"></iframe>
 
