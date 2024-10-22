@@ -11,7 +11,7 @@ $search = isset($_GET['search']) ? $_GET['search'] : '';
 // Consulta SQL con búsqueda
 $sql = "SELECT productos.id_producto, productos.nombre, productos.codigo, marcas.nombre AS marca, productos.archivo_pdf 
         FROM productos JOIN marcas ON productos.id_marca = marcas.id_marca 
-        WHERE productos.nombre LIKE ? OR productos.codigo LIKE ?";
+        WHERE productos.nombre LIKE ? OR productos.codigo LIKE ? OR marcas.nombre LIKE ?";
 $stmt = $conn->prepare($sql);
 
 // Verifica si la preparación de la consulta fue exitosa
