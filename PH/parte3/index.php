@@ -43,21 +43,17 @@
                     <label for="id_marca">Marca del producto:</label>
                     <select id="id_marca" name="id_marca" required>
                         <?php
-                        // Conexión a la base de datos
                         include 'db.php';
 
-                        // Consulta para obtener todas las marcas
                         $sql = "SELECT id_marca, nombre FROM marcas";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
-                            // Agregar cada marca como una opción en el select
                             while ($row = $result->fetch_assoc()) {
                                 echo "<option value='" . $row['id_marca'] . "'>" . $row['nombre'] . "</option>";
                             }
                         }
 
-                        // Cerrar conexión
                         $conn->close();
                         ?>
                     </select><br><br>
