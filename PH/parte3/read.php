@@ -1,49 +1,44 @@
 <?php
-// Incluir la conexión a la base de datos
 include 'db.php';
 
-// Preparar la consulta SQL para obtener los productos
-$sql = "SELECT id_producto, nombre, codigo, id_marca FROM productos";
+$sql = "SELECT productos.id_producto, productos.nombre, productos.codigo, marcas.nombre AS marca, productos.archivo_pdf FROM productos 
+        JOIN marcas ON productos.id_marca = marcas.id_marca";
 $result = $conn->query($sql);
-?>
 
-<table>
-    <thead>
-        <tr>
-            <th>ID Producto</th>
-            <th>Nombre</th>
-            <th>Código</th>
-            <th>ID Marca</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        // Verificar si se obtuvieron resultados
-        if ($result->num_rows > 0) {
-            // Mostrar los datos en cada fila
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>" . $row['id_producto'] . "</td>";
-                echo "<td>" . $row['nombre'] . "</td>";
-                echo "<td>" . $row['codigo'] . "</td>";
-                echo "<td>" . $row['id_marca'] . "</td>";
-                echo "<td>
-                        <form action='delete.php' method='POST' style='display:inline;'>
-                            <input type='hidden' name='id_producto' value='" . $row['id_producto'] . "'>
-                            <input type='submit' value='Eliminar' class='button' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este producto?\")'>
-                        </form>
-                      </td>";
-                echo "</tr>";
-            }
+if ($result->num_rows > 0) {
+    echo "<table border='1' style='width:100%; text-align:center;'>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Código</th>
+                <th>Marca</th>
+                <th>Ver PDF</th>
+                <th>Eliminar</th>
+            </tr>";
+
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>
+                <td>" . $row['id_producto'] . "</td>
+                <td>" . $row['nombre'] . "</td>
+                <td>" . $row['codigo'] . "</td>
+                <td>" . $row['marca'] . "</td>";
+        
+        if ($row['archivo_pdf']) {
+            echo "<td><a href='uploads" . $row['archivo_pdf'] . "' target='_blank'>Ver PDF</a></td>";
         } else {
-            echo "<tr><td colspan='5'>No hay productos disponibles</td></tr>";
+            echo "<td>No disponible</td>";
         }
-        ?>
-    </tbody>
-</table>
 
-<?php
-// Cerrar la conexión a la base de datos
+        echo "<td><form action='delete.php' method='POST'>
+                <input type='hidden' name='id_producto' value='" . $row['id_producto'] . "'>
+                <input type='submit' value='Eliminar'>
+              </form></td>
+            </tr>";
+    }
+    echo "</table>";
+} else {
+    echo "No hay productos.";
+}
+
 $conn->close();
 ?>
