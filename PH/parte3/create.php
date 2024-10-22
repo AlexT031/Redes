@@ -10,7 +10,7 @@ $id_marca = $_POST['id_marca'];
 // Insertar el producto en la base de datos
 $sql = "INSERT INTO productos (nombre, codigo, id_marca) VALUES ('$nombre', '$codigo', '$id_marca')";
 if ($conn->query($sql) === TRUE) {
-    echo "<script>alert('Producto agregado exitosamente.'); window.location.href='index.html';</script>";
+    echo "<script>alert('Producto agregado exitosamente.'); window.location.href='index.php';</script>";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
