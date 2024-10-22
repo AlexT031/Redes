@@ -15,28 +15,19 @@
 
         <!-- Botón para abrir el modal -->
         <button class="button" onclick="openModal()">Agregar Producto</button>
-
-        <!-- Formulario para eliminar productos -->
-        <h2>Eliminar Producto</h2>
-        <form action="delete.php" method="POST">
-            <label for="id_producto">ID del producto a eliminar:</label>
-            <input type="number" id="id_producto" name="id_producto" required><br><br>
-
-            <input type="submit" value="Eliminar Producto" class="button">
-        </form>
-
+        
         <!-- Mostrar productos en formato de tabla -->
         <h2>Lista de Productos</h2>
         <button class="button" onclick="reloadTable()">Recargar Tabla</button>
         <iframe id="productTable" src="read.php" style="width: 100%; height: 300px; border: none;"></iframe>
 
         <!-- Modal para mostrar el PDF -->
-<div id="pdfModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closePdfModal()">&times;</span>
-        <iframe id="pdfViewer" src="" width="100%" height="500px"></iframe>
-    </div>
-</div>
+        <div id="pdfModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closePdfModal()">&times;</span>
+                <iframe id="pdfViewer" src="" width="100%" height="500px"></iframe>
+            </div>
+        </div>
 
 
         <!-- Ventana modal para agregar productos -->
