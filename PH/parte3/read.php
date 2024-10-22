@@ -1,8 +1,6 @@
 <?php
-// Incluir la conexión a la base de datos
 include 'db.php';
 
-// Preparar la consulta SQL para obtener los productos
 $sql = "SELECT id_producto, nombre, codigo, id_marca FROM productos";
 $result = $conn->query($sql);
 ?>
@@ -19,9 +17,7 @@ $result = $conn->query($sql);
     </thead>
     <tbody>
         <?php
-        // Verificar si se obtuvieron resultados
         if ($result->num_rows > 0) {
-            // Mostrar los datos en cada fila
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>" . $row['id_producto'] . "</td>";
@@ -44,6 +40,5 @@ $result = $conn->query($sql);
 </table>
 
 <?php
-// Cerrar la conexión a la base de datos
 $conn->close();
 ?>

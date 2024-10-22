@@ -1,11 +1,11 @@
 function reloadTable() {
     const iframe = document.getElementById('productTable');
-    iframe.src = iframe.src; // Recargar el iframe
+    iframe.src = iframe.src; 
 }
 
 function openModal() {
     document.getElementById('modal').style.display = 'block';
-    fetchMarcas(); // Llamar a la función para obtener marcas
+    fetchMarcas(); 
 }
 
 function closeModal() {
@@ -17,7 +17,7 @@ function fetchMarcas() {
         .then(response => response.json())
         .then(data => {
             const select = document.getElementById('id_marca');
-            select.innerHTML = ''; // Limpiar el select
+            select.innerHTML = '';
             data.forEach(marca => {
                 const option = document.createElement('option');
                 option.value = marca.id_marca;
@@ -29,33 +29,29 @@ function fetchMarcas() {
 }
 
 function confirmAddProduct(event) {
-    event.preventDefault(); // Prevenir el envío del formulario
+    event.preventDefault(); 
 
     const nombre = document.getElementById('nombre').value;
     const codigo = document.getElementById('codigo').value;
     const idMarca = document.getElementById('id_marca').value;
 
-    // Mostrar alerta con los datos ingresados
+    
     const confirmationMessage = `Nombre: ${nombre}\nCódigo: ${codigo}\nID Marca: ${idMarca}`;
     if (confirm(`¿Confirmas los siguientes datos?\n\n${confirmationMessage}`)) {
-        // Si se confirma, se envía el formulario
+        
         document.querySelector('form[action="create.php"]').submit();
     }
 }
 
 function confirmDeleteProduct(event) {
-    event.preventDefault(); // Prevenir el envío del formulario
-
+    event.preventDefault();
     const idProducto = document.getElementById('id_producto').value;
 
-    // Mostrar alerta con el ID del producto a eliminar
     if (confirm(`¿Estás seguro de que deseas eliminar el producto con ID: ${idProducto}?`)) {
-        // Si se confirma, se envía el formulario
         document.querySelector('form[action="delete.php"]').submit();
     }
 }
 
-// Agregar listeners al formulario
 document.addEventListener('DOMContentLoaded', () => {
     const addProductForm = document.querySelector('form[action="create.php"]');
     const deleteProductForm = document.querySelector('form[action="delete.php"]');
