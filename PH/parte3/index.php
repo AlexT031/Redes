@@ -19,7 +19,7 @@
         <!-- Mostrar productos en formato de tabla -->
         <h2>Lista de Productos</h2>
         <button class="button" onclick="reloadTable()">Recargar Tabla</button>
-        <iframe id="productTable" src="read.php" style="width: 100%; height: 600px; border: none;"></iframe>
+        <iframe id="productTable" src="read.php" style="width: 100%; height: 400px; border: none;"></iframe>
 
         <!-- Modal para mostrar el PDF -->
         <div id="pdfModal" class="modal">
