@@ -5,22 +5,19 @@ error_reporting(E_ALL);
 
 include 'db.php';
 
-// Verifica si se ha enviado un término de búsqueda
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-// Consulta SQL con búsqueda
 $sql = "SELECT productos.id_producto, productos.nombre, productos.codigo, marcas.nombre AS marca, productos.archivo_pdf 
         FROM productos JOIN marcas ON productos.id_marca = marcas.id_marca 
         WHERE productos.nombre LIKE ? OR productos.codigo LIKE ? OR marcas.nombre LIKE ?";
 $stmt = $conn->prepare($sql);
 
-// Verifica si la preparación de la consulta fue exitosa
 if (!$stmt) {
     die("Error en la preparación de la consulta: " . $conn->error);
 }
 
 $likeSearch = "%$search%";
-$stmt->bind_param("ss", $likeSearch, $likeSearch);
+$stmt->bind_param("ss", $likeSearch, $likeSearch, $likeSearch);
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
@@ -36,13 +33,11 @@ $result = $stmt->get_result();
 <body>
     <h1>Resultados de Búsqueda</h1>
     
-    <!-- Mostrar la búsqueda y el botón de volver -->
     <form method="GET" action="search.php" style="margin-bottom: 20px;">
         <input type="text" name="search" placeholder="Buscar productos..." value="<?php echo htmlspecialchars($search); ?>" required>
         <input type="submit" value="Buscar">
     </form>
 
-    <!-- Tabla de productos -->
     <table border="1" style="width:100%; text-align:center;">
         <tr>
             <th>ID</th>
@@ -88,7 +83,8 @@ $result = $stmt->get_result();
 </html>
 
 <?php
-// Cerrar conexión
+
+
 $stmt->close();
 $conn->close();
 ?>
