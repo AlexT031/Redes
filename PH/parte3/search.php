@@ -1,13 +1,28 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include 'db.php';
 
+// Verifica si se ha enviado un término de búsqueda
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-$query = "SELECT * FROM productos WHERE nombre LIKE :search OR codigo LIKE :search";
-$stmt = $pdo->prepare($query);
-$stmt->bindValue(':search', "%$search%");
+// Consulta SQL con búsqueda
+$sql = "SELECT productos.id_producto, productos.nombre, productos.codigo, marcas.nombre AS marca, productos.archivo_pdf 
+        FROM productos JOIN marcas ON productos.id_marca = marcas.id_marca 
+        WHERE productos.nombre LIKE ? OR productos.codigo LIKE ?";
+$stmt = $conn->prepare($sql);
+
+// Verifica si la preparación de la consulta fue exitosa
+if (!$stmt) {
+    die("Error en la preparación de la consulta: " . $conn->error);
+}
+
+$likeSearch = "%$search%";
+$stmt->bind_param("ss", $likeSearch, $likeSearch);
 $stmt->execute();
-$productos = $stmt->fetchAll();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -21,37 +36,59 @@ $productos = $stmt->fetchAll();
 <body>
     <h1>Resultados de Búsqueda</h1>
     
-    <table id="productTable">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Código</th>
-                <th>Marca</th>
-                <th>PDF</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (count($productos) > 0): ?>
-                <?php foreach ($productos as $producto): ?>
-                    <tr>
-                        <td><?php echo $producto['id_producto']; ?></td>
-                        <td><?php echo $producto['nombre']; ?></td>
-                        <td><?php echo $producto['codigo']; ?></td>
-                        <td><?php echo $producto['id_marca']; ?></td>
-                        <td><a href="pdfs/<?php echo $producto['archivo_pdf']; ?>" target="_blank">Ver PDF</a></td>
-                        <td><button onclick="eliminarProducto(<?php echo $producto['id_producto']; ?>)">Eliminar</button></td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
+    <!-- Mostrar la búsqueda y el botón de volver -->
+    <form method="GET" action="search.php" style="margin-bottom: 20px;">
+        <input type="text" name="search" placeholder="Buscar productos..." value="<?php echo htmlspecialchars($search); ?>" required>
+        <input type="submit" value="Buscar">
+    </form>
+
+    <!-- Tabla de productos -->
+    <table border="1" style="width:100%; text-align:center;">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Código</th>
+            <th>Marca</th>
+            <th>Ver PDF</th>
+            <th>Eliminar</th>
+        </tr>
+        <?php if ($result->num_rows > 0): ?>
+            <?php while ($row = $result->fetch_assoc()): ?>
                 <tr>
-                    <td colspan="6">No se encontraron productos.</td>
+                    <td><?php echo $row['id_producto']; ?></td>
+                    <td><?php echo $row['nombre']; ?></td>
+                    <td><?php echo $row['codigo']; ?></td>
+                    <td><?php echo $row['marca']; ?></td>
+                    <td>
+                        <?php if ($row['archivo_pdf']): ?>
+                            <button class="button" onclick="openPdfModal('uploads/<?php echo $row['archivo_pdf']; ?>')">Ver PDF</button>
+                        <?php else: ?>
+                            No disponible
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <form action="delete.php" method="POST">
+                            <input type="hidden" name="id_producto" value="<?php echo $row['id_producto']; ?>">
+                            <input type="submit" value="Eliminar">
+                        </form>
+                    </td>
                 </tr>
-            <?php endif; ?>
-        </tbody>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="6">No se encontraron productos.</td>
+            </tr>
+        <?php endif; ?>
     </table>
-    
+
     <a href="read.php">Volver a la lista de productos</a>
+
+    <script src="app.js"></script>
 </body>
 </html>
+
+<?php
+// Cerrar conexión
+$stmt->close();
+$conn->close();
+?>
