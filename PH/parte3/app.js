@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
     deleteProductForm.addEventListener('submit', confirmDeleteProduct);
 });
 
-// Función para abrir el modal y cargar el PDF en el iframe
 function openPdfModal(pdfUrl) {
     var modal = document.getElementById("pdfModal");
     var iframe = document.getElementById("pdfViewer");
@@ -52,27 +51,32 @@ function openPdfModal(pdfUrl) {
     modal.style.display = "block";
 }
 
-// Función para cerrar el modal
 function closePdfModal() {
     var modal = document.getElementById("pdfModal");
     var iframe = document.getElementById("pdfViewer");
-    iframe.src = ""; // Limpiar el src del iframe cuando se cierre el modal
+    iframe.src = "";
     modal.style.display = "none";
 }
 
-document.getElementById('searchInput').addEventListener('input', function () {
-    var searchValue = this.value.toLowerCase();
-    var rows = document.querySelectorAll('table tbody tr');
 
-    rows.forEach(function (row) {
-        var productName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-        var productCode = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
-        
+
+const searchInput = document.getElementById('searchInput');
+const table = document.getElementById('productTable');
+const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+searchInput.addEventListener('input', function () {
+    const searchValue = searchInput.value.toLowerCase();
+
+    for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        const productName = row.getElementsByTagName('td')[1].textContent.toLowerCase();
+        const productCode = row.getElementsByTagName('td')[2].textContent.toLowerCase(); 
+
         if (productName.includes(searchValue) || productCode.includes(searchValue)) {
             row.style.display = '';
         } else {
             row.style.display = 'none';
         }
-    });
+    }
 });
 
