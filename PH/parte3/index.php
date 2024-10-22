@@ -11,17 +11,14 @@
 
 <body>
     <div class="container">
-        <h1>Gestión de Productos</h1>
+        <h1>CRUD</h1>
 
-        <!-- Botón para abrir el modal -->
-        <button class="button" onclick="openModal()">Agregar Producto</button>
+        <button class="button" onclick="openModal()">Agregar</button>
         
-        <!-- Mostrar productos en formato de tabla -->
         <h2>Lista de Productos</h2>
         <button class="button" onclick="reloadTable()">Recargar Tabla</button>
         <iframe id="productTable" src="read.php" style="width: 100%; height: 400px; border: none;"></iframe>
 
-        <!-- Modal para mostrar el PDF -->
         <div id="pdfModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closePdfModal()">&times;</span>
@@ -30,7 +27,6 @@
         </div>
 
 
-        <!-- Ventana modal para agregar productos -->
         <div id="modal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
@@ -45,21 +41,19 @@
                     <label for="id_marca">Marca del producto:</label>
                     <select id="id_marca" name="id_marca" required>
                         <?php
-                        // Conexión a la base de datos
+
                         include 'db.php';
 
-                        // Consulta para obtener todas las marcas
                         $sql = "SELECT id_marca, nombre FROM marcas";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
-                            // Agregar cada marca como una opción en el select
+
                             while ($row = $result->fetch_assoc()) {
                                 echo "<option value='" . $row['id_marca'] . "'>" . $row['nombre'] . "</option>";
                             }
                         }
 
-                        // Cerrar conexión
                         $conn->close();
                         ?>
                     </select><br><br>
