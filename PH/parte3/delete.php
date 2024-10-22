@@ -27,21 +27,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 $conn->close();
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar Producto</title>
-</head>
-<body>
-    <h1>Eliminar un producto</h1>
-    <form action="delete.php" method="POST">
-        <label for="id_producto">ID del producto a eliminar:</label>
-        <input type="number" id="id_producto" name="id_producto" required><br><br>
-
-        <input type="submit" value="Eliminar Producto">
-    </form>
-</body>
-</html>

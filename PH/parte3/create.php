@@ -23,27 +23,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 $conn->close();
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Producto</title>
-</head>
-<body>
-    <h1>Agregar un nuevo producto</h1>
-    <form action="create.php" method="POST">
-        <label for="nombre">Nombre del producto:</label>
-        <input type="text" id="nombre" name="nombre" required><br><br>
-
-        <label for="codigo">Código del producto:</label>
-        <input type="text" id="codigo" name="codigo" required><br><br>
-
-        <label for="id_marca">Marca del producto (ID):</label>
-        <input type="number" id="id_marca" name="id_marca" required><br><br>
-
-        <input type="submit" value="Agregar Producto">
-    </form>
-</body>
-</html>
