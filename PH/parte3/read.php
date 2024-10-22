@@ -28,7 +28,7 @@ if ($result->num_rows > 0) {
         
         if ($row['archivo_pdf']) {
             // Botón para abrir el modal con el PDF
-            echo "<td><button class='button' onclick=\"openPdfModal('uploads/" . $row['archivo_pdf'] . "')\">Ver PDF</button></td>";
+            echo "<td><button class='button' onclick=\"openPdfModal('uploads" . $row['archivo_pdf'] . "')\">Ver PDF</button></td>";
         } else {
             echo "<td>No disponible</td>";
         }
