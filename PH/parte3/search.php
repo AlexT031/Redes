@@ -8,16 +8,17 @@ include 'db.php';
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
 $sql = "SELECT productos.id_producto, productos.nombre, productos.codigo, marcas.nombre AS marca, productos.archivo_pdf 
-        FROM productos JOIN marcas ON productos.id_marca = marcas.id_marca 
+        FROM productos 
+        JOIN marcas ON productos.id_marca = marcas.id_marca 
         WHERE productos.nombre LIKE ? OR productos.codigo LIKE ? OR marcas.nombre LIKE ?";
-$stmt = $conn->prepare($sql);
 
+$stmt = $conn->prepare($sql);
 if (!$stmt) {
     die("Error en la preparación de la consulta: " . $conn->error);
 }
 
 $likeSearch = "%$search%";
-$stmt->bind_param("ss", $likeSearch, $likeSearch, $likeSearch);
+$stmt->bind_param("sss", $likeSearch, $likeSearch, $likeSearch);
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
@@ -83,8 +84,6 @@ $result = $stmt->get_result();
 </html>
 
 <?php
-
-
 $stmt->close();
 $conn->close();
 ?>
