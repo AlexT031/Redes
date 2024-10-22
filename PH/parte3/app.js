@@ -12,22 +12,6 @@ function closeModal() {
     document.getElementById('modal').style.display = 'none';
 }
 
-function fetchMarcas() {
-    fetch('getmarcas.php')
-        .then(response => response.json())
-        .then(data => {
-            const select = document.getElementById('id_marca');
-            select.innerHTML = '';
-            data.forEach(marca => {
-                const option = document.createElement('option');
-                option.value = marca.id_marca;
-                option.textContent = marca.nombre;
-                select.appendChild(option);
-            });
-        })
-        .catch(error => console.error('Error al obtener marcas:', error));
-}
-
 function confirmAddProduct(event) {
     event.preventDefault(); 
 
@@ -59,3 +43,19 @@ document.addEventListener('DOMContentLoaded', () => {
     addProductForm.addEventListener('submit', confirmAddProduct);
     deleteProductForm.addEventListener('submit', confirmDeleteProduct);
 });
+
+// Función para abrir el modal y cargar el PDF en el iframe
+function openPdfModal(pdfUrl) {
+    var modal = document.getElementById("pdfModal");
+    var iframe = document.getElementById("pdfViewer");
+    iframe.src = pdfUrl;
+    modal.style.display = "block";
+}
+
+// Función para cerrar el modal
+function closePdfModal() {
+    var modal = document.getElementById("pdfModal");
+    var iframe = document.getElementById("pdfViewer");
+    iframe.src = ""; // Limpiar el src del iframe cuando se cierre el modal
+    modal.style.display = "none";
+}

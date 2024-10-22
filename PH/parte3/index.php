@@ -30,6 +30,15 @@
         <button class="button" onclick="reloadTable()">Recargar Tabla</button>
         <iframe id="productTable" src="read.php" style="width: 100%; height: 300px; border: none;"></iframe>
 
+        <!-- Modal para mostrar el PDF -->
+<div id="pdfModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closePdfModal()">&times;</span>
+        <iframe id="pdfViewer" src="" width="100%" height="500px"></iframe>
+    </div>
+</div>
+
+
         <!-- Ventana modal para agregar productos -->
         <div id="modal" class="modal">
             <div class="modal-content">

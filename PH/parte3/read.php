@@ -1,6 +1,8 @@
 <?php
+// Incluir la conexión a la base de datos
 include 'db.php';
 
+// Consulta para obtener todos los productos
 $sql = "SELECT productos.id_producto, productos.nombre, productos.codigo, marcas.nombre AS marca, productos.archivo_pdf FROM productos 
         JOIN marcas ON productos.id_marca = marcas.id_marca";
 $result = $conn->query($sql);
@@ -16,6 +18,7 @@ if ($result->num_rows > 0) {
                 <th>Eliminar</th>
             </tr>";
 
+    // Mostrar cada producto
     while ($row = $result->fetch_assoc()) {
         echo "<tr>
                 <td>" . $row['id_producto'] . "</td>
@@ -24,7 +27,8 @@ if ($result->num_rows > 0) {
                 <td>" . $row['marca'] . "</td>";
         
         if ($row['archivo_pdf']) {
-            echo "<td><a href='uploads" . $row['archivo_pdf'] . "' target='_blank'>Ver PDF</a></td>";
+            // Botón para abrir el modal con el PDF
+            echo "<td><button class='button' onclick=\"openPdfModal('uploads/" . $row['archivo_pdf'] . "')\">Ver PDF</button></td>";
         } else {
             echo "<td>No disponible</td>";
         }
@@ -40,5 +44,6 @@ if ($result->num_rows > 0) {
     echo "No hay productos.";
 }
 
+// Cerrar conexión
 $conn->close();
 ?>
