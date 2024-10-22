@@ -94,7 +94,7 @@ th {
     background-color: #fff;
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid #000000;
     width: 80%;
     max-width: 900px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -102,7 +102,7 @@ th {
 }
 
 .close {
-    color: #aaa;
+    color: #000000;
     float: right;
     font-size: 28px;
     font-weight: bold;

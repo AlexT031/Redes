@@ -31,9 +31,7 @@ $result = $stmt->get_result();
     <title>Resultados de Búsqueda</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>Resultados de Búsqueda</h1>
-    
+<body>    
     <form method="GET" action="search.php" style="margin-bottom: 20px;">
         <input type="text" name="search" placeholder="Buscar productos..." value="<?php echo htmlspecialchars($search); ?>" required>
         <input type="submit" value="Buscar">
@@ -76,9 +74,6 @@ $result = $stmt->get_result();
             </tr>
         <?php endif; ?>
     </table>
-
-    <a href="read.php">Volver a la lista de productos</a>
-
     <script src="app.js"></script>
 </body>
 </html>
