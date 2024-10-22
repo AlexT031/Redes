@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +7,12 @@
     <link rel="stylesheet" href="style.css">
     <script src="app.js" defer></script>
 </head>
-
 <body>
     <div class="container">
         <h1>Gestión de Productos</h1>
 
-        <!-- Botón para abrir el modal -->
         <button class="button" onclick="openModal()">Agregar Producto</button>
 
-        <!-- Formulario para eliminar productos -->
         <h2>Eliminar Producto</h2>
         <form action="delete.php" method="POST">
             <label for="id_producto">ID del producto a eliminar:</label>
@@ -25,12 +21,10 @@
             <input type="submit" value="Eliminar Producto" class="button">
         </form>
 
-        <!-- Mostrar productos en formato de tablaj -->
         <h2>Lista de Productos</h2>
         <button class="button" onclick="reloadTable()">Recargar Tabla</button>
         <iframe id="productTable" src="read.php" style="width: 100%; height: 300px; border: none;"></iframe>
 
-        <!-- Ventana modal para agregar productos -->
         <div id="modal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
@@ -42,10 +36,8 @@
                     <label for="codigo">Código del producto:</label>
                     <input type="text" id="codigo" name="codigo" required><br><br>
 
-                    <label for="id_marca">Marca del producto:</label>
-                    <select id="id_marca" name="id_marca" required>
-                        <option value="">Seleccione una marca</option>
-                    </select><br><br>
+                    <label for="id_marca">Marca del producto (ID):</label>
+                    <input type="number" id="id_marca" name="id_marca" required><br><br>
 
                     <input type="submit" value="Agregar Producto" class="button">
                 </form>
@@ -53,5 +45,4 @@
         </div>
     </div>
 </body>
-
 </html>
