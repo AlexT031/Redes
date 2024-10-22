@@ -59,3 +59,20 @@ function closePdfModal() {
     iframe.src = ""; // Limpiar el src del iframe cuando se cierre el modal
     modal.style.display = "none";
 }
+
+document.getElementById('searchInput').addEventListener('input', function () {
+    var searchValue = this.value.toLowerCase();
+    var rows = document.querySelectorAll('table tbody tr');
+
+    rows.forEach(function (row) {
+        var productName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+        var productCode = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+        
+        if (productName.includes(searchValue) || productCode.includes(searchValue)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+});
+
