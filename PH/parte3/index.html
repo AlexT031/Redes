@@ -3,21 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Producto</title>
+    <title>Gestión de Productos</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Agregar Producto</h1>
-    <form action="agregar_producto.php" method="post">
+    <h1>Gestión de Productos</h1>
+
+    <!-- Formulario para agregar productos -->
+    <h2>Agregar Producto</h2>
+    <form action="create.php" method="POST">
         <label for="nombre">Nombre del producto:</label>
         <input type="text" id="nombre" name="nombre" required><br><br>
 
         <label for="codigo">Código del producto:</label>
         <input type="text" id="codigo" name="codigo" required><br><br>
 
-        <label for="id_marca">ID de la marca:</label>
+        <label for="id_marca">Marca del producto (ID):</label>
         <input type="number" id="id_marca" name="id_marca" required><br><br>
 
         <input type="submit" value="Agregar Producto">
     </form>
+
+    <!-- Formulario para eliminar productos -->
+    <h2>Eliminar Producto</h2>
+    <form action="delete.php" method="POST">
+        <label for="id_producto">ID del producto a eliminar:</label>
+        <input type="number" id="id_producto" name="id_producto" required><br><br>
+
+        <input type="submit" value="Eliminar Producto">
+    </form>
+
+    <!-- Mostrar productos en formato de tabla -->
+    <h2>Lista de Productos</h2>
+    <iframe src="read.php" style="width: 100%; height: 300px; border: none;"></iframe>
+
 </body>
 </html>
