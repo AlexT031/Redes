@@ -1,30 +1,49 @@
 <?php
-try {
-    $db = new PDO('sqlite:C:\supermercado.db');
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (Exception $e) {
-    die("Error al conectar a la base de datos: " . $e->getMessage());
-}
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+include 'db.php';
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $nombre = $_POST['nombre'];
     $codigo = $_POST['codigo'];
     $id_marca = $_POST['id_marca'];
 
-    try {
-        $sql = "INSERT INTO productos (nombre, codigo, id_marca) VALUES (:nombre, :codigo, :id_marca)";
-        $stmt = $db->prepare($sql);
-        
-        $stmt->bindParam(':nombre', $nombre);
-        $stmt->bindParam(':codigo', $codigo);
-        $stmt->bindParam(':id_marca', $id_marca);
+    $stmt = $conn->prepare("INSERT INTO productos (nombre, codigo, id_marca) VALUES (?, ?, ?)");
+    $stmt->bind_param("ssi", $nombre, $codigo, $id_marca);
 
-        $stmt->execute();
-
-        echo "Producto agregado exitosamente.";
-    } catch (Exception $e) {
-        echo "Error al agregar el producto: " . $e->getMessage();
+    if ($stmt->execute()) {
+        echo "Producto agregado exitosamente";
+    } else {
+        echo "Error: " . $stmt->error;
     }
+
+    $stmt->close();
 }
+
+$conn->close();
 ?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Producto</title>
+</head>
+<body>
+    <h1>Agregar un nuevo producto</h1>
+    <form action="create.php" method="POST">
+        <label for="nombre">Nombre del producto:</label>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+
+        <label for="codigo">Código del producto:</label>
+        <input type="text" id="codigo" name="codigo" required><br><br>
+
+        <label for="id_marca">Marca del producto (ID):</label>
+        <input type="number" id="id_marca" name="id_marca" required><br><br>
+
+        <input type="submit" value="Agregar Producto">
+    </form>
+</body>
+</html>
