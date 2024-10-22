@@ -1,6 +1,8 @@
 <?php
 include 'db.php';
 
+
+echo'<link rel="stylesheet" href="style.css">';
 echo "<form method='GET' action='search.php' style='margin-bottom: 20px;'>
         <input type='text' name='search' placeholder='Buscar productos...' required>
         <input type='submit' value='Buscar'>
