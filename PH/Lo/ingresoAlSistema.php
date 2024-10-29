@@ -6,17 +6,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST['nombre'];
     $contrasena = $_POST['contrasena'];
 
-    $stmt = $conn->prepare("SELECT id_usuario, contrasena FROM usuarios WHERE nombre = :nombre");
-    $stmt->bindParam(':nombre', $nombre);
+    // Preparar y ejecutar la consulta
+    $stmt = $conn->prepare("SELECT id_usuario, contrasena FROM usuarios WHERE nombre = :nombre LIMIT 1");
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
     $stmt->execute();
-    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($usuario && password_verify($contrasena, $usuario['contrasena'])) {
-        $_SESSION['user_id'] = $usuario['id_usuario'];
-        header('Location: app_modulo1.php');
-        exit();
+    // Obtener todos los resultados como un array
+    $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Verificar que se haya encontrado un usuario y que la contraseña coincida
+    if (count($usuarios) > 0 && password_verify($contrasena, $usuarios[0]['contrasena'])) {
+        $_SESSION['user_id'] = $usuarios[0]['id_usuario'];
+        echo "success"; // Respuesta para AJAX en caso de autenticación exitosa
     } else {
-        echo "Usuario o contraseña incorrectos. <a href='formularioDeLogin.php'>Inténtalo de nuevo</a>.";
+        echo "Usuario o contraseña incorrectos."; // Mensaje de error en caso de fallo
     }
 }
 ?>
