@@ -71,7 +71,7 @@ form {
 }
 
 /* Modal para agregar producto */
-#myModal.modal-content {
+#myModal .modal-content {
     background-color: #f7d724;
     margin: 10% auto;
     padding: 20px;
@@ -81,7 +81,7 @@ form {
 }
 
 #myModal .close {
-    color: #aaa;
+    color: #ff0000;
     float: right;
     font-size: 28px;
     font-weight: bold;
