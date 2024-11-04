@@ -98,12 +98,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <h2>Iniciar Sesión</h2>
-    <form method="POST" action="">
-        <input type="text" name="usuario" placeholder="Usuario" required>
-        <input type="password" name="contrasena" placeholder="Contraseña" required>
-        <button type="submit">Iniciar Sesión</button>
-    </form>
+    <div class="login-container">
+        <h2>Iniciar Sesión</h2>
+        <form method="POST" action="login.php">
+            <input type="text" name="usuario" placeholder="Usuario" required>
+            <input type="password" name="contrasena" placeholder="Contraseña" required>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
     <?php if (isset($error)): ?>
         <p><?php echo $error; ?></p>
     <?php endif; ?>
