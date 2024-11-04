@@ -1,15 +1,17 @@
-<?php 
-include 'conexion.php'; 
+<?php
+include 'conexion.php';
 $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Tabla de Productos</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
     <form method="GET" action="">
@@ -44,9 +46,12 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
                 JOIN marcas m ON p.id_marca = m.id_marca";
 
         $conditions = [];
-        if (!empty($_GET['nombre'])) $conditions[] = "p.nombre LIKE '%" . $_GET['nombre'] . "%'";
-        if (!empty($_GET['codigo'])) $conditions[] = "p.codigo = '" . $_GET['codigo'] . "'";
-        if (!empty($_GET['id_marca'])) $conditions[] = "p.id_marca = '" . $_GET['id_marca'] . "'";
+        if (!empty($_GET['nombre']))
+            $conditions[] = "p.nombre LIKE '%" . $_GET['nombre'] . "%'";
+        if (!empty($_GET['codigo']))
+            $conditions[] = "p.codigo = '" . $_GET['codigo'] . "'";
+        if (!empty($_GET['id_marca']))
+            $conditions[] = "p.id_marca = '" . $_GET['id_marca'] . "'";
 
         if (count($conditions) > 0) {
             $sql .= " WHERE " . implode(" AND ", $conditions);
@@ -79,22 +84,30 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             <span class="close" onclick="closeModal('myModal')">&times;</span>
             <h2>Agregar Nuevo Producto</h2>
             <form action="add_product.php" method="post" enctype="multipart/form-data">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required><br><br>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
 
-                <label for="codigo">Código:</label>
-                <input type="text" id="codigo" name="codigo" required><br><br>
+                <div class="form-group">
+                    <label for="codigo">Código:</label>
+                    <input type="text" id="codigo" name="codigo" required>
+                </div>
 
-                <label for="id_marca">Marca:</label>
-                <select id="id_marca" name="id_marca" required>
-                    <option value="">Selecciona una marca</option>
-                    <?php while($marca = $marcas->fetch_assoc()): ?>
-                        <option value="<?php echo $marca['id_marca']; ?>"><?php echo $marca['nombre']; ?></option>
-                    <?php endwhile; ?>
-                </select><br><br>
+                <div class="form-group">
+                    <label for="id_marca">Marca:</label>
+                    <select id="id_marca" name="id_marca" required>
+                        <option value="">Selecciona una marca</option>
+                        <?php while ($marca = $marcas->fetch_assoc()): ?>
+                            <option value="<?php echo $marca['id_marca']; ?>"><?php echo $marca['nombre']; ?></option>
+                        <?php endwhile; ?>
+                    </select>
+                </div>
 
-                <label for="archivo_pdf">Archivo PDF:</label>
-                <input type="file" id="archivo_pdf" name="archivo_pdf" accept=".pdf" required><br><br>
+                <div class="form-group">
+                    <label for="archivo_pdf">Archivo PDF:</label>
+                    <input type="file" id="archivo_pdf" name="archivo_pdf" accept=".pdf" required>
+                </div>
 
                 <button type="submit">Agregar Producto</button>
             </form>
@@ -124,11 +137,12 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
         }
 
         // Cerrar el modal cuando se hace clic fuera de él
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target.className === 'modal') {
                 event.target.style.display = 'none';
             }
         };
     </script>
 </body>
+
 </html>
