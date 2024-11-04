@@ -26,10 +26,12 @@
             ?>
         </select>
         <button type="submit">Filtrar</button>
+        <button id="openModalBtn">Agregar Producto</button>
+            <?php include 'modal.php'; ?>
+
     </form>
 
-    <button id="openModalBtn">Agregar Producto</button>
-    <?php include 'modal.php'; ?>
+    
 
     <table>
         <tr>
