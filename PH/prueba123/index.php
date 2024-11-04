@@ -53,10 +53,23 @@
             echo "<td>{$row['nombre']}</td>";
             echo "<td>{$row['codigo']}</td>";
             echo "<td>{$row['marca']}</td>";
-            echo "<td><a href='view_pdf.php?id={$row['id_producto']}'>Ver PDF</a></td>";
+            echo "<td><button onclick=\"openPdf('" . $row["archivo_pdf"] . "')\">Ver PDF</button></td>";
             echo "</tr>";
         }
         ?>
     </table>
+
+
+    <h2>Vista previa del PDF</h2>
+    <iframe id="pdfViewer" width="100%" height="500px"></iframe>
+
+    <script>
+        function openPdf(base64Data) {
+            const iframe = document.getElementById('pdfViewer');
+            iframe.src = `data:application/pdf;base64,${base64Data}`;
+        }
+    </script>
+
+
 </body>
 </html>
