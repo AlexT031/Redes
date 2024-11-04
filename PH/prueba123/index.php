@@ -60,7 +60,7 @@
             echo "<td>{$row['nombre']}</td>";
             echo "<td>{$row['codigo']}</td>";
             echo "<td>{$row['marca']}</td>";
-            echo "<td><button onclick=\"openPdf('" . $row["archivo_pdf"] . "')\">Ver PDF</button></td>";
+            echo "<td><button onclick=\"openModal('" . $row["archivo_pdf"] . "')\">PDF</button></td>";
             echo "</tr>";
         }
         ?>
