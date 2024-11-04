@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Usuario encontrado, actualizar la cantidad de ingresos
         $user = $result->fetch_assoc();
         $id_usuario = $user['id'];
-        
+
         // Incrementar el contador de ingresos
         $sql_update = "UPDATE usuarios SET cantidad_ingresos = cantidad_ingresos + 1 WHERE id = ?";
         $stmt_update = $conn->prepare($sql_update);
@@ -37,10 +37,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* Full viewport height */
+            margin: 0;
+        }
+
+        /* Contenedor del formulario */
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            /* Ancho fijo para el formulario */
+        }
+
+        /* Estilo para los elementos del formulario */
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Estilo para el botón de inicio de sesión */
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            /* Color azul */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            /* Color más oscuro al pasar el mouse */
+        }
+
+        /* Estilo para el encabezado */
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+    </style>
 </head>
+
 <body>
     <form method="POST" action="">
         <input type="text" name="usuario" placeholder="Usuario" required>
@@ -51,4 +108,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p><?php echo $error; ?></p>
     <?php endif; ?>
 </body>
+
 </html>
