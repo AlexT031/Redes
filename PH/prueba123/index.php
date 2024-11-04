@@ -28,6 +28,9 @@
         <button type="submit">Filtrar</button>
     </form>
 
+    <button id="openModalBtn">Agregar Producto</button>
+    <?php include 'modal.php'; ?>
+
     <table>
         <tr>
             <th>ID Producto</th>
@@ -90,10 +93,34 @@
         }
 
         // Cierra la ventana modal al hacer clic fuera de la misma
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             const modal = document.getElementById('pdfModal');
             if (event.target === modal) {
                 closeModal();
+            }
+        }
+    </script>
+
+    <script>
+        // Obtener elementos
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("openModalBtn");
+        var span = document.getElementsByClassName("close")[0];
+
+        // Cuando el usuario hace clic en el botón, se abre la modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // Cuando el usuario hace clic en la X, se cierra la modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // Cuando el usuario hace clic fuera de la modal, se cierra
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
             }
         }
     </script>
