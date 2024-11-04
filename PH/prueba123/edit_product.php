@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->close();
     
     // Redirigir a la página de la tabla de productos después de actualizar
-    header("Location: tabla_productos.php");
+    header("Location: index.php");
     exit;
 } else {
     echo "Método no permitido.";
