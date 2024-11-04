@@ -78,6 +78,7 @@ form {
     border: 1px solid #888;
     width: 80%;
     max-width: 500px;
+    justify-content: center;
 }
 
 #myModal .close {
