@@ -41,60 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            /* Full viewport height */
-            margin: 0;
-        }
-
-        /* Contenedor del formulario */
-        .login-container {
-            background-color: #e8da0e;
-            padding: 20px;
-            border-radius: 8px;
-            width: 300px;
-            /* Ancho fijo para el formulario */
-        }
-
-        /* Estilo para los elementos del formulario */
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        /* Estilo para el botón de inicio de sesión */
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            /* Color azul */
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-            /* Color más oscuro al pasar el mouse */
-        }
-
-        /* Estilo para el encabezado */
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-    </style>
+    <link rel="stylesheet" href="estilo.css">
 </head>
 
 <body>
