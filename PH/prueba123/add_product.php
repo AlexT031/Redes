@@ -1,26 +1,22 @@
 <?php
-// add_product.php
-// add_product.php
+
 include 'conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = trim($_POST['nombre']);
     $codigo = trim($_POST['codigo']);
-    $id_marca = intval($_POST['id_marca']); // Asegúrate de que sea un entero
+    $id_marca = intval($_POST['id_marca']);
 
-    // Validación simple
     if (empty($nombre) || empty($codigo) || empty($id_marca)) {
         echo "<script>alert('Todos los campos son obligatorios.');</script>";
         header("Location: index.php");
         exit();
     }
 
-    // Procesar el archivo PDF
     if (isset($_FILES['archivo_pdf']) && $_FILES['archivo_pdf']['error'] == 0) {
         $pdfData = file_get_contents($_FILES['archivo_pdf']['tmp_name']);
         $archivo_pdf = base64_encode($pdfData);
 
-        // Insertar en la base de datos
         $stmt = $conn->prepare("INSERT INTO productos (nombre, codigo, id_marca, archivo_pdf) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssis", $nombre, $codigo, $id_marca, $archivo_pdf);
         
