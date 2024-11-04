@@ -28,14 +28,21 @@ if (isset($_GET['id'])) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Perfil de Usuario</title>
 </head>
+
 <body>
     <h1>Perfil de Usuario</h1>
     <p><strong>Nombre de Usuario:</strong> <?php echo htmlspecialchars($user['usuario']); ?></p>
     <p><strong>Contraseña:</strong> <?php echo htmlspecialchars($user['contrasena']); ?></p>
     <p><strong>Cantidad de Ingresos:</strong> <?php echo htmlspecialchars($user['cantidad_ingresos']); ?></p>
+    <p>
+        <a href="Tienda/index.php">Ir a la Tienda</a>
+
+    </p>
 </body>
+
 </html>
