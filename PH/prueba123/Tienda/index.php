@@ -167,24 +167,24 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
         };
 
         // Abrir el modal de modificar producto
-function openEditModal(id) {
-    fetch(`get_product.php?id=${id}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data) {
-                document.getElementById('editId').value = data.id_producto;
-                document.getElementById('editNombre').value = data.nombre;
-                document.getElementById('editCodigo').value = data.codigo;
-                document.getElementById('editIdMarca').value = data.id_marca; // Selecciona la marca correcta
-                document.getElementById('editModal').style.display = "block";
-            } else {
-                alert('No se encontraron datos del producto.');
-            }
-        })
-        .catch(error => {
-            console.error('Error al obtener el producto:', error);
-        });
-}
+        function openEditModal(id) {
+            fetch(`get_product.php?id=${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        document.getElementById('editId').value = data.id_producto;
+                        document.getElementById('editNombre').value = data.nombre;
+                        document.getElementById('editCodigo').value = data.codigo;
+                        document.getElementById('editIdMarca').value = data.id_marca; // Selecciona la marca correcta
+                        document.getElementById('editModal').style.display = "block";
+                    } else {
+                        alert('No se encontraron datos del producto.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al obtener el producto:', error);
+                });
+        }
 
 
         // Cerrar el modal específico
