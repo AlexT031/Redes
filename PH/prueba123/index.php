@@ -115,13 +115,14 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
         </div>
     </div>
 
-    <!-- Ventana Modal para Modificar Producto -->
+    <!-- Ventana Modal para Editar Producto -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('editModal')">&times;</span>
             <h2>Modificar Producto</h2>
-            <form id="editForm" action="update_product.php" method="post">
-                <input type="hidden" name="id_producto" id="editId" value="">
+            <form action="edit_product.php" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="editId" name="id_producto">
+
                 <div class="form-group">
                     <label for="editNombre">Nombre:</label>
                     <input type="text" id="editNombre" name="nombre" required>
@@ -136,21 +137,21 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
                     <label for="editIdMarca">Marca:</label>
                     <select id="editIdMarca" name="id_marca" required>
                         <option value="">Selecciona una marca</option>
-                        <?php while ($marca = $marcas->fetch_assoc()): ?>
-                            <option value="<?php echo $marca['id_marca']; ?>"><?php echo $marca['nombre']; ?></option>
-                        <?php endwhile; ?>
+                        <?php
+                        // Consulta para obtener las marcas
+                        $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
+                        while ($marca = $marcas->fetch_assoc()) {
+                            echo "<option value='{$marca['id_marca']}'>{$marca['nombre']}</option>";
+                        }
+                        ?>
                     </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="editArchivoPdf">Archivo PDF (opcional):</label>
-                    <input type="file" id="editArchivoPdf" name="archivo_pdf" accept=".pdf">
                 </div>
 
                 <button type="submit">Modificar Producto</button>
             </form>
         </div>
     </div>
+
 
     <script>
         // Abrir el modal de PDF
@@ -166,24 +167,24 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
         };
 
         // Abrir el modal de modificar producto
-        function openEditModal(id) {
-            fetch(`get_product.php?id=${id}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data) {
-                        document.getElementById('editId').value = data.id_producto;
-                        document.getElementById('editNombre').value = data.nombre;
-                        document.getElementById('editCodigo').value = data.codigo;
-                        document.getElementById('editIdMarca').value = data.id_marca; // Asumiendo que tienes el id de la marca
-                        document.getElementById('editModal').style.display = "block";
-                    } else {
-                        alert('No se encontraron datos del producto.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error al obtener el producto:', error);
-                });
-        }
+function openEditModal(id) {
+    fetch(`get_product.php?id=${id}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                document.getElementById('editId').value = data.id_producto;
+                document.getElementById('editNombre').value = data.nombre;
+                document.getElementById('editCodigo').value = data.codigo;
+                document.getElementById('editIdMarca').value = data.id_marca; // Selecciona la marca correcta
+                document.getElementById('editModal').style.display = "block";
+            } else {
+                alert('No se encontraron datos del producto.');
+            }
+        })
+        .catch(error => {
+            console.error('Error al obtener el producto:', error);
+        });
+}
 
 
         // Cerrar el modal específico
