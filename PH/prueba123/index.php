@@ -38,6 +38,7 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             <th>Código</th>
             <th>Marca</th>
             <th>PDF</th>
+            <th>Modificar</th>
         </tr>
         <?php
         $sql = "SELECT p.id_producto, p.nombre, p.codigo, m.nombre AS marca, p.archivo_pdf
@@ -64,6 +65,7 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             echo "<td>{$row['codigo']}</td>";
             echo "<td>{$row['marca']}</td>";
             echo "<td><button onclick=\"openPdfModal('" . $row["archivo_pdf"] . "')\">PDF</button></td>";
+            echo "<td><button onclick=\"openEditModal({$row['id_producto']})\">Modificar</button></td>"; // Botón de modificar
             echo "</tr>";
         }
         ?>
@@ -113,6 +115,43 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
         </div>
     </div>
 
+    <!-- Ventana Modal para Modificar Producto -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('editModal')">&times;</span>
+            <h2>Modificar Producto</h2>
+            <form id="editForm" action="update_product.php" method="post">
+                <input type="hidden" name="id_producto" id="editId" value="">
+                <div class="form-group">
+                    <label for="editNombre">Nombre:</label>
+                    <input type="text" id="editNombre" name="nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editCodigo">Código:</label>
+                    <input type="text" id="editCodigo" name="codigo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editIdMarca">Marca:</label>
+                    <select id="editIdMarca" name="id_marca" required>
+                        <option value="">Selecciona una marca</option>
+                        <?php while ($marca = $marcas->fetch_assoc()): ?>
+                            <option value="<?php echo $marca['id_marca']; ?>"><?php echo $marca['nombre']; ?></option>
+                        <?php endwhile; ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="editArchivoPdf">Archivo PDF (opcional):</label>
+                    <input type="file" id="editArchivoPdf" name="archivo_pdf" accept=".pdf">
+                </div>
+
+                <button type="submit">Modificar Producto</button>
+            </form>
+        </div>
+    </div>
+
     <script>
         // Abrir el modal de PDF
         function openPdfModal(base64Data) {
@@ -125,6 +164,27 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
         document.getElementById("openModalBtn").onclick = function () {
             document.getElementById("myModal").style.display = "block";
         };
+
+        // Abrir el modal de modificar producto
+        function openEditModal(id) {
+            fetch(`get_product.php?id=${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        document.getElementById('editId').value = data.id_producto;
+                        document.getElementById('editNombre').value = data.nombre;
+                        document.getElementById('editCodigo').value = data.codigo;
+                        document.getElementById('editIdMarca').value = data.id_marca; // Asumiendo que tienes el id de la marca
+                        document.getElementById('editModal').style.display = "block";
+                    } else {
+                        alert('No se encontraron datos del producto.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al obtener el producto:', error);
+                });
+        }
+
 
         // Cerrar el modal específico
         function closeModal(modalId) {
