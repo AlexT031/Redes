@@ -29,7 +29,6 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
         </select>
         <button type="submit">Filtrar</button>
         <button type="button" id="openModalBtn">Agregar Producto</button>
-        <?php include 'modal.php'; ?>
     </form>
 
     <table>
