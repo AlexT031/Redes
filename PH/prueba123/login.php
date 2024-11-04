@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -55,10 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         /* Contenedor del formulario */
         .login-container {
-            background-color: #fff;
+            background-color: #e8da0e;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 300px;
             /* Ancho fijo para el formulario */
         }
@@ -99,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <h2>Iniciar Sesión</h2>
     <form method="POST" action="">
         <input type="text" name="usuario" placeholder="Usuario" required>
         <input type="password" name="contrasena" placeholder="Contraseña" required>
