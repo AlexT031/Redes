@@ -1,4 +1,4 @@
-<?php
+<tbody?php
 include 'conexion.php';
 $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
 ?>
@@ -42,7 +42,9 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             <th>Modificar</th>
             <th>Eliminar</th>
         </tr>
-        <p id="lista-productos"></p>
+        <tbody id="lista-productos">
+            
+        </tbody>
     </table>
 
 
