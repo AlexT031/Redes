@@ -29,9 +29,11 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
         </select>
         <button type="submit">Filtrar</button>
         <button type="button" id="openModalBtn">Agregar Producto</button>
+        <button type="button" id="cargarListaBtn" onclick="cargarListaProductos()">Cargar Productos</button>
+        <button type="button" id="vaciarListaBtn" onclick="vaciarLista()">Vaciar Lista</button>
     </form>
 
-    <table>
+    <table id="lista-productos">
         <tr>
             <th>ID Producto</th>
             <th>Nombre</th>
@@ -164,11 +166,28 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             document.getElementById('pdfModal').style.display = 'block';
         }
 
-
         document.getElementById("openModalBtn").onclick = function () {
             document.getElementById("myModal").style.display = "block";
         };
 
+        function cargarListaProductos() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "listar_productos.php", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    document.getElementById("lista-productos").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        function vaciarLista() {
+            const tableBody = document.getElementById("lista-productos");
+            // Limpiar todas las filas excepto la de encabezado
+            while (tableBody.rows.length > 1) {
+                tableBody.deleteRow(1);
+            }
+        }
 
         function openEditModal(id) {
             fetch(`get_product.php?id=${id}`)
@@ -189,8 +208,6 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
                 });
         }
 
-
-
         function closeModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.style.display = 'none';
@@ -198,7 +215,6 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
                 document.getElementById('pdfViewer').src = ""; 
             }
         }
-
 
         window.onclick = function (event) {
             if (event.target.className === 'modal') {
@@ -208,23 +224,11 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
 
         function eliminarProducto(idProducto) {
             if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
-
                 window.location.href = `delete_product.php?id=${idProducto}`;
             }
         }
-
-        function cargarListaProductos() {
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", "listar_productos.php", true);
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    document.getElementById("lista-productos").innerHTML = xhr.responseText;
-                }
-            };
-            xhr.send();
-        }   
-
     </script>
+
 </body>
 
 </html>
