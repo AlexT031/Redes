@@ -191,10 +191,16 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     document.getElementById("lista-productos").innerHTML = xhr.responseText;
+                } else {
+                    console.error("Error al cargar la lista de productos:", xhr.status, xhr.statusText);
                 }
+            };
+            xhr.onerror = function () {
+                console.error("Error de red.");
             };
             xhr.send();
         }
+
 
     </script>
 </body>
