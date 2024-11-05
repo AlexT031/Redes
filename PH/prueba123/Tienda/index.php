@@ -1,8 +1,3 @@
-<tbody?php
-include 'conexion.php';
-$marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
