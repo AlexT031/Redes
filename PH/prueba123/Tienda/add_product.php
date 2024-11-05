@@ -30,6 +30,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "<script>alert('Error al cargar el archivo PDF.');</script>";
     }
+
+    $productData = [
+        "nombre" => $nombre,
+        "codigo" => $codigo,
+        "id_marca" => $id_marca,
+        "archivo_pdf" => $archivo_pdf,
+    ];
+
+    $jsonData = json_encode($productData);
+
+    $sqlInfo = "INSERT INTO productos (nombre, codigo, id_marca, archivo_pdf) VALUES ('$nombre', '$codigo', $id_marca, 'Archivo PDF en base64')";
+
+    echo "<script>
+            alert('Producto agregado correctamente.\\n\\nDatos en JSON:\\n$jsonData\\n\\nConsulta SQL:\\n$sqlInfo');
+          </script>";
     
     header("Location: index.php");
     exit();
