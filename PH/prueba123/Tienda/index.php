@@ -141,7 +141,7 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
                     <select id="editIdMarca" name="id_marca" required>
                         <option value="">Selecciona una marca</option>
                         <?php
-                        // Consulta para obtener las marcas
+                        
                         $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
                         while ($marca = $marcas->fetch_assoc()) {
                             echo "<option value='{$marca['id_marca']}'>{$marca['nombre']}</option>";
@@ -178,7 +178,7 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
                         document.getElementById('editId').value = data.id_producto;
                         document.getElementById('editNombre').value = data.nombre;
                         document.getElementById('editCodigo').value = data.codigo;
-                        document.getElementById('editIdMarca').value = data.id_marca; // Selecciona la marca correcta
+                        document.getElementById('editIdMarca').value = data.id_marca;
                         document.getElementById('editModal').style.display = "block";
                     } else {
                         alert('No se encontraron datos del producto.');
@@ -195,7 +195,7 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             const modal = document.getElementById(modalId);
             modal.style.display = 'none';
             if (modalId === 'pdfModal') {
-                document.getElementById('pdfViewer').src = ""; // Limpia el src para liberar memoria
+                document.getElementById('pdfViewer').src = ""; 
             }
         }
 
