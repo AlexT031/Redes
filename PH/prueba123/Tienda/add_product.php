@@ -1,5 +1,4 @@
 <?php
-
 include 'conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -17,11 +16,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pdfData = file_get_contents($_FILES['archivo_pdf']['tmp_name']);
         $archivo_pdf = base64_encode($pdfData);
 
+        // Consulta SQL y preparación de la inserción
         $stmt = $conn->prepare("INSERT INTO productos (nombre, codigo, id_marca, archivo_pdf) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssis", $nombre, $codigo, $id_marca, $archivo_pdf);
         
         if ($stmt->execute()) {
-            echo "<script>alert('Producto agregado correctamente');</script>";
+            // Crear un array con los datos del producto
+            $productData = [
+                "nombre" => $nombre,
+                "codigo" => $codigo,
+                "id_marca" => $id_marca,
+                "archivo_pdf" => $archivo_pdf,
+            ];
+
+            // Convertir los datos a JSON
+            $jsonData = json_encode($productData);
+
+            // Crear la consulta SQL en formato texto
+            $sqlInfo = "INSERT INTO productos (nombre, codigo, id_marca, archivo_pdf) VALUES ('$nombre', '$codigo', $id_marca, 'Archivo PDF en base64')";
+
+            // Mostrar alerta con JSON y consulta SQL
+            echo "<script>
+                    alert('Producto agregado correctamente.\\n\\nDatos en JSON:\\n$jsonData\\n\\nConsulta SQL:\\n$sqlInfo');
+                  </script>";
         } else {
             echo "<script>alert('Error al agregar el producto: " . $stmt->error . "');</script>";
         }
@@ -31,23 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>alert('Error al cargar el archivo PDF.');</script>";
     }
 
-    $productData = [
-        "nombre" => $nombre,
-        "codigo" => $codigo,
-        "id_marca" => $id_marca,
-        "archivo_pdf" => $archivo_pdf,
-    ];
-
-    $jsonData = json_encode($productData);
-
-    $sqlInfo = "INSERT INTO productos (nombre, codigo, id_marca, archivo_pdf) VALUES ('$nombre', '$codigo', $id_marca, 'Archivo PDF en base64')";
-
-    echo "<script>
-            alert('Producto agregado correctamente.\\n\\nDatos en JSON:\\n$jsonData\\n\\nConsulta SQL:\\n$sqlInfo');
-          </script>";
-    
     header("Location: index.php");
     exit();
 }
-
 ?>
