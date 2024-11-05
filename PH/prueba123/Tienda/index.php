@@ -39,11 +39,12 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             <th>Marca</th>
             <th>PDF</th>
             <th>Modificar</th>
+            <th>Eliminar</th> 
         </tr>
         <?php
         $sql = "SELECT p.id_producto, p.nombre, p.codigo, m.nombre AS marca, p.archivo_pdf
-                FROM productos p
-                JOIN marcas m ON p.id_marca = m.id_marca";
+            FROM productos p
+            JOIN marcas m ON p.id_marca = m.id_marca";
 
         $conditions = [];
         if (!empty($_GET['nombre']))
@@ -65,11 +66,13 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             echo "<td>{$row['codigo']}</td>";
             echo "<td>{$row['marca']}</td>";
             echo "<td><button onclick=\"openPdfModal('" . $row["archivo_pdf"] . "')\">PDF</button></td>";
-            echo "<td><button onclick=\"openEditModal({$row['id_producto']})\">Modificar</button></td>"; // Botón de modificar
+            echo "<td><button onclick=\"openEditModal({$row['id_producto']})\">Modificar</button></td>";
+            echo "<td><button onclick=\"eliminarProducto({$row['id_producto']})\">Eliminar</button></td>"; // Botón de eliminar
             echo "</tr>";
         }
         ?>
     </table>
+
 
     <!-- Ventana Modal para PDF -->
     <div id="pdfModal" class="modal">
@@ -154,19 +157,19 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
 
 
     <script>
-        // Abrir el modal de PDF
+
         function openPdfModal(base64Data) {
             const iframe = document.getElementById('pdfViewer');
             iframe.src = `data:application/pdf;base64,${base64Data}`;
             document.getElementById('pdfModal').style.display = 'block';
         }
 
-        // Abrir el modal de agregar producto
+
         document.getElementById("openModalBtn").onclick = function () {
             document.getElementById("myModal").style.display = "block";
         };
 
-        // Abrir el modal de modificar producto
+
         function openEditModal(id) {
             fetch(`get_product.php?id=${id}`)
                 .then(response => response.json())
@@ -187,7 +190,7 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
         }
 
 
-        // Cerrar el modal específico
+
         function closeModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.style.display = 'none';
@@ -196,12 +199,20 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             }
         }
 
-        // Cerrar el modal cuando se hace clic fuera de él
+
         window.onclick = function (event) {
             if (event.target.className === 'modal') {
                 event.target.style.display = 'none';
             }
         };
+
+        function eliminarProducto(idProducto) {
+            if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
+
+                window.location.href = `delete_product.php?id=${idProducto}`;
+            }
+        }
+
     </script>
 </body>
 
