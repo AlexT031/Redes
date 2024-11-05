@@ -43,7 +43,6 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             <th>Eliminar</th>
         </tr>
         <tbody id="lista-productos">
-            
         </tbody>
     </table>
 
