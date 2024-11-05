@@ -1,15 +1,24 @@
 <?php
-include 'conexion.php';
+include 'conexion.php'; 
 
-$id = $_GET['id'];
-$sql = "SELECT archivo_pdf FROM productos WHERE id_producto = $id";
-$result = $conn->query($sql);
+// Obtener el ID del PDF desde la URL
+$pdfId = isset($_GET['pdf_id']) ? intval($_GET['pdf_id']) : 1;
 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    header("Content-type: application/pdf");
-    echo base64_decode($row['archivo_pdf']);
-} else {
-    echo "PDF no encontrado.";
-}
+// Recuperar el PDF encriptado desde la base de datos
+$stmt = $conn->prepare("SELECT pdf_data FROM pdf_table WHERE id = ?");
+$stmt->bind_param("i", $pdfId);
+$stmt->execute();
+$stmt->bind_result($pdfBase64);
+$stmt->fetch();
+
+// Desencriptar el contenido del PDF de Base64 a binario
+$pdfContent = base64_decode($pdfBase64);
+
+// Enviar las cabeceras adecuadas para mostrar el PDF en el navegador
+header('Content-Type: application/pdf');
+header('Content-Disposition: inline; filename="documento.pdf"');
+echo $pdfContent;
+
+$stmt->close();
+$conn->close();
 ?>
