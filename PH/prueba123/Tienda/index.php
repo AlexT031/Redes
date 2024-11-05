@@ -1,3 +1,8 @@
+<?php
+include 'conexion.php';
+$marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -24,7 +29,6 @@
         </select>
         <button type="submit">Filtrar</button>
         <button type="button" id="openModalBtn">Agregar Producto</button>
-        <button onclick="cargarListaProductos()">Cargar</button>
     </form>
 
     <table>
@@ -35,10 +39,38 @@
             <th>Marca</th>
             <th>PDF</th>
             <th>Modificar</th>
-            <th>Eliminar</th>
+            <th>Eliminar</th> 
         </tr>
-        <tbody id="lista-productos">
-        </tbody>
+        <?php
+        $sql = "SELECT p.id_producto, p.nombre, p.codigo, m.nombre AS marca, p.archivo_pdf
+            FROM productos p
+            JOIN marcas m ON p.id_marca = m.id_marca";
+
+        $conditions = [];
+        if (!empty($_GET['nombre']))
+            $conditions[] = "p.nombre LIKE '%" . $_GET['nombre'] . "%'";
+        if (!empty($_GET['codigo']))
+            $conditions[] = "p.codigo = '" . $_GET['codigo'] . "'";
+        if (!empty($_GET['id_marca']))
+            $conditions[] = "p.id_marca = '" . $_GET['id_marca'] . "'";
+
+        if (count($conditions) > 0) {
+            $sql .= " WHERE " . implode(" AND ", $conditions);
+        }
+
+        $result = $conn->query($sql);
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>{$row['id_producto']}</td>";
+            echo "<td>{$row['nombre']}</td>";
+            echo "<td>{$row['codigo']}</td>";
+            echo "<td>{$row['marca']}</td>";
+            echo "<td><button onclick=\"openPdfModal('" . $row["archivo_pdf"] . "')\">PDF</button></td>";
+            echo "<td><button onclick=\"openEditModal({$row['id_producto']})\">Modificar</button></td>";
+            echo "<td><button onclick=\"eliminarProducto({$row['id_producto']})\">Eliminar</button></td>"; // Botón de eliminar
+            echo "</tr>";
+        }
+        ?>
     </table>
 
 
@@ -109,7 +141,7 @@
                     <select id="editIdMarca" name="id_marca" required>
                         <option value="">Selecciona una marca</option>
                         <?php
-
+                        
                         $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
                         while ($marca = $marcas->fetch_assoc()) {
                             echo "<option value='{$marca['id_marca']}'>{$marca['nombre']}</option>";
@@ -163,7 +195,7 @@
             const modal = document.getElementById(modalId);
             modal.style.display = 'none';
             if (modalId === 'pdfModal') {
-                document.getElementById('pdfViewer').src = "";
+                document.getElementById('pdfViewer').src = ""; 
             }
         }
 
@@ -187,16 +219,10 @@
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     document.getElementById("lista-productos").innerHTML = xhr.responseText;
-                } else {
-                    console.error("Error al cargar la lista de productos:", xhr.status, xhr.statusText);
                 }
             };
-            xhr.onerror = function () {
-                console.error("Error de red.");
-            };
             xhr.send();
-        }
-
+        }   
 
     </script>
 </body>
