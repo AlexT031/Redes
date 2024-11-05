@@ -43,36 +43,6 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             <th>Modificar</th>
             <th>Eliminar</th> 
         </tr>
-        <?php
-        $sql = "SELECT p.id_producto, p.nombre, p.codigo, m.nombre AS marca, p.archivo_pdf
-            FROM productos p
-            JOIN marcas m ON p.id_marca = m.id_marca";
-
-        $conditions = [];
-        if (!empty($_GET['nombre']))
-            $conditions[] = "p.nombre LIKE '%" . $_GET['nombre'] . "%'";
-        if (!empty($_GET['codigo']))
-            $conditions[] = "p.codigo = '" . $_GET['codigo'] . "'";
-        if (!empty($_GET['id_marca']))
-            $conditions[] = "p.id_marca = '" . $_GET['id_marca'] . "'";
-
-        if (count($conditions) > 0) {
-            $sql .= " WHERE " . implode(" AND ", $conditions);
-        }
-
-        $result = $conn->query($sql);
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>{$row['id_producto']}</td>";
-            echo "<td>{$row['nombre']}</td>";
-            echo "<td>{$row['codigo']}</td>";
-            echo "<td>{$row['marca']}</td>";
-            echo "<td><button onclick=\"openPdfModal('" . $row["archivo_pdf"] . "')\">PDF</button></td>";
-            echo "<td><button onclick=\"openEditModal({$row['id_producto']})\">Modificar</button></td>";
-            echo "<td><button onclick=\"eliminarProducto({$row['id_producto']})\">Eliminar</button></td>"; // Botón de eliminar
-            echo "</tr>";
-        }
-        ?>
     </table>
 
 
