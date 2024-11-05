@@ -153,7 +153,6 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
 
         function vaciarLista() {
             const tableBody = document.getElementById("lista-productos");
-            // Limpiar todas las filas excepto la de encabezado
             while (tableBody.rows.length > 1) {
                 tableBody.deleteRow(1);
             }
