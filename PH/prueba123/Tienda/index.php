@@ -42,7 +42,7 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             <th>Modificar</th>
             <th>Eliminar</th>
         </tr>
-        <div id="lista-productos"></div>
+        <p id="lista-productos"></p>
     </table>
 
 
