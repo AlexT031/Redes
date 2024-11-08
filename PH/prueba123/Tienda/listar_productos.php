@@ -1,41 +1,43 @@
 <?php
-include 'conexion.php'; // Incluye tu archivo de conexión a la base de datos
+include 'conexion.php';
 
-// Consulta para obtener los productos
-$sql = "SELECT p.id_producto, p.nombre, p.codigo, m.nombre AS marca, p.archivo_pdf
-        FROM productos p
-        JOIN marcas m ON p.id_marca = m.id_marca";
+// Recibir la entrada JSON del cliente
+$input = file_get_contents("php://input");
+$data = json_decode($input, true);
 
-$result = $conn->query($sql);
+// Construir la consulta SQL con filtros dinámicos
+$query = "SELECT * FROM productos"; // Ajusta a tu tabla
 
-if ($result->num_rows > 0) {
-    // Empezar la tabla HTML
-    echo '<tr>
-            <th>ID Producto</th>
-            <th>Nombre</th>
-            <th>Código</th>
-            <th>Marca</th>
-            <th>PDF</th>
-            <th>Modificar</th>
-            <th>Eliminar</th>
-        </tr>';
+$conditions = [];
+$params = [];
 
-    // Recorrer los resultados y generar las filas de la tabla
-    while ($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>{$row['id_producto']}</td>";
-        echo "<td>{$row['nombre']}</td>";
-        echo "<td>{$row['codigo']}</td>";
-        echo "<td>{$row['marca']}</td>";
-        echo "<td><button onclick=\"openPdfModal('" . $row["archivo_pdf"] . "')\">PDF</button></td>";
-        echo "<td><button onclick=\"openEditModal({$row['id_producto']})\">Modificar</button></td>";
-        echo "<td><button onclick=\"eliminarProducto({$row['id_producto']})\">Eliminar</button></td>";
-        echo "</tr>";
-    }
-} else {
-    echo '<tr><td colspan="7">No hay productos disponibles.</td></tr>'; // Mensaje si no hay productos
+// Aplicar filtros si existen
+if (!empty($data['nombre'])) {
+    $conditions[] = "nombre LIKE ?";
+    $params[] = '%' . $data['nombre'] . '%';
+}
+if (!empty($data['categoria'])) {
+    $conditions[] = "categoria = ?";
+    $params[] = $data['categoria'];
+}
+if (!empty($data['precio_min'])) {
+    $conditions[] = "precio >= ?";
+    $params[] = $data['precio_min'];
+}
+if (!empty($data['precio_max'])) {
+    $conditions[] = "precio <= ?";
+    $params[] = $data['precio_max'];
 }
 
-// Cerrar la conexión a la base de datos
-$conn->close();
-?>
+// Concatenar condiciones a la consulta principal
+if (count($conditions) > 0) {
+    $query .= " WHERE " . implode(" AND ", $conditions);
+}
+
+$stmt = $conn->prepare($query);
+$stmt->execute($params);
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Devolver el resultado como JSON
+header('Content-Type: application/json');
+echo json_encode($results);
