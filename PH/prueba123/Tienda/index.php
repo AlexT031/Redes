@@ -27,14 +27,10 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             }
             ?>
         </select>
-        <!-- Botón para cargar la tabla -->
-        <button id="loadTable" type="button">Cargar tabla</button>
-
+        <button type="submit">Filtrar</button>
         <button type="button" id="openModalBtn">Agregar Producto</button>
         <button type="button" id="cargarListaBtn" onclick="cargarListaProductos()">Cargar Productos</button>
         <button type="button" id="vaciarListaBtn" onclick="vaciarLista()">Vaciar Lista</button>
-        <button id="clearFilters" type="button">Limpiar filtros</button>
-
     </form>
 
     <table id="lista-productos">
@@ -45,7 +41,7 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             <th>Marca</th>
             <th>PDF</th>
             <th>Modificar</th>
-            <th>Eliminar</th>
+            <th>Eliminar</th> 
         </tr>
     </table>
 
@@ -117,7 +113,7 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
                     <select id="editIdMarca" name="id_marca" required>
                         <option value="">Selecciona una marca</option>
                         <?php
-
+                        
                         $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
                         while ($marca = $marcas->fetch_assoc()) {
                             echo "<option value='{$marca['id_marca']}'>{$marca['nombre']}</option>";
@@ -131,18 +127,8 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
         </div>
     </div>
 
-    <!-- Modal para respuesta del servidor -->
-    <div id="serverResponseModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-            <p id="serverResponseText"></p>
-        </div>
-    </div>
-
-
 
     <script>
-
 
         function openPdfModal(base64Data) {
             const iframe = document.getElementById('pdfViewer');
@@ -195,7 +181,7 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
             const modal = document.getElementById(modalId);
             modal.style.display = 'none';
             if (modalId === 'pdfModal') {
-                document.getElementById('pdfViewer').src = "";
+                document.getElementById('pdfViewer').src = ""; 
             }
         }
 
@@ -210,60 +196,6 @@ $marcas = $conn->query("SELECT id_marca, nombre FROM marcas");
                 window.location.href = `delete_product.php?id=${idProducto}`;
             }
         }
-        document.getElementById('clearFilters').addEventListener('click', () => {
-            const inputs = document.querySelectorAll('input[type="text"], select');
-            inputs.forEach(input => input.value = '');
-        });
-
-        function showServerResponse(responseText) {
-            document.getElementById('serverResponseText').textContent = responseText;
-            document.getElementById('serverResponseModal').style.display = 'block';
-        }
-
-        document.getElementById('closeModal').addEventListener('click', () => {
-            document.getElementById('serverResponseModal').style.display = 'none';
-        });
-
-        document.getElementById('loadTable').addEventListener('click', () => {
-            const filters = {}; // Recopila tus filtros, por ejemplo:
-            document.querySelectorAll('input[type="text"], select').forEach(input => {
-                filters[input.name] = input.value;
-            });
-
-            // Realiza la solicitud AJAX
-            fetch('listar_productos.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(filters)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    updateTable(data); // Actualiza la tabla con los datos obtenidos
-                    showServerResponse('Tabla cargada correctamente');
-                })
-                .catch(error => {
-                    console.error('Error al cargar la tabla:', error);
-                    showServerResponse('Error al cargar la tabla');
-                });
-        });
-
-        function updateTable(data) {
-            const tableBody = document.querySelector('table tbody');
-            tableBody.innerHTML = ''; // Limpia la tabla
-
-            data.forEach(row => {
-                const tr = document.createElement('tr');
-                Object.values(row).forEach(cellData => {
-                    const td = document.createElement('td');
-                    td.textContent = cellData;
-                    tr.appendChild(td);
-                });
-                tableBody.appendChild(tr);
-            });
-        }
-
-
-
     </script>
 
 </body>
