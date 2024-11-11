@@ -133,10 +133,10 @@ if (!isset($_SESSION['usuario'])) {
     <table border="1" id="empleadosTable">
         <thead>
             <tr>
-                <th>ID <input type="text"></th>
-                <th>Nombre <input type="text"></th>
+                <th>ID <input type="text" onkeyup="filtrarColumna(0, this)"></th>
+                <th>Nombre <input type="text" onkeyup="filtrarColumna(1, this)"></th>
                 <th>Puesto 
-                    <select>
+                    <select onchange="filtrarColumna(2, this)">
                         <option value="">Todos</option>
                         <option value="Gerente">Gerente</option>
                         <option value="Supervisor">Supervisor</option>
@@ -144,8 +144,8 @@ if (!isset($_SESSION['usuario'])) {
                         <option value="Operario">Operario</option>
                     </select>
                 </th>
-                <th>Fecha de Alta <input type="text"></th>
-                <th>Salario <input type="text"></th>
+                <th>Fecha de Alta <input type="text" onkeyup="filtrarColumna(3, this)"></th>
+                <th>Salario <input type="text" onkeyup="filtrarColumna(4, this)"></th>
                 <th>PDF</th>
                 <th>Acciones</th>
             </tr>
