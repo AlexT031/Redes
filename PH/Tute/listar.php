@@ -10,7 +10,7 @@ sleep(3);
 
 include 'db_connect.php';
 
-$ordenar = isset($_GET['ordenar']) ? $_GET['ordenar'] : 'id';
+$ordenar = isset($_POST['ordenar']) ? $_POST['ordenar'] : 'id';
 
 $sql = "SELECT * FROM empleados ORDER BY $ordenar";
 $stmt = $conn->prepare($sql);
