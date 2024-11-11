@@ -264,33 +264,38 @@ if (!isset($_SESSION['usuario'])) {
     </div>
 
     <div id="modalModificar" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="hideModalModificar()">&times;</span>
-            <h2>Modificar Consorcio</h2>
-            <form id="modificarForm" method="POST">
-                <input type="hidden" id="modificarId" name="id">
-                <label for="consorcio">consorcio:</label>
-                <input type="text" id="modificarNombre" name="nombre" required><br>
-                <label for="empresa_luz">empresa luz:</label>
-                <select id="modificarluz" name="puesto" required>
-                    <option value="Edesur">Edesur</option>
-                    <option value="Edenor">Edenor</option>
-                    <option value="Epec">Epec</option>
-                    <option value="Emsa">Emsa</option>
-                </select><br>
-                <label for="empresa_agua">empresa agua:</label>
-                <select id="modificaragua" name="puesto" required>
-                    <option value="AySA">AySA</option>
-                    <option value="ABSA">ABSA</option>
-                    <option value="ASSA">ASSA</option>
-                    <option value="Sameep">Sameep</option>
-                </select><br>
-                <label for="fecha_alta">Fecha de Alta:</label>
-                <input type="date" id="modificarFechaAlta" name="fecha_alta" required><br>
-                <input type="submit" value="Guardar Cambios">
-            </form>
-        </div>
+    <div class="modal-content">
+        <span class="close" onclick="hideModalModificar()">&times;</span>
+        <h2>Modificar Servicio</h2>
+        <form id="modificarForm">
+            <input type="hidden" id="modificarId" name="id">
+            
+            <label for="modificarConsorcio">Consorcio:</label>
+            <input type="text" id="modificarConsorcio" name="consorcio" required><br>
+
+            <label for="modificarLuz">Empresa de Luz:</label>
+            <select id="modificarLuz" name="empresa_luz" required>
+                <option value="Edesur">Edesur</option>
+                <option value="Edenor">Edenor</option>
+                <option value="Epec">Epec</option>
+                <option value="Emsa">Emsa</option>
+            </select><br>
+
+            <label for="modificarAgua">Empresa de Agua:</label>
+            <select id="modificarAgua" name="empresa_agua" required>
+                <option value="AySA">AySA</option>
+                <option value="ABSA">ABSA</option>
+                <option value="ASSA">ASSA</option>
+                <option value="Sameep">Sameep</option>
+            </select><br>
+
+            <label for="modificarFechaRenovacion">Fecha de Renovación:</label>
+            <input type="date" id="modificarFechaRenovacion" name="fecha_renovacion" required><br>
+            
+            <input type="submit" value="Guardar Cambios">
+        </form>
     </div>
+</div>
 
 
     <div id="modalVerPDF" class="modal">
