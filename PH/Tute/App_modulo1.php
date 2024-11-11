@@ -97,7 +97,7 @@ if (!isset($_SESSION['usuario'])) {
             background-color: #45a049;
         }
 
-        
+
 
         .modal {
             display: none;
@@ -468,7 +468,7 @@ if (!isset($_SESSION['usuario'])) {
                     });
             }
         }
-        
+
         function limpiarFiltros() {
             const inputs = document.querySelectorAll(".filter-input");
             inputs.forEach(input => {
@@ -482,14 +482,16 @@ if (!isset($_SESSION['usuario'])) {
             document.getElementById("tablaResultados").innerHTML = "";
         }
 
-        function modificarServicio(id, nombre, puesto, fecha_alta, salario) {
+        function modificarServicio(id, consorcio, empresa_luz, empresa_agua, fecha_renovacion) {
             document.getElementById('modificarId').value = id;
-            document.getElementById('modificarNombre').value = nombre;
-            document.getElementById('modificarluz').value = puesto;
-            document.getElementById('modificaragua').value = fecha_alta;
-            document.getElementById('modificarFechaAlta').value = salario;
+            document.getElementById('modificarConsorcio').value = consorcio;
+            document.getElementById('modificarLuz').value = empresa_luz;
+            document.getElementById('modificarAgua').value = empresa_agua;
+            document.getElementById('modificarFechaRenovacion').value = fecha_renovacion;
+
             showModalModificar();
         }
+
     </script>
 </body>
 
