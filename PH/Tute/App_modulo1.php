@@ -13,75 +13,7 @@ if (!isset($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Consorcios</title>
-    <style>
-        /* Estilos generales */
-        body {
-            font-family: Arial, sans-serif;
-    background-color: #626262;
-    color: #000000;
-            margin: 0;
-            padding: 20px;
-        }
-        h1, h2 {
-            text-align: center;
-            color: #FFF;
-        }
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-            background-color: #fff;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-        }
-        th {
-            background-color: #e8da0e;
-            color: #000000;
-        }
-        td {
-            text-align: center;
-            background-color: #F0F0F0;
-    color: #000000;
-        }
-        .add-btn, button {
-            padding: 10px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin: 5px;
-        }
-        .add-btn:hover, button:hover {
-            background-color: #45a049;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #00000074;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-content {
-            background-color: #ffd027;
-            padding: 20px;
-            border-radius: 8px;
-            max-width: 60%;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-        .close {
-            float: right;
-            font-size: 28px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -129,11 +61,9 @@ if (!isset($_SESSION['usuario'])) {
             </tr>
         </thead>
         <tbody id="tablaResultados">
-            <!-- Contenido cargado dinámicamente -->
         </tbody>
     </table>
 
-    <!-- Modal para agregar servicio -->
     <div id="modalAgregar" class="modal">
         <div class="modal-content">
             <span class="close" onclick="hideModalAgregar()">&times;</span>
@@ -169,14 +99,13 @@ if (!isset($_SESSION['usuario'])) {
         </div>
     </div>
 
-    <!-- Modal para modificar servicio -->
     <div id="modalModificar" class="modal">
         <div class="modal-content">
             <span class="close" onclick="hideModalModificar()">&times;</span>
             <h2>Modificar Servicio</h2>
             <form id="modificarForm">
                 <input type="hidden" id="modificarId" name="id">
-                
+
                 <label for="modificarConsorcio">Consorcio:</label>
                 <input type="text" id="modificarConsorcio" name="consorcio" required><br>
 
@@ -198,7 +127,7 @@ if (!isset($_SESSION['usuario'])) {
 
                 <label for="modificarFechaRenovacion">Fecha de Renovación:</label>
                 <input type="date" id="modificarFechaRenovacion" name="fecha_renovacion" required><br>
-                
+
                 <input type="submit" value="Guardar Cambios">
             </form>
         </div>
@@ -345,4 +274,5 @@ if (!isset($_SESSION['usuario'])) {
         }
     </script>
 </body>
+
 </html>
