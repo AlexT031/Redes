@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $pdfContent = file_get_contents($_FILES['pdf']['tmp_name']);
     
-    $sql = "INSERT INTO empleados (consorcio, empresa_luz, empresa_agua, fecha_renovacion, pdf) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO servicios (consorcio, empresa_luz, empresa_agua, fecha_renovacion, pdf) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     if ($stmt->execute([$consorcio, $empresa_luz, $empresa_agua, $fecha_renovacion, $pdfContent])) {
         echo "Consorcio agregado exitosamente.";

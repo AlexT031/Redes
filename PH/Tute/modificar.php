@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $empresa_agua = $_POST['empresa_agua'];
     $fecha_renovacion = $_POST['fecha_renovacion'];
 
-    $sql = "UPDATE empleados SET consorcio = ?, empresa_luz = ?, empresa_agua = ?, fecha_renovacion = ? WHERE id = ?";
+    $sql = "UPDATE servicios SET consorcio = ?, empresa_luz = ?, empresa_agua = ?, fecha_renovacion = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt->execute([$consorcio, $empresa_luz, $empresa_agua, $fecha_renovacion, $id])) {
         echo json_encode([
