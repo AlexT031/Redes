@@ -130,28 +130,34 @@ if (!isset($_SESSION['usuario'])) {
         <option value="salario">Salario</option>
     </select>
 
-    <table border="1" id="empleadosTable">
-        <thead>
-            <tr>
-                <th>ID <input type="text" onkeyup="filtrarColumna(0, this)"></th>
-                <th>Nombre <input type="text" onkeyup="filtrarColumna(1, this)"></th>
-                <th>Puesto 
-                    <select onchange="filtrarColumna(2, this)">
-                        <option value="">Todos</option>
-                        <option value="Gerente">Gerente</option>
-                        <option value="Supervisor">Supervisor</option>
-                        <option value="Asistente">Asistente</option>
-                        <option value="Operario">Operario</option>
-                    </select>
-                </th>
-                <th>Fecha de Alta <input type="text" onkeyup="filtrarColumna(3, this)"></th>
-                <th>Salario <input type="text" onkeyup="filtrarColumna(4, this)"></th>
-                <th>PDF</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="empleados-table"></tbody>
-    </table>
+    <div id="filtroForm">
+        <label for="filtroId">ID:</label>
+        <input type="text" id="filtroId">
+
+        <label for="filtroNombre">Nombre:</label>
+        <input type="text" id="filtroNombre">
+
+        <label for="filtroPuesto">Puesto:</label>
+        <select id="filtroPuesto">
+            <option value="">Todos</option>
+            <option value="Gerente">Gerente</option>
+            <option value="Supervisor">Supervisor</option>
+            <option value="Asistente">Asistente</option>
+            <option value="Operario">Operario</option>
+        </select>
+
+        <label for="filtroFecha">Fecha de Alta:</label>
+        <input type="text" id="filtroFecha">
+
+        <label for="filtroSalario">Salario:</label>
+        <input type="text" id="filtroSalario">
+
+        <!-- Botón para cargar la tabla con los filtros -->
+        <button onclick="cargarEmpleados()">Cargar Tabla</button>
+    </div>
+
+    <!-- Contenedor de la Tabla -->
+    <div id="tablaResultados"></div>
 
     <div id="modalModificar" class="modal">
         <div class="modal-content">
