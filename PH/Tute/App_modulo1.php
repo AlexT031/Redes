@@ -205,7 +205,7 @@ if (!isset($_SESSION['usuario'])) {
         <div class="modal-content">
             <span class="close" onclick="hideModalVerPDF()">&times;</span>
             <h2>Boleta PDF</h2>
-            <iframe id="pdfViewer" width="800px" height="650px"></iframe>
+            <iframe id="pdfViewer" width="800px" height="600px"></iframe>
         </div>
     </div>
 
