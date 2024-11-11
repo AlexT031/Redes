@@ -47,7 +47,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     echo "<td>{$row['salario']}</td>";
     echo "<td><button onclick=\"verPDF({$row['id']})\">Ver PDF</button></td>";
     echo "<td>
-            <button onclick=\"modificarEmpleado({$row['id']}, '{$row['nombre']}', '{$row['puesto']}', '{$row['fecha_alta']}', {$row['salario']})\">Modificar</button>
+            <button onclick=\"showModalModificar({$row['id']}, '{$row['nombre']}', '{$row['puesto']}', '{$row['fecha_alta']}', {$row['salario']})\">Modificar</button>
             <button onclick=\"eliminarEmpleado({$row['id']})\">Eliminar</button>
           </td>";
     echo "</tr>";
