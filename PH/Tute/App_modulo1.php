@@ -182,28 +182,27 @@ if (!isset($_SESSION['usuario'])) {
 
 
 
-    <div id="modalModificar" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="hideModalModificar()">&times;</span>
-            <h2>Modificar Empleado</h2>
-            <form id="modificarForm" method="POST" onsubmit="enviarModificacion(event)">
-                <input type="hidden" id="modificarId" name="id">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="modificarNombre" name="nombre" required><br>
-                <label for="puesto">Puesto:</label>
-                <select id="modificarPuesto" name="puesto" required>
-                    <option value="Gerente">Gerente</option>
-                    <option value="Supervisor">Supervisor</option>
-                    <option value="Asistente">Asistente</option>
-                    <option value="Operario">Operario</option>
-                </select><br>
-                <label for="fecha_alta">Fecha de Alta:</label>
-                <input type="date" id="modificarFechaAlta" name="fecha_alta" required><br>
-                <label for="salario">Salario:</label>
-                <input type="number" id="modificarSalario" name="salario" step="0.01" required><br>
-                <input type="submit" value="Guardar Cambios">
-            </form>
-        </div>
+    <!-- Formulario para modificar producto (puedes colocarlo en un modal de modificación si lo tienes) -->
+    <div id="modalModificarProducto" style="display: none;">
+        <!-- Contenido del formulario de modificación -->
+        <form id="modificarForm" method="POST" onsubmit="enviarModificacion(event)">
+            <!-- Campos del formulario -->
+            <input type="hidden" id="modificarId" name="id">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="modificarNombre" name="nombre" required><br>
+            <label for="puesto">Puesto:</label>
+            <select id="modificarPuesto" name="puesto" required>
+                <option value="Gerente">Gerente</option>
+                <option value="Supervisor">Supervisor</option>
+                <option value="Asistente">Asistente</option>
+                <option value="Operario">Operario</option>
+            </select><br>
+            <label for="fecha_alta">Fecha de Alta:</label>
+            <input type="date" id="modificarFechaAlta" name="fecha_alta" required><br>
+            <label for="salario">Salario:</label>
+            <input type="number" id="modificarSalario" name="salario" step="0.01" required><br>
+            <input type="submit" value="Guardar Cambios">
+        </form>
     </div>
 
     <div id="modalAgregar" class="modal">
@@ -239,13 +238,14 @@ if (!isset($_SESSION['usuario'])) {
         </div>
     </div>
 
-    <div id="modalServidor">
-        <div id="modal-content">
-            <button id="close-button" onclick="closeModal()">✖</button>
-            <h2>Respuesta del servidor</h2>
-            <div id="modal-message"></div>
-        </div>
+    <!-- Modal exclusivo para la respuesta del servidor -->
+<div id="modalRespuesta">
+    <div id="modal-content">
+        <button id="close-button" onclick="closeModalRespuesta()">✖</button>
+        <h2>Respuesta del servidor</h2>
+        <div id="modal-message"></div>
     </div>
+</div>
 
 
     <form action="destruirsesion.php" method="post">
