@@ -156,7 +156,6 @@ if (!isset($_SESSION['usuario'])) {
     </select>
 
     <table>
-        <>
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
