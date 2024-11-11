@@ -155,31 +155,42 @@ if (!isset($_SESSION['usuario'])) {
         <option value="salario">Salario</option>
     </select>
 
-    <div id="filtroForm">
-        <label for="filtroId">ID:</label>
-        <input type="text" id="filtroId">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Puesto</th>
+                <th>Fecha de Alta</th>
+                <th>Salario</th>
+                <th>PDF</th>
+                <th>Acciones</th>
+            </tr>
+            <tr>
+                <td><input type="text" id="filtroId" class="filter-input" placeholder="Filtro ID"></td>
+                <td><input type="text" id="filtroNombre" class="filter-input" placeholder="Filtro Nombre"></td>
+                <td>
+                    <select id="filtroPuesto" class="filter-input">
+                        <option value="">Todos</option>
+                        <option value="Gerente">Gerente</option>
+                        <option value="Supervisor">Supervisor</option>
+                        <option value="Asistente">Asistente</option>
+                        <option value="Operario">Operario</option>
+                    </select>
+                </td>
+                <td><input type="text" id="filtroFecha" class="filter-input" placeholder="Filtro Fecha"></td>
+                <td><input type="text" id="filtroSalario" class="filter-input" placeholder="Filtro Salario"></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody id="tablaResultados">
+            <!-- Aquí se cargarán los resultados -->
+        </tbody>
+    </table>
 
-        <label for="filtroNombre">Nombre:</label>
-        <input type="text" id="filtroNombre">
-
-        <label for="filtroPuesto">Puesto:</label>
-        <select id="filtroPuesto">
-            <option value="">Todos</option>
-            <option value="Gerente">Gerente</option>
-            <option value="Supervisor">Supervisor</option>
-            <option value="Asistente">Asistente</option>
-            <option value="Operario">Operario</option>
-        </select>
-
-        <label for="filtroFecha">Fecha de Alta:</label>
-        <input type="text" id="filtroFecha">
-
-        <label for="filtroSalario">Salario:</label>
-        <input type="text" id="filtroSalario">
-
-        <!-- Botón para cargar la tabla con los filtros -->
-        <button onclick="cargarEmpleados()">Cargar Tabla</button>
-    </div>
+    <!-- Botón para cargar la tabla con los filtros -->
+    <button onclick="cargarEmpleados()">Cargar Tabla</button>
 
     <!-- Contenedor de la Tabla -->
     <div id="tablaResultados"></div>
@@ -273,7 +284,6 @@ if (!isset($_SESSION['usuario'])) {
         }
 
         function cargarEmpleados() {
-            // Verifica que los elementos existan antes de acceder a sus valores
             const filtroId = document.getElementById('filtroId') ? document.getElementById('filtroId').value : '';
             const filtroNombre = document.getElementById('filtroNombre') ? document.getElementById('filtroNombre').value : '';
             const filtroPuesto = document.getElementById('filtroPuesto') ? document.getElementById('filtroPuesto').value : '';
