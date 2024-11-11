@@ -224,54 +224,72 @@ if (!isset($_SESSION['usuario'])) {
 
 
 
+
+
+    <div id="modalAgregar" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="hideModalAgregar()">&times;</span>
+            <h2>Agregar Servicio</h2>
+            <form id="servicioForm" enctype="multipart/form-data" method="POST">
+                <label for="consorcio">Consorcio:</label>
+                <input type="text" name="consorcio" required><br>
+
+                <label for="empresa_luz">Empresa de Luz:</label>
+                <select name="empresa_luz" required>
+                    <option value="Edesur">Edesur</option>
+                    <option value="Edenor">Edenor</option>
+                    <option value="Epec">Epec</option>
+                    <option value="Emsa">Emsa</option>
+                </select><br>
+
+                <label for="empresa_agua">Empresa de Agua:</label>
+                <select name="empresa_agua" required>
+                    <option value="AySA">AySA</option>
+                    <option value="ABSA">ABSA</option>
+                    <option value="ASSA">ASSA</option>
+                    <option value="Sameep">Sameep</option>
+                </select><br>
+
+                <label for="fecha_renovacion">Fecha de Renovación de Boleta:</label>
+                <input type="date" name="fecha_renovacion" required><br>
+
+                <label for="pdf">PDF de la Boleta:</label>
+                <input type="file" name="pdf" accept="application/pdf" required><br>
+
+                <input type="submit" value="Agregar Servicio">
+            </form>
+        </div>
+    </div>
+
     <div id="modalModificar" class="modal">
         <div class="modal-content">
             <span class="close" onclick="hideModalModificar()">&times;</span>
-            <h2>Modificar Empleado</h2>
+            <h2>Modificar Consorcio</h2>
             <form id="modificarForm" method="POST">
                 <input type="hidden" id="modificarId" name="id">
-                <label for="nombre">Nombre:</label>
+                <label for="consorcio">consorcio:</label>
                 <input type="text" id="modificarNombre" name="nombre" required><br>
-                <label for="puesto">Puesto:</label>
+                <label for="empresa_luz">empresa luz:</label>
                 <select id="modificarPuesto" name="puesto" required>
-                    <option value="Gerente">Gerente</option>
-                    <option value="Supervisor">Supervisor</option>
-                    <option value="Asistente">Asistente</option>
-                    <option value="Operario">Operario</option>
+                    <option value="Edesur">Edesur</option>
+                    <option value="Edenor">Edenor</option>
+                    <option value="Epec">Epec</option>
+                    <option value="Emsa">Emsa</option>
+                </select><br>
+                <label for="empresa_agua">empresa agua:</label>
+                <select id="modificarPuesto" name="puesto" required>
+                    <option value="AySA">AySA</option>
+                    <option value="ABSA">ABSA</option>
+                    <option value="ASSA">ASSA</option>
+                    <option value="Sameep">Sameep</option>
                 </select><br>
                 <label for="fecha_alta">Fecha de Alta:</label>
                 <input type="date" id="modificarFechaAlta" name="fecha_alta" required><br>
-                <label for="salario">Salario:</label>
-                <input type="number" id="modificarSalario" name="salario" step="0.01" required><br>
                 <input type="submit" value="Guardar Cambios">
             </form>
         </div>
     </div>
 
-    <div id="modalAgregar" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="hideModalAgregar()">&times;</span>
-            <h2>Agregar Empleado</h2>
-            <form id="empleadoForm" enctype="multipart/form-data" method="POST">
-                <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre" required><br>
-                <label for="puesto">Puesto:</label>
-                <select name="puesto" required>
-                    <option value="Gerente">Gerente</option>
-                    <option value="Supervisor">Supervisor</option>
-                    <option value="Asistente">Asistente</option>
-                    <option value="Operario">Operario</option>
-                </select><br>
-                <label for="fecha_alta">Fecha de Alta:</label>
-                <input type="date" name="fecha_alta" required><br>
-                <label for="salario">Salario:</label>
-                <input type="number" name="salario" step="0.01" required><br>
-                <label for="pdf">PDF del Contrato:</label>
-                <input type="file" name="pdf" accept="application/pdf" required><br>
-                <input type="submit" value="Agregar Empleado">
-            </form>
-        </div>
-    </div>
 
     <div id="modalVerPDF" class="modal">
         <div class="modal-content">
@@ -302,13 +320,13 @@ if (!isset($_SESSION['usuario'])) {
 
             if (data.status === "success") {
                 messageDiv.innerHTML = `
-                <p>${data.message}</p>
-                <p><strong>ID:</strong> ${data.data.id}</p>
-                <p><strong>Nombre:</strong> ${data.data.nombre}</p>
-                <p><strong>Puesto:</strong> ${data.data.puesto}</p>
-                <p><strong>Fecha de Alta:</strong> ${data.data.fecha_alta}</p>
-                <p><strong>Salario:</strong> ${data.data.salario}</p>
-            `;
+            <p>${data.message}</p>
+            <p><strong>ID:</strong> ${data.data.id}</p>
+            <p><strong>Consorcio:</strong> ${data.data.consorcio}</p>
+            <p><strong>Empresa de Luz:</strong> ${data.data.empresa_luz}</p>
+            <p><strong>Empresa de Agua:</strong> ${data.data.empresa_agua}</p>
+            <p><strong>Fecha de Renovación:</strong> ${data.data.fecha_renovacion}</p>
+        `;
             } else {
                 messageDiv.innerHTML = `<p>${data.message}</p>`;
             }
@@ -321,46 +339,42 @@ if (!isset($_SESSION['usuario'])) {
             document.getElementById('modalRespuesta').style.display = 'none';
         }
 
+        // Muestra el modal para agregar un nuevo servicio
         function showModalAgregar() {
             document.getElementById('modalAgregar').style.display = "block";
         }
 
+        // Oculta el modal para agregar
         function hideModalAgregar() {
             document.getElementById('modalAgregar').style.display = "none";
         }
 
-        function showModalModificar() {
-            document.getElementById('modalModificar').style.display = "block";
-        }
-
-        function hideModalModificar() {
-            document.getElementById('modalModificar').style.display = "none";
-        }
-
+        // Muestra el modal para ver el PDF
         function showModalVerPDF(id) {
             document.getElementById('pdfViewer').src = `ver_pdf.php?id=${id}`;
             document.getElementById('modalVerPDF').style.display = "block";
         }
 
+        // Oculta el modal de visualización de PDF
         function hideModalVerPDF() {
             document.getElementById('modalVerPDF').style.display = "none";
             document.getElementById('pdfViewer').src = "";
         }
 
-
-        function cargarEmpleados() {
+        // Cargar servicios con filtros
+        function cargarServicios() {
             const filtroId = document.getElementById('filtroId') ? document.getElementById('filtroId').value : '';
-            const filtroNombre = document.getElementById('filtroNombre') ? document.getElementById('filtroNombre').value : '';
-            const filtroPuesto = document.getElementById('filtroPuesto') ? document.getElementById('filtroPuesto').value : '';
-            const filtroFecha = document.getElementById('filtroFecha') ? document.getElementById('filtroFecha').value : '';
-            const filtroSalario = document.getElementById('filtroSalario') ? document.getElementById('filtroSalario').value : '';
+            const filtroConsorcio = document.getElementById('filtroConsorcio') ? document.getElementById('filtroConsorcio').value : '';
+            const filtroLuz = document.getElementById('filtroLuz') ? document.getElementById('filtroLuz').value : '';
+            const filtroAgua = document.getElementById('filtroAgua') ? document.getElementById('filtroAgua').value : '';
+            const filtroFechaRenovacion = document.getElementById('filtroFechaRenovacion') ? document.getElementById('filtroFechaRenovacion').value : '';
 
             const params = new URLSearchParams();
             if (filtroId) params.append("filtroId", filtroId);
-            if (filtroNombre) params.append("filtroNombre", filtroNombre);
-            if (filtroPuesto) params.append("filtroPuesto", filtroPuesto);
-            if (filtroFecha) params.append("filtroFecha", filtroFecha);
-            if (filtroSalario) params.append("filtroSalario", filtroSalario);
+            if (filtroConsorcio) params.append("filtroConsorcio", filtroConsorcio);
+            if (filtroLuz) params.append("filtroLuz", filtroLuz);
+            if (filtroAgua) params.append("filtroAgua", filtroAgua);
+            if (filtroFechaRenovacion) params.append("filtroFechaRenovacion", filtroFechaRenovacion);
 
             const query = params.toString() ? `?${params.toString()}` : "";
 
@@ -379,27 +393,12 @@ if (!isset($_SESSION['usuario'])) {
                 });
         }
 
-
-
-        function borrar() {
-            document.getElementById("tablaResultados").innerHTML = "";
-        }
-
+        // Función para ver el PDF asociado a un servicio
         function verPDF(id) {
             showModalVerPDF(id);
         }
 
-        function modificarEmpleado(id, nombre, puesto, fecha_alta, salario) {
-            document.getElementById('modificarId').value = id;
-            document.getElementById('modificarNombre').value = nombre;
-            document.getElementById('modificarPuesto').value = puesto;
-            document.getElementById('modificarFechaAlta').value = fecha_alta;
-            document.getElementById('modificarSalario').value = salario;
-            showModalModificar();
-        }
-
-
-
+        // Función para enviar el formulario de modificación y mostrar el modal con los cambios
         document.getElementById('modificarForm').addEventListener('submit', function (event) {
             event.preventDefault();
             const formData = new FormData(this);
@@ -414,13 +413,13 @@ if (!isset($_SESSION['usuario'])) {
                     openModal(data);  // Muestra el modal de respuesta con los datos
                 })
                 .catch(error => {
-                    console.error("Error al modificar empleado:", error);
-                    openModal({ status: "error", message: "Error al modificar empleado." });
+                    console.error("Error al modificar el servicio:", error);
+                    openModal({ status: "error", message: "Error al modificar el servicio." });
                 });
         });
 
-
-        document.getElementById('empleadoForm').addEventListener('submit', function (event) {
+        // Envío del formulario para agregar un nuevo servicio
+        document.getElementById('servicioForm').addEventListener('submit', function (event) {
             event.preventDefault();
             const formData = new FormData(this);
 
@@ -434,12 +433,13 @@ if (!isset($_SESSION['usuario'])) {
                     hideModalAgregar();
                 })
                 .catch(error => {
-                    alert("Error al agregar empleado: " + error);
+                    alert("Error al agregar servicio: " + error);
                 });
         });
 
-        function eliminarEmpleado(id) {
-            if (confirm("¿Estás seguro de que deseas eliminar este empleado?")) {
+        // Función para eliminar un servicio
+        function eliminarServicio(id) {
+            if (confirm("¿Estás seguro de que deseas eliminar este servicio?")) {
                 fetch("eliminar.php", {
                     method: "POST",
                     headers: {
@@ -452,32 +452,11 @@ if (!isset($_SESSION['usuario'])) {
                         alert(data);
                     })
                     .catch(error => {
-                        alert("Error al eliminar empleado: " + error);
+                        alert("Error al eliminar servicio: " + error);
                     });
             }
         }
 
-        function filtrarColumna(columna, input) {
-            const filtro = input.value.toLowerCase();
-            const tabla = document.getElementById("empleadosTable");
-            const tr = tabla.getElementsByTagName("tr");
-            for (let i = 1; i < tr.length; i++) {
-                const td = tr[i].getElementsByTagName("td")[columna];
-                if (td) {
-                    const textoValor = td.textContent || td.innerText;
-                    tr[i].style.display = textoValor.toLowerCase().indexOf(filtro) > -1 ? "" : "none";
-                }
-            }
-        }
-
-        function limpiarFiltros() {
-            const inputs = document.querySelectorAll(".filter-input");
-            inputs.forEach(input => {
-                if (input.type === "text" || input.tagName === "SELECT") {
-                    input.value = "";
-                }
-            });
-        }
     </script>
 </body>
 
