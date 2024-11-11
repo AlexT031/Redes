@@ -189,11 +189,7 @@ if (!isset($_SESSION['usuario'])) {
         </tbody>
     </table>
 
-    <!-- Botón para cargar la tabla con los filtros -->
-    <button onclick="cargarEmpleados()">Cargar Tabla</button>
 
-    <!-- Contenedor de la Tabla -->
-    <div id="tablaResultados"></div>
 
     <div id="modalModificar" class="modal">
         <div class="modal-content">
