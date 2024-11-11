@@ -242,15 +242,31 @@ if (!isset($_SESSION['usuario'])) {
     }
 
     function cargarEmpleados() {
-        fetch("listar.php")
+            // Obtiene los valores de los filtros
+            const filtroId = document.getElementById('filtroId').value;
+            const filtroNombre = document.getElementById('filtroNombre').value;
+            const filtroPuesto = document.getElementById('filtroPuesto').value;
+            const filtroFecha = document.getElementById('filtroFecha').value;
+            const filtroSalario = document.getElementById('filtroSalario').value;
+
+            // Crea la solicitud con fetch y envía los datos a listar.php
+            fetch("listar.php", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `filtroId=${filtroId}&filtroNombre=${filtroNombre}&filtroPuesto=${filtroPuesto}&filtroFecha=${filtroFecha}&filtroSalario=${filtroSalario}`
+            })
             .then(response => response.text())
             .then(data => {
+                // Actualiza la tabla
                 document.getElementById("empleados-table").innerHTML = data;
             })
             .catch(error => {
                 alert("Error al cargar empleados: " + error);
             });
-    }
+        }
+
 
     function borrar() {
         document.getElementById("empleados-table").innerHTML = "";
@@ -268,7 +284,6 @@ if (!isset($_SESSION['usuario'])) {
         document.getElementById('modificarSalario').value = salario;
         showModalModificar();
     }
-
 
     document.getElementById('modificarForm').addEventListener('submit', function(event) {
         event.preventDefault();
