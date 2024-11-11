@@ -186,7 +186,7 @@ if (!isset($_SESSION['usuario'])) {
         <div class="modal-content">
             <span class="close" onclick="hideModalModificar()">&times;</span>
             <h2>Modificar Empleado</h2>
-            <form id="modificarForm" method="POST">
+            <form id="modificarForm" method="POST" onsubmit="enviarModificacion(event)">
                 <input type="hidden" id="modificarId" name="id">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="modificarNombre" name="nombre" required><br>
@@ -330,14 +330,25 @@ if (!isset($_SESSION['usuario'])) {
             showModalVerPDF(id);
         }
 
-        function modificarEmpleado(id, nombre, puesto, fecha_alta, salario) {
-            document.getElementById('modificarId').value = id;
-            document.getElementById('modificarNombre').value = nombre;
-            document.getElementById('modificarPuesto').value = puesto;
-            document.getElementById('modificarFechaAlta').value = fecha_alta;
-            document.getElementById('modificarSalario').value = salario;
-            showModalModificar();
-        }
+        function enviarModificacion(event) {
+        event.preventDefault();
+        const formData = new FormData(document.getElementById("modificarForm"));
+        
+        fetch('modificar.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            hideModalModificar();
+            openModal(data); // Muestra la respuesta en el modal
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            openModal("Error al actualizar el empleado.");
+        });
+    }
+
 
 
         document.getElementById('modificarForm').addEventListener('submit', function (event) {
