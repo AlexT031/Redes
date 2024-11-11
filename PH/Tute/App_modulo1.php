@@ -143,7 +143,7 @@ if (!isset($_SESSION['usuario'])) {
 <body>
     <h1>Gestión de Empleados</h1>
     <button class="add-btn" onclick="showModalAgregar()">Agregar Nuevo Empleado</button>
-    <button id="cargarTableBtn" onclick="cargarEmpleados()">Cargar Tabla</button>
+    <button onclick="cargarEmpleados()">Cargar Tabla</button>
     <button id="borrarTableBtn" onclick="borrar()">Borrar Tabla</button>
     <button onclick="limpiarFiltros()">Limpiar Filtros</button>
     <label for="ordenar">Ordenar por:</label>
@@ -313,7 +313,7 @@ if (!isset($_SESSION['usuario'])) {
 
 
         function borrar() {
-            document.getElementById("empleados-table").innerHTML = "";
+            document.getElementById("tablaResultados").innerHTML = "";
         }
 
         function verPDF(id) {
