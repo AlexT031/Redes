@@ -7,20 +7,22 @@ if (!isset($_SESSION['usuario'])) {
 
 include 'db_connect.php';
 
+// Filtros para los campos de la tabla servicios
 $filtroId = isset($_GET['filtroId']) ? $_GET['filtroId'] : '';
-$filtroNombre = isset($_GET['filtroNombre']) ? $_GET['filtroNombre'] : '';
-$filtroPuesto = isset($_GET['filtroPuesto']) ? $_GET['filtroPuesto'] : '';
-$filtroFecha = isset($_GET['filtroFecha']) ? $_GET['filtroFecha'] : '';
-$filtroSalario = isset($_GET['filtroSalario']) ? $_GET['filtroSalario'] : '';
+$filtroConsorcio = isset($_GET['filtroConsorcio']) ? $_GET['filtroConsorcio'] : '';
+$filtroLuz = isset($_GET['filtroLuz']) ? $_GET['filtroLuz'] : '';
+$filtroAgua = isset($_GET['filtroAgua']) ? $_GET['filtroAgua'] : '';
+$filtroFechaRenovacion = isset($_GET['filtroFechaRenovacion']) ? $_GET['filtroFechaRenovacion'] : '';
 
-$query = "SELECT * FROM empleados";
+$query = "SELECT * FROM servicios";
 $conditions = [];
 
+// Construcción de los filtros según los campos
 if ($filtroId) $conditions[] = "id LIKE :filtroId";
-if ($filtroNombre) $conditions[] = "nombre LIKE :filtroNombre";
-if ($filtroPuesto) $conditions[] = "puesto = :filtroPuesto";
-if ($filtroFecha) $conditions[] = "fecha_alta LIKE :filtroFecha";
-if ($filtroSalario) $conditions[] = "salario LIKE :filtroSalario";
+if ($filtroConsorcio) $conditions[] = "consorcio LIKE :filtroConsorcio";
+if ($filtroLuz) $conditions[] = "empresa_luz = :filtroLuz";
+if ($filtroAgua) $conditions[] = "empresa_agua = :filtroAgua";
+if ($filtroFechaRenovacion) $conditions[] = "fecha_renovacion LIKE :filtroFechaRenovacion";
 
 if (count($conditions) > 0) {
     $query .= " WHERE " . implode(" AND ", $conditions);
@@ -28,27 +30,43 @@ if (count($conditions) > 0) {
 
 $stmt = $conn->prepare($query);
 
-// Asignar parámetros de los filtros
+// Asignación de los valores de los filtros
 if ($filtroId) $stmt->bindValue(':filtroId', "%$filtroId%");
-if ($filtroNombre) $stmt->bindValue(':filtroNombre', "%$filtroNombre%");
-if ($filtroPuesto) $stmt->bindValue(':filtroPuesto', $filtroPuesto);
-if ($filtroFecha) $stmt->bindValue(':filtroFecha', "%$filtroFecha%");
-if ($filtroSalario) $stmt->bindValue(':filtroSalario', "%$filtroSalario%");
+if ($filtroConsorcio) $stmt->bindValue(':filtroConsorcio', "%$filtroConsorcio%");
+if ($filtroLuz) $stmt->bindValue(':filtroLuz', $filtroLuz);
+if ($filtroAgua) $stmt->bindValue(':filtroAgua', $filtroAgua);
+if ($filtroFechaRenovacion) $stmt->bindValue(':filtroFechaRenovacion', "%$filtroFechaRenovacion%");
 
 $stmt->execute();
 
+// Generación de la tabla con los registros de servicios
 echo "<table border='1'>";
+echo "<tr>
+        <th>ID</th>
+        <th>Consorcio</th>
+        <th>Empresa de Luz</th>
+        <th>Empresa de Agua</th>
+        <th>Fecha de Renovación</th>
+        <th>PDF</th>
+        <th>Acciones</th>
+      </tr>";
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $id = htmlspecialchars($row['id'], ENT_QUOTES);
+    $consorcio = htmlspecialchars($row['consorcio'], ENT_QUOTES);
+    $empresa_luz = htmlspecialchars($row['empresa_luz'], ENT_QUOTES);
+    $empresa_agua = htmlspecialchars($row['empresa_agua'], ENT_QUOTES);
+    $fecha_renovacion = htmlspecialchars($row['fecha_renovacion'], ENT_QUOTES);
+
     echo "<tr>";
-    echo "<td>{$row['id']}</td>";
-    echo "<td>{$row['nombre']}</td>";
-    echo "<td>{$row['puesto']}</td>";
-    echo "<td>{$row['fecha_alta']}</td>";
-    echo "<td>{$row['salario']}</td>";
-    echo "<td><button onclick=\"verPDF({$row['id']})\">Ver PDF</button></td>";
+    echo "<td>{$id}</td>";
+    echo "<td>{$consorcio}</td>";
+    echo "<td>{$empresa_luz}</td>";
+    echo "<td>{$empresa_agua}</td>";
+    echo "<td>{$fecha_renovacion}</td>";
+    echo "<td><button onclick=\"verPDF('{$id}')\">Ver PDF</button></td>";
     echo "<td>
-            <button onclick=\"modificarEmpleado({$row['id']}, '{$row['nombre']}', '{$row['puesto']}', '{$row['fecha_alta']}', {$row['salario']})\">Modificar</button>
-            <button onclick=\"eliminarEmpleado({$row['id']})\">Eliminar</button>
+            <button onclick=\"modificarServicio('{$id}', '{$consorcio}', '{$empresa_luz}', '{$empresa_agua}', '{$fecha_renovacion}')\">Modificar</button>
+            <button onclick=\"eliminarServicio('{$id}')\">Eliminar</button>
           </td>";
     echo "</tr>";
 }
