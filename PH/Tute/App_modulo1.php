@@ -243,7 +243,7 @@ if (!isset($_SESSION['usuario'])) {
 
     function cargarEmpleados() {
             // Obtener valores de filtros
-            const filtroId = document.getElementById('id').value;
+            const filtroId = document.getElementById('filtroId').value;
             const filtroNombre = document.getElementById('filtroNombre').value;
             const filtroPuesto = document.getElementById('filtroPuesto').value;
             const filtroFecha = document.getElementById('filtroFecha').value;
