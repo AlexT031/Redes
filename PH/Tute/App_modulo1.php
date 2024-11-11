@@ -166,7 +166,7 @@ if (!isset($_SESSION['usuario'])) {
                 <th>PDF</th>
                 <th>Acciones</th>
             </tr>
-            <tr>
+            <tr id="filtrosTabla">
                 <td><input type="text" id="filtroId" class="filter-input" placeholder="Filtro ID"></td>
                 <td><input type="text" id="filtroNombre" class="filter-input" placeholder="Filtro Nombre"></td>
                 <td>
@@ -399,7 +399,7 @@ if (!isset($_SESSION['usuario'])) {
         }
 
         function limpiarFiltros() {
-            const inputs = document.querySelectorAll("#empleadosTable input[type='text']");
+            const inputs = document.querySelectorAll("#filtrosTabla input[type='text']");
             inputs.forEach(input => {
                 input.value = "";
                 filtrarColumna(Array.prototype.indexOf.call(inputs, input), input);
