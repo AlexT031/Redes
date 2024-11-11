@@ -276,9 +276,9 @@ if (!isset($_SESSION['usuario'])) {
     <!-- Modal para mostrar respuesta -->
     <div id="modalRespuesta">
         <div id="modal-content">
-            <button id="close-button" onclick="closeModal()">✖</button>
+            <span id="close-button" onclick="closeModal()">&times;</span>
             <h2>Respuesta del servidor</h2>
-            <div id="modal-message" width="100%" height="500px"></div>
+            <div id="modal-message" width="100%" height="300px"></div>
         </div>
     </div>
 
