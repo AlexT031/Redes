@@ -351,6 +351,16 @@ if (!isset($_SESSION['usuario'])) {
             document.getElementById('modalAgregar').style.display = "none";
         }
 
+        function showModalModificar() {
+            document.getElementById('modalModificar').style.display = "block";
+        }
+
+        function hideModalModificar() {
+            document.getElementById('modalModificar').style.display = "none";
+        }
+
+
+
         // Muestra el modal para ver el PDF
         function showModalVerPDF(id) {
             document.getElementById('pdfViewer').src = `ver_pdf.php?id=${id}`;
