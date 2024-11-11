@@ -178,7 +178,7 @@ if (!isset($_SESSION['usuario'])) {
 <body>
     <h1>Gestión de Consorcios</h1>
     <button class="add-btn" onclick="showModalAgregar()">Agregar Nuevo Consorcio</button>
-    <button onclick="cargarEmpleados()">Cargar Tabla</button>
+    <button onclick="cargarServicios()">Cargar Tabla</button>
     <button id="borrarTableBtn" onclick="borrar()">Borrar Tabla</button>
     <button onclick="limpiarFiltros()">Limpiar Filtros</button>
 
@@ -456,6 +456,16 @@ if (!isset($_SESSION['usuario'])) {
                     });
             }
         }
+        
+        function limpiarFiltros() {
+            const inputs = document.querySelectorAll(".filter-input");
+            inputs.forEach(input => {
+                if (input.type === "text" || input.tagName === "SELECT") {
+                    input.value = "";
+                }
+            });
+        }
+
 
     </script>
 </body>
