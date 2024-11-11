@@ -130,7 +130,7 @@ if (!isset($_SESSION['usuario'])) {
         <option value="salario">Salario</option>
     </select>
 
-    <table border="1" id="tablaResultados">
+    <table border="1" id="empleadosTable">
         <thead>
             <tr>
                 <th>ID <input type="text" id="filtroId"></th>
@@ -150,7 +150,7 @@ if (!isset($_SESSION['usuario'])) {
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody id="empleados-table"></tbody>
+        <tbody id="tablaResultados"></tbody>
     </table>
 
     <div id="modalModificar" class="modal">
