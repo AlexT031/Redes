@@ -239,6 +239,15 @@ if (!isset($_SESSION['usuario'])) {
         </div>
     </div>
 
+    <div id="modalServidor">
+        <div id="modal-content">
+            <button id="close-button" onclick="closeModal()">✖</button>
+            <h2>Respuesta del servidor</h2>
+            <div id="modal-message"></div>
+        </div>
+    </div>
+
+
     <form action="destruirsesion.php" method="post">
         <button type="submit">Terminar sesión</button>
     </form>
@@ -269,6 +278,16 @@ if (!isset($_SESSION['usuario'])) {
             document.getElementById('modalVerPDF').style.display = "none";
             document.getElementById('pdfViewer').src = "";
         }
+
+        function closeModal() {
+            document.getElementById('modalServidor').style.display = 'none';
+        }
+
+        function openModal(message) {
+            document.getElementById('modal-message').innerHTML = message;
+            document.getElementById('modalServidor').style.display = 'flex';
+        }
+
 
         function cargarEmpleados() {
             const filtroId = document.getElementById('filtroId') ? document.getElementById('filtroId').value : '';
