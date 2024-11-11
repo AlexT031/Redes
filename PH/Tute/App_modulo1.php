@@ -133,10 +133,10 @@ if (!isset($_SESSION['usuario'])) {
     <table border="1" id="empleadosTable">
         <thead>
             <tr>
-                <th>ID <input type="text" id="filtroId"></th>
-                <th>Nombre <input type="text" id="filtroNombre"></th>
+                <th>ID <input type="text"></th>
+                <th>Nombre <input type="text"></th>
                 <th>Puesto 
-                    <select id="filtroPuesto">
+                    <select>
                         <option value="">Todos</option>
                         <option value="Gerente">Gerente</option>
                         <option value="Supervisor">Supervisor</option>
@@ -144,13 +144,13 @@ if (!isset($_SESSION['usuario'])) {
                         <option value="Operario">Operario</option>
                     </select>
                 </th>
-                <th>Fecha de Alta <input type="text" id="filtroFecha"></th>
-                <th>Salario <input type="text" id="filtroSalario"></th>
+                <th>Fecha de Alta <input type="text"></th>
+                <th>Salario <input type="text"></th>
                 <th>PDF</th>
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody id="tablaResultados"></tbody>
+        <tbody id="empleados-table"></tbody>
     </table>
 
     <div id="modalModificar" class="modal">
@@ -242,37 +242,15 @@ if (!isset($_SESSION['usuario'])) {
     }
 
     function cargarEmpleados() {
-            // Obtener valores de filtros
-            const filtroId = document.getElementById('filtroId').value;
-            const filtroNombre = document.getElementById('filtroNombre').value;
-            const filtroPuesto = document.getElementById('filtroPuesto').value;
-            const filtroFecha = document.getElementById('filtroFecha').value;
-            const filtroSalario = document.getElementById('filtroSalario').value;
-
-            // Crear parámetros solo si hay valores en los filtros
-            const params = new URLSearchParams();
-            if (filtroId) params.append("filtroId", filtroId);
-            if (filtroNombre) params.append("filtroNombre", filtroNombre);
-            if (filtroPuesto) params.append("filtroPuesto", filtroPuesto);
-            if (filtroFecha) params.append("filtroFecha", filtroFecha);
-            if (filtroSalario) params.append("filtroSalario", filtroSalario);
-
-            // Cargar tabla sin filtros si todos están vacíos
-            const query = params.toString() ? `?${params.toString()}` : "";
-
-            // Realizar petición usando fetch
-            fetch(`listar.php${query}`)
-                .then(response => response.text())
-                .then(data => {
-                    // Mostrar los resultados en la tabla
-                    document.getElementById("tablaResultados").innerHTML = data;
-                })
-                .catch(error => {
-                    console.error("Error al cargar la tabla:", error);
-                });
-        }
-
-
+        fetch("listar.php")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("empleados-table").innerHTML = data;
+            })
+            .catch(error => {
+                alert("Error al cargar empleados: " + error);
+            });
+    }
 
     function borrar() {
         document.getElementById("empleados-table").innerHTML = "";
@@ -290,6 +268,7 @@ if (!isset($_SESSION['usuario'])) {
         document.getElementById('modificarSalario').value = salario;
         showModalModificar();
     }
+
 
     document.getElementById('modificarForm').addEventListener('submit', function(event) {
         event.preventDefault();
