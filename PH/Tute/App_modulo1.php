@@ -130,7 +130,7 @@ if (!isset($_SESSION['usuario'])) {
         <option value="salario">Salario</option>
     </select>
 
-    <table border="1" id="empleadosTable">
+    <table border="1" id="tablaResultados">
         <thead>
             <tr>
                 <th>ID <input type="text" id="filtroId"></th>
