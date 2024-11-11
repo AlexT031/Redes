@@ -176,8 +176,8 @@ if (!isset($_SESSION['usuario'])) {
 </head>
 
 <body>
-    <h1>Gestión de Empleados</h1>
-    <button class="add-btn" onclick="showModalAgregar()">Agregar Nuevo Empleado</button>
+    <h1>Gestión de Consorcios</h1>
+    <button class="add-btn" onclick="showModalAgregar()">Agregar Nuevo Consorcio</button>
     <button onclick="cargarEmpleados()">Cargar Tabla</button>
     <button id="borrarTableBtn" onclick="borrar()">Borrar Tabla</button>
     <button onclick="limpiarFiltros()">Limpiar Filtros</button>
@@ -185,10 +185,10 @@ if (!isset($_SESSION['usuario'])) {
     <table>
         <tr>
             <th>ID</th>
-            <th>Nombre</th>
-            <th>Puesto</th>
-            <th>Fecha de Alta</th>
-            <th>Salario</th>
+            <th>consorcio</th>
+            <th>empresa_luz</th>
+            <th>empresa_agua</th>
+            <th>fecha_renovacion</th>
             <th>PDF</th>
             <th>Acciones</th>
         </tr>
@@ -196,16 +196,24 @@ if (!isset($_SESSION['usuario'])) {
             <td><input type="text" id="filtroId" class="filter-input" placeholder="Filtro ID"></td>
             <td><input type="text" id="filtroNombre" class="filter-input" placeholder="Filtro Nombre"></td>
             <td>
-                <select id="filtroPuesto" class="filter-input">
+                <select id="filtroEmpresa_luz" class="filter-input">
                     <option value="">Todos</option>
-                    <option value="Gerente">Gerente</option>
-                    <option value="Supervisor">Supervisor</option>
-                    <option value="Asistente">Asistente</option>
-                    <option value="Operario">Operario</option>
+                    <option value="Edesur">Edesur</option>
+                    <option value="Edenor">Edenor </option>
+                    <option value="Epec">Epec</option>
+                    <option value="Emsa">Emsa</option>
+                </select>
+            </td>
+            <td>
+                <select id="filtroEmpresa_agua" class="filter-input">
+                    <option value="">Todos</option>
+                    <option value="AySA">AySA</option>
+                    <option value="ABSA">ABSA</option>
+                    <option value="ASSA">ASSA</option>
+                    <option value="Sameep">Sameep</option>
                 </select>
             </td>
             <td><input type="text" id="filtroFecha" class="filter-input" placeholder="Filtro Fecha"></td>
-            <td><input type="text" id="filtroSalario" class="filter-input" placeholder="Filtro Salario"></td>
             <td></td>
             <td></td>
         </tr>

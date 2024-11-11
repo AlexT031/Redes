@@ -11,12 +11,12 @@ include 'db_connect.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
 
-    $sql = "DELETE FROM empleados WHERE id = ?";
+    $sql = "DELETE FROM servicios WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt->execute([$id])) {
-        echo "Empleado eliminado exitosamente.";
+        echo "Consorcio eliminado exitosamente.";
     } else {
-        echo "Error al eliminar empleado.";
+        echo "Error al eliminar Consorcio.";
     }
 }
 ?>
