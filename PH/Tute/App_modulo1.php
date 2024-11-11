@@ -156,7 +156,7 @@ if (!isset($_SESSION['usuario'])) {
     </select>
 
     <table>
-        <thead>
+        <>
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
@@ -166,7 +166,7 @@ if (!isset($_SESSION['usuario'])) {
                 <th>PDF</th>
                 <th>Acciones</th>
             </tr>
-            <tr id="filtrosTabla">
+            <tr>
                 <td><input type="text" id="filtroId" class="filter-input" placeholder="Filtro ID"></td>
                 <td><input type="text" id="filtroNombre" class="filter-input" placeholder="Filtro Nombre"></td>
                 <td>
