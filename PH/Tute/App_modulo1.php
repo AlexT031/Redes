@@ -133,8 +133,8 @@ if (!isset($_SESSION['usuario'])) {
     <table border="1" id="empleadosTable">
         <thead>
             <tr>
-                <th>ID <input type="text" onkeyup="filtrarColumna(0, this)"></th>
-                <th>Nombre <input type="text" onkeyup="filtrarColumna(1, this)"></th>
+                <th>ID <input type="text"></th>
+                <th>Nombre <input type="text"></th>
                 <th>Puesto 
                     <select onchange="filtrarColumna(2, this)">
                         <option value="">Todos</option>
@@ -144,8 +144,8 @@ if (!isset($_SESSION['usuario'])) {
                         <option value="Operario">Operario</option>
                     </select>
                 </th>
-                <th>Fecha de Alta <input type="text" onkeyup="filtrarColumna(3, this)"></th>
-                <th>Salario <input type="text" onkeyup="filtrarColumna(4, this)"></th>
+                <th>Fecha de Alta <input type="text"></th>
+                <th>Salario <input type="text"></th>
                 <th>PDF</th>
                 <th>Acciones</th>
             </tr>
@@ -242,30 +242,36 @@ if (!isset($_SESSION['usuario'])) {
     }
 
     function cargarEmpleados() {
-            // Obtiene los valores de los filtros
+            // Obtener valores de filtros
             const filtroId = document.getElementById('filtroId').value;
             const filtroNombre = document.getElementById('filtroNombre').value;
             const filtroPuesto = document.getElementById('filtroPuesto').value;
             const filtroFecha = document.getElementById('filtroFecha').value;
             const filtroSalario = document.getElementById('filtroSalario').value;
 
-            // Crea la solicitud con fetch y envía los datos a listar.php
-            fetch("listar.php", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `filtroId=${filtroId}&filtroNombre=${filtroNombre}&filtroPuesto=${filtroPuesto}&filtroFecha=${filtroFecha}&filtroSalario=${filtroSalario}`
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Actualiza la tabla
-                document.getElementById("empleados-table").innerHTML = data;
-            })
-            .catch(error => {
-                alert("Error al cargar empleados: " + error);
-            });
+            // Crear parámetros solo si hay valores en los filtros
+            const params = new URLSearchParams();
+            if (filtroId) params.append("filtroId", filtroId);
+            if (filtroNombre) params.append("filtroNombre", filtroNombre);
+            if (filtroPuesto) params.append("filtroPuesto", filtroPuesto);
+            if (filtroFecha) params.append("filtroFecha", filtroFecha);
+            if (filtroSalario) params.append("filtroSalario", filtroSalario);
+
+            // Cargar tabla sin filtros si todos están vacíos
+            const query = params.toString() ? `?${params.toString()}` : "";
+
+            // Realizar petición usando fetch
+            fetch(`listar.php${query}`)
+                .then(response => response.text())
+                .then(data => {
+                    // Mostrar los resultados en la tabla
+                    document.getElementById("tablaResultados").innerHTML = data;
+                })
+                .catch(error => {
+                    console.error("Error al cargar la tabla:", error);
+                });
         }
+
 
 
     function borrar() {
