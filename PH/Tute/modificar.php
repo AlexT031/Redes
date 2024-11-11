@@ -4,9 +4,10 @@ if (!isset($_SESSION['usuario'])) {
     header("Location: formularioDeLogin.html");
     exit();
 }
-?>
-<?php
+
 include 'db_connect.php';
+
+header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
@@ -18,9 +19,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sql = "UPDATE empleados SET nombre = ?, puesto = ?, fecha_alta = ?, salario = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt->execute([$nombre, $puesto, $fecha_alta, $salario, $id])) {
-        echo "Empleado modificado exitosamente.";
+        echo json_encode([
+            "status" => "success",
+            "message" => "Empleado modificado exitosamente.",
+            "data" => [
+                "id" => $id,
+                "nombre" => $nombre,
+                "puesto" => $puesto,
+                "fecha_alta" => $fecha_alta,
+                "salario" => $salario
+            ]
+        ]);
     } else {
-        echo "Error al modificar empleado.";
+        echo json_encode([
+            "status" => "error",
+            "message" => "Error al modificar empleado."
+        ]);
     }
 }
 ?>

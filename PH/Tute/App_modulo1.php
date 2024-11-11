@@ -176,7 +176,6 @@ if (!isset($_SESSION['usuario'])) {
         </tr>
         </thead>
         <tbody id="tablaResultados">
-            <!-- Aquí se cargarán los resultados -->
         </tbody>
     </table>
 
@@ -239,12 +238,47 @@ if (!isset($_SESSION['usuario'])) {
         </div>
     </div>
 
+    <!-- Modal para mostrar respuesta -->
+    <div id="modalRespuesta">
+        <div id="modal-content">
+            <button id="close-button" onclick="closeModal()">✖</button>
+            <h2>Respuesta del servidor</h2>
+            <div id="modal-message"></div>
+        </div>
+    </div>
+
+
 
     <form action="destruirsesion.php" method="post">
         <button type="submit">Terminar sesión</button>
     </form>
 
     <script>
+        function openModal(data) {
+            const messageDiv = document.getElementById('modal-message');
+
+            // Construir el mensaje de respuesta con los datos actualizados
+            if (data.status === "success") {
+                messageDiv.innerHTML = `
+                <p>${data.message}</p>
+                <p><strong>ID:</strong> ${data.data.id}</p>
+                <p><strong>Nombre:</strong> ${data.data.nombre}</p>
+                <p><strong>Puesto:</strong> ${data.data.puesto}</p>
+                <p><strong>Fecha de Alta:</strong> ${data.data.fecha_alta}</p>
+                <p><strong>Salario:</strong> ${data.data.salario}</p>
+            `;
+            } else {
+                messageDiv.innerHTML = `<p>${data.message}</p>`;
+            }
+
+            document.getElementById('modalRespuesta').style.display = 'flex';
+        }
+
+        // Función para cerrar el modal
+        function closeModal() {
+            document.getElementById('modalRespuesta').style.display = 'none';
+        }
+
         function showModalAgregar() {
             document.getElementById('modalAgregar').style.display = "block";
         }
@@ -314,13 +348,13 @@ if (!isset($_SESSION['usuario'])) {
         }
 
         function modificarEmpleado(id, nombre, puesto, fecha_alta, salario) {
-        document.getElementById('modificarId').value = id;
-        document.getElementById('modificarNombre').value = nombre;
-        document.getElementById('modificarPuesto').value = puesto;
-        document.getElementById('modificarFechaAlta').value = fecha_alta;
-        document.getElementById('modificarSalario').value = salario;
-        showModalModificar();
-    }
+            document.getElementById('modificarId').value = id;
+            document.getElementById('modificarNombre').value = nombre;
+            document.getElementById('modificarPuesto').value = puesto;
+            document.getElementById('modificarFechaAlta').value = fecha_alta;
+            document.getElementById('modificarSalario').value = salario;
+            showModalModificar();
+        }
 
 
 
@@ -332,15 +366,17 @@ if (!isset($_SESSION['usuario'])) {
                 method: "POST",
                 body: formData
             })
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(data => {
-                    alert(data);
-                    hideModalModificar();
+                    closeModal();  // Cierra el modal de modificación
+                    openModal(data);  // Muestra el modal de respuesta con los datos
                 })
                 .catch(error => {
-                    alert("Error al modificar empleado: " + error);
+                    console.error("Error al modificar empleado:", error);
+                    openModal({ status: "error", message: "Error al modificar empleado." });
                 });
         });
+
 
         document.getElementById('empleadoForm').addEventListener('submit', function (event) {
             event.preventDefault();
