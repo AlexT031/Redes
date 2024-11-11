@@ -251,6 +251,7 @@ if (!isset($_SESSION['usuario'])) {
                 alert("Error al cargar empleados: " + error);
             });
     }
+    
 
     function borrar() {
         document.getElementById("empleados-table").innerHTML = "";
