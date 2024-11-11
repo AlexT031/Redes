@@ -146,14 +146,6 @@ if (!isset($_SESSION['usuario'])) {
     <button onclick="cargarEmpleados()">Cargar Tabla</button>
     <button id="borrarTableBtn" onclick="borrar()">Borrar Tabla</button>
     <button onclick="limpiarFiltros()">Limpiar Filtros</button>
-    <label for="ordenar">Ordenar por:</label>
-    <select id="ordenar" onchange="ordenarTabla()">
-        <option value="id">ID</option>
-        <option value="nombre">Nombre</option>
-        <option value="puesto">Puesto</option>
-        <option value="fecha_alta">Fecha de Alta</option>
-        <option value="salario">Salario</option>
-    </select>
 
     <table>
         <tr>
@@ -405,46 +397,6 @@ if (!isset($_SESSION['usuario'])) {
                 }
             });
         }
-
-        function ordenarTabla() {
-            const tabla = document.getElementById("empleadosTable");
-            const filas = Array.from(tabla.rows).slice(1); // Excluye el encabezado
-            const criterio = document.getElementById('ordenar').value;
-
-            const indice = {
-                id: 0,
-                nombre: 1,
-                puesto: 2,
-                fecha_alta: 3,
-                salario: 4
-            }[criterio];
-
-            filas.sort((a, b) => {
-                let valorA = a.cells[indice].innerText.trim();
-                let valorB = b.cells[indice].innerText.trim();
-
-                // Ordenar como número si es ID o salario
-                if (criterio === 'id' || criterio === 'salario') {
-                    valorA = parseFloat(valorA) || 0;
-                    valorB = parseFloat(valorB) || 0;
-                    return valorA - valorB;
-                }
-
-                // Ordenar como fecha si es fecha_alta
-                if (criterio === 'fecha_alta') {
-                    const fechaA = new Date(valorA);
-                    const fechaB = new Date(valorB);
-                    return fechaA - fechaB;
-                }
-
-                // Ordenar como cadena de texto (por defecto)
-                return valorA.localeCompare(valorB);
-            });
-
-            // Reinserta las filas ordenadas en la tabla
-            filas.forEach(fila => tabla.appendChild(fila));
-        }
-
     </script>
 </body>
 
