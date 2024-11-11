@@ -471,6 +471,15 @@ if (!isset($_SESSION['usuario'])) {
         function borrar() {
             document.getElementById("tablaResultados").innerHTML = "";
         }
+
+        function modificarServicio(id, nombre, puesto, fecha_alta, salario) {
+            document.getElementById('modificarId').value = id;
+            document.getElementById('modificarNombre').value = nombre;
+            document.getElementById('modificarPuesto').value = puesto;
+            document.getElementById('modificarFechaAlta').value = fecha_alta;
+            document.getElementById('modificarSalario').value = salario;
+            showModalModificar();
+        }
     </script>
 </body>
 
