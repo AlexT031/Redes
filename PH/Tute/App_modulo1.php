@@ -399,10 +399,11 @@ if (!isset($_SESSION['usuario'])) {
         }
 
         function limpiarFiltros() {
-            const inputs = document.querySelectorAll("#filter-input input[type='text']");
+            const inputs = document.querySelectorAll(".filter-input");
             inputs.forEach(input => {
-                input.value = "";
-                filtrarColumna(Array.prototype.indexOf.call(inputs, input), input);
+                if (input.type === "text" || input.tagName === "SELECT") {
+                    input.value = "";
+                }
             });
         }
 
