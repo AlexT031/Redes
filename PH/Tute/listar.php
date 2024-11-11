@@ -38,7 +38,6 @@ if ($filtroSalario) $stmt->bindValue(':filtroSalario', "%$filtroSalario%");
 $stmt->execute();
 
 echo "<table border='1'>";
-echo "<tr><th>ID</th><th>Nombre</th><th>Puesto</th><th>Fecha de Alta</th><th>Salario</th><th>PDF</th><th>Acciones</th></tr>";
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     echo "<tr>";
     echo "<td>{$row['id']}</td>";
