@@ -97,28 +97,26 @@ if (!isset($_SESSION['usuario'])) {
             background-color: #45a049;
         }
 
+        
+
         .modal {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 1;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
-            /* Fondo oscuro semitransparente */
         }
 
         .modal-content {
             background-color: white;
+            margin: 10% auto;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 10px;
             width: 60%;
-            max-width: 800px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            text-align: center;
         }
 
         .close {
@@ -126,12 +124,13 @@ if (!isset($_SESSION['usuario'])) {
             float: right;
             font-size: 28px;
             font-weight: bold;
-            cursor: pointer;
         }
 
         .close:hover,
         .close:focus {
             color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         input[type="text"],
@@ -459,7 +458,7 @@ if (!isset($_SESSION['usuario'])) {
                     });
             }
         }
-
+        
         function limpiarFiltros() {
             const inputs = document.querySelectorAll(".filter-input");
             inputs.forEach(input => {
