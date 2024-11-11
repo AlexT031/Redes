@@ -14,6 +14,41 @@ if (!isset($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD de Empleados</title>
     <style>
+        /* Estilos para el modal de respuesta */
+        #modalRespuesta {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        #modal-content {
+            background-color: #fff;
+            color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            text-align: left;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+        }
+
+        #close-button {
+            color: #333;
+            font-size: 20px;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
