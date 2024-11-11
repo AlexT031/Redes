@@ -321,6 +321,25 @@ if (!isset($_SESSION['usuario'])) {
             document.getElementById('modificarFechaRenovacion').value = fecha_renovacion;
             showModalModificar();
         }
+
+        function eliminarServicio(id) {
+            if (confirm("¿Estás seguro de que deseas eliminar este Consorcio?")) {
+                fetch("eliminar.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: new URLSearchParams({ "id": id })
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        alert(data);
+                    })
+                    .catch(error => {
+                        alert("Error al eliminar Consorcio: " + error);
+                    });
+            }
+        }
     </script>
 </body>
 </html>
