@@ -182,27 +182,28 @@ if (!isset($_SESSION['usuario'])) {
 
 
 
-    <!-- Formulario para modificar producto (puedes colocarlo en un modal de modificación si lo tienes) -->
-    <div id="modalModificarProducto" style="display: none;">
-        <!-- Contenido del formulario de modificación -->
-        <form id="modificarForm" method="POST" onsubmit="enviarModificacion(event)">
-            <!-- Campos del formulario -->
-            <input type="hidden" id="modificarId" name="id">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="modificarNombre" name="nombre" required><br>
-            <label for="puesto">Puesto:</label>
-            <select id="modificarPuesto" name="puesto" required>
-                <option value="Gerente">Gerente</option>
-                <option value="Supervisor">Supervisor</option>
-                <option value="Asistente">Asistente</option>
-                <option value="Operario">Operario</option>
-            </select><br>
-            <label for="fecha_alta">Fecha de Alta:</label>
-            <input type="date" id="modificarFechaAlta" name="fecha_alta" required><br>
-            <label for="salario">Salario:</label>
-            <input type="number" id="modificarSalario" name="salario" step="0.01" required><br>
-            <input type="submit" value="Guardar Cambios">
-        </form>
+    <div id="modalModificar" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="hideModalModificar()">&times;</span>
+            <h2>Modificar Empleado</h2>
+            <form id="modificarForm" method="POST">
+                <input type="hidden" id="modificarId" name="id">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="modificarNombre" name="nombre" required><br>
+                <label for="puesto">Puesto:</label>
+                <select id="modificarPuesto" name="puesto" required>
+                    <option value="Gerente">Gerente</option>
+                    <option value="Supervisor">Supervisor</option>
+                    <option value="Asistente">Asistente</option>
+                    <option value="Operario">Operario</option>
+                </select><br>
+                <label for="fecha_alta">Fecha de Alta:</label>
+                <input type="date" id="modificarFechaAlta" name="fecha_alta" required><br>
+                <label for="salario">Salario:</label>
+                <input type="number" id="modificarSalario" name="salario" step="0.01" required><br>
+                <input type="submit" value="Guardar Cambios">
+            </form>
+        </div>
     </div>
 
     <div id="modalAgregar" class="modal">
@@ -238,15 +239,6 @@ if (!isset($_SESSION['usuario'])) {
         </div>
     </div>
 
-    <!-- Modal exclusivo para la respuesta del servidor -->
-<div id="modalRespuesta">
-    <div id="modal-content">
-        <button id="close-button" onclick="closeModalRespuesta()">✖</button>
-        <h2>Respuesta del servidor</h2>
-        <div id="modal-message"></div>
-    </div>
-</div>
-
 
     <form action="destruirsesion.php" method="post">
         <button type="submit">Terminar sesión</button>
@@ -261,12 +253,7 @@ if (!isset($_SESSION['usuario'])) {
             document.getElementById('modalAgregar').style.display = "none";
         }
 
-        function showModalModificar(id, nombre, puesto, fecha_alta, salario) {
-            document.getElementById('modificarId').value = id;
-            document.getElementById('modificarNombre').value = nombre;
-            document.getElementById('modificarPuesto').value = puesto;
-            document.getElementById('modificarFechaAlta').value = fecha_alta;
-            document.getElementById('modificarSalario').value = salario;
+        function showModalModificar() {
             document.getElementById('modalModificar').style.display = "block";
         }
 
@@ -282,15 +269,6 @@ if (!isset($_SESSION['usuario'])) {
         function hideModalVerPDF() {
             document.getElementById('modalVerPDF').style.display = "none";
             document.getElementById('pdfViewer').src = "";
-        }
-
-        function closeModal() {
-            document.getElementById('modalServidor').style.display = 'none';
-        }
-
-        function openModal(message) {
-            document.getElementById('modal-message').innerHTML = message;
-            document.getElementById('modalServidor').style.display = 'flex';
         }
 
 
@@ -335,24 +313,14 @@ if (!isset($_SESSION['usuario'])) {
             showModalVerPDF(id);
         }
 
-        function enviarModificacion(event) {
-            event.preventDefault();
-            const formData = new FormData(document.getElementById("modificarForm"));
-
-            fetch('modificar.php', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.text())
-                .then(data => {
-                    hideModalModificar();
-                    openModal(data); // Muestra la respuesta en el modal
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    openModal("Error al actualizar el empleado.");
-                });
-        }
+        function modificarEmpleado(id, nombre, puesto, fecha_alta, salario) {
+        document.getElementById('modificarId').value = id;
+        document.getElementById('modificarNombre').value = nombre;
+        document.getElementById('modificarPuesto').value = puesto;
+        document.getElementById('modificarFechaAlta').value = fecha_alta;
+        document.getElementById('modificarSalario').value = salario;
+        showModalModificar();
+    }
 
 
 

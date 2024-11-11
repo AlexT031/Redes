@@ -38,24 +38,17 @@ if ($filtroSalario) $stmt->bindValue(':filtroSalario', "%$filtroSalario%");
 $stmt->execute();
 
 echo "<table border='1'>";
-echo "<tr><th>ID</th><th>Nombre</th><th>Puesto</th><th>Fecha de Alta</th><th>Salario</th><th>PDF</th><th>Acciones</th></tr>";
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    $id = htmlspecialchars($row['id'], ENT_QUOTES);
-    $nombre = htmlspecialchars($row['nombre'], ENT_QUOTES);
-    $puesto = htmlspecialchars($row['puesto'], ENT_QUOTES);
-    $fecha_alta = htmlspecialchars($row['fecha_alta'], ENT_QUOTES);
-    $salario = htmlspecialchars($row['salario'], ENT_QUOTES);
-
     echo "<tr>";
-    echo "<td>{$id}</td>";
-    echo "<td>{$nombre}</td>";
-    echo "<td>{$puesto}</td>";
-    echo "<td>{$fecha_alta}</td>";
-    echo "<td>{$salario}</td>";
-    echo "<td><button onclick=\"verPDF('{$id}')\">Ver PDF</button></td>";
+    echo "<td>{$row['id']}</td>";
+    echo "<td>{$row['nombre']}</td>";
+    echo "<td>{$row['puesto']}</td>";
+    echo "<td>{$row['fecha_alta']}</td>";
+    echo "<td>{$row['salario']}</td>";
+    echo "<td><button onclick=\"verPDF({$row['id']})\">Ver PDF</button></td>";
     echo "<td>
-            <button onclick=\"showModalModificar('{$id}', '{$nombre}', '{$puesto}', '{$fecha_alta}', {$salario})\">Modificar</button>
-            <button onclick=\"eliminarEmpleado('{$id}')\">Eliminar</button>
+            <button onclick=\"modificarEmpleado({$row['id']}, '{$row['nombre']}', '{$row['puesto']}', '{$row['fecha_alta']}', {$row['salario']})\">Modificar</button>
+            <button onclick=\"eliminarEmpleado({$row['id']})\">Eliminar</button>
           </td>";
     echo "</tr>";
 }
