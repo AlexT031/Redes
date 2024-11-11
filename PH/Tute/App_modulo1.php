@@ -261,7 +261,12 @@ if (!isset($_SESSION['usuario'])) {
             document.getElementById('modalAgregar').style.display = "none";
         }
 
-        function showModalModificar() {
+        function showModalModificar(id, nombre, puesto, fecha_alta, salario) {
+            document.getElementById('modificarId').value = id;
+            document.getElementById('modificarNombre').value = nombre;
+            document.getElementById('modificarPuesto').value = puesto;
+            document.getElementById('modificarFechaAlta').value = fecha_alta;
+            document.getElementById('modificarSalario').value = salario;
             document.getElementById('modalModificar').style.display = "block";
         }
 
@@ -331,23 +336,23 @@ if (!isset($_SESSION['usuario'])) {
         }
 
         function enviarModificacion(event) {
-        event.preventDefault();
-        const formData = new FormData(document.getElementById("modificarForm"));
-        
-        fetch('modificar.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            hideModalModificar();
-            openModal(data); // Muestra la respuesta en el modal
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            openModal("Error al actualizar el empleado.");
-        });
-    }
+            event.preventDefault();
+            const formData = new FormData(document.getElementById("modificarForm"));
+
+            fetch('modificar.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    hideModalModificar();
+                    openModal(data); // Muestra la respuesta en el modal
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    openModal("Error al actualizar el empleado.");
+                });
+        }
 
 
 
