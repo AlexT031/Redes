@@ -133,10 +133,10 @@ if (!isset($_SESSION['usuario'])) {
     <table border="1" id="empleadosTable">
         <thead>
             <tr>
-                <th>ID <input type="text"></th>
-                <th>Nombre <input type="text"></th>
+                <th>ID <input type="text" id="filtroId"></th>
+                <th>Nombre <input type="text" id="filtroNombre"></th>
                 <th>Puesto 
-                    <select onchange="filtrarColumna(2, this)">
+                    <select id="filtroPuesto">
                         <option value="">Todos</option>
                         <option value="Gerente">Gerente</option>
                         <option value="Supervisor">Supervisor</option>
@@ -144,8 +144,8 @@ if (!isset($_SESSION['usuario'])) {
                         <option value="Operario">Operario</option>
                     </select>
                 </th>
-                <th>Fecha de Alta <input type="text"></th>
-                <th>Salario <input type="text"></th>
+                <th>Fecha de Alta <input type="text" id="filtroFecha"></th>
+                <th>Salario <input type="text" id="filtroSalario"></th>
                 <th>PDF</th>
                 <th>Acciones</th>
             </tr>
@@ -243,7 +243,7 @@ if (!isset($_SESSION['usuario'])) {
 
     function cargarEmpleados() {
             // Obtener valores de filtros
-            const filtroId = document.getElementById('filtroId').value;
+            const filtroId = document.getElementById('id').value;
             const filtroNombre = document.getElementById('filtroNombre').value;
             const filtroPuesto = document.getElementById('filtroPuesto').value;
             const filtroFecha = document.getElementById('filtroFecha').value;
