@@ -292,7 +292,6 @@ if (!isset($_SESSION['usuario'])) {
         function openModal(data) {
             const messageDiv = document.getElementById('modal-message');
 
-            // Construir el mensaje de respuesta con los datos actualizados
             if (data.status === "success") {
                 messageDiv.innerHTML = `
                 <p>${data.message}</p>
