@@ -272,14 +272,14 @@ if (!isset($_SESSION['usuario'])) {
                 <label for="consorcio">consorcio:</label>
                 <input type="text" id="modificarNombre" name="nombre" required><br>
                 <label for="empresa_luz">empresa luz:</label>
-                <select id="modificarPuesto" name="puesto" required>
+                <select id="modificarluz" name="puesto" required>
                     <option value="Edesur">Edesur</option>
                     <option value="Edenor">Edenor</option>
                     <option value="Epec">Epec</option>
                     <option value="Emsa">Emsa</option>
                 </select><br>
                 <label for="empresa_agua">empresa agua:</label>
-                <select id="modificarPuesto" name="puesto" required>
+                <select id="modificaragua" name="puesto" required>
                     <option value="AySA">AySA</option>
                     <option value="ABSA">ABSA</option>
                     <option value="ASSA">ASSA</option>
@@ -475,9 +475,9 @@ if (!isset($_SESSION['usuario'])) {
         function modificarServicio(id, nombre, puesto, fecha_alta, salario) {
             document.getElementById('modificarId').value = id;
             document.getElementById('modificarNombre').value = nombre;
-            document.getElementById('modificarPuesto').value = puesto;
-            document.getElementById('modificarFechaAlta').value = fecha_alta;
-            document.getElementById('modificarSalario').value = salario;
+            document.getElementById('modificarluz').value = puesto;
+            document.getElementById('modificaragua').value = fecha_alta;
+            document.getElementById('modificarFechaAlta').value = salario;
             showModalModificar();
         }
     </script>
