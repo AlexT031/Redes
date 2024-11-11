@@ -8,6 +8,7 @@ if (!isset($_SESSION['usuario'])) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,27 +20,36 @@ if (!isset($_SESSION['usuario'])) {
             margin: 0;
             padding: 20px;
         }
-        h1, h2 {
+
+        h1,
+        h2 {
             text-align: center;
             color: #333;
         }
+
         table {
             width: 100%;
             margin-top: 20px;
             border-collapse: collapse;
             background-color: #fff;
         }
-        table, th, td {
+
+        table,
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 12px;
         }
+
         th {
             background-color: #4CAF50;
             color: white;
         }
+
         td {
             text-align: center;
         }
+
         button {
             padding: 10px 15px;
             background-color: #4CAF50;
@@ -47,9 +57,11 @@ if (!isset($_SESSION['usuario'])) {
             border: none;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #45a049;
         }
+
         .modal {
             display: none;
             position: fixed;
@@ -60,27 +72,34 @@ if (!isset($_SESSION['usuario'])) {
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
         }
+
         .modal-content {
             background-color: white;
             margin: 10% auto;
             padding: 20px;
             border-radius: 10px;
             width: 60%;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
+
         .close {
             color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
+
         .close:hover,
         .close:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
         }
-        input[type="text"], input[type="date"], input[type="number"], input[type="file"] {
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        input[type="file"] {
             width: 100%;
             padding: 8px;
             margin: 8px 0;
@@ -89,6 +108,7 @@ if (!isset($_SESSION['usuario'])) {
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         input[type="submit"] {
             width: 100%;
             background-color: #4CAF50;
@@ -98,23 +118,28 @@ if (!isset($_SESSION['usuario'])) {
             border-radius: 4px;
             cursor: pointer;
         }
+
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+
         .add-btn {
             display: block;
             margin: 20px auto;
             padding: 15px;
             background-color: #2196F3;
         }
+
         .add-btn:hover {
             background-color: #1976D2;
         }
+
         button {
             margin: 5px;
         }
     </style>
 </head>
+
 <body>
     <h1>Gestión de Empleados</h1>
     <button class="add-btn" onclick="showModalAgregar()">Agregar Nuevo Empleado</button>
@@ -220,156 +245,180 @@ if (!isset($_SESSION['usuario'])) {
         <button type="submit">Terminar sesión</button>
     </form>
 
-<script>
-    function showModalAgregar() {
-        document.getElementById('modalAgregar').style.display = "block";
-    }
-
-    function hideModalAgregar() {
-        document.getElementById('modalAgregar').style.display = "none";
-    }
-
-    function showModalModificar() {
-        document.getElementById('modalModificar').style.display = "block";
-    }
-
-    function hideModalModificar() {
-        document.getElementById('modalModificar').style.display = "none";
-    }
-
-    function showModalVerPDF(id) {
-        document.getElementById('pdfViewer').src = `ver_pdf.php?id=${id}`;
-        document.getElementById('modalVerPDF').style.display = "block";
-    }
-
-    function hideModalVerPDF() {
-        document.getElementById('modalVerPDF').style.display = "none";
-        document.getElementById('pdfViewer').src = "";
-    }
-
-    function cargarEmpleados() {
-        fetch("listar.php")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("empleados-table").innerHTML = data;
-            })
-            .catch(error => {
-                alert("Error al cargar empleados: " + error);
-            });
-    }
-
-    function borrar() {
-        document.getElementById("empleados-table").innerHTML = "";
-    }
-
-    function verPDF(id) {
-        showModalVerPDF(id);
-    }
-
-    function modificarEmpleado(id, nombre, puesto, fecha_alta, salario) {
-        document.getElementById('modificarId').value = id;
-        document.getElementById('modificarNombre').value = nombre;
-        document.getElementById('modificarPuesto').value = puesto;
-        document.getElementById('modificarFechaAlta').value = fecha_alta;
-        document.getElementById('modificarSalario').value = salario;
-        showModalModificar();
-    }
-
-
-    document.getElementById('modificarForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(this);
-
-        fetch("modificar.php", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            alert(data);
-            hideModalModificar();
-        })
-        .catch(error => {
-            alert("Error al modificar empleado: " + error);
-        });
-    });
-
-    document.getElementById('empleadoForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(this);
-
-        fetch("agregar.php", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            alert(data);
-            hideModalAgregar();
-        })
-        .catch(error => {
-            alert("Error al agregar empleado: " + error);
-        });
-    });
-
-    function eliminarEmpleado(id) {
-        if (confirm("¿Estás seguro de que deseas eliminar este empleado?")) {
-            fetch("eliminar.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: new URLSearchParams({ "id": id })
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert(data);
-            })
-            .catch(error => {
-                alert("Error al eliminar empleado: " + error);
-            });
+    <script>
+        function showModalAgregar() {
+            document.getElementById('modalAgregar').style.display = "block";
         }
-    }
 
-    function filtrarColumna(columna, input) {
-        const filtro = input.value.toLowerCase();
-        const tabla = document.getElementById("empleadosTable");
-        const tr = tabla.getElementsByTagName("tr");
-        for (let i = 1; i < tr.length; i++) {
-            const td = tr[i].getElementsByTagName("td")[columna];
-            if (td) {
-                const textoValor = td.textContent || td.innerText;
-                tr[i].style.display = textoValor.toLowerCase().indexOf(filtro) > -1 ? "" : "none";
+        function hideModalAgregar() {
+            document.getElementById('modalAgregar').style.display = "none";
+        }
+
+        function showModalModificar() {
+            document.getElementById('modalModificar').style.display = "block";
+        }
+
+        function hideModalModificar() {
+            document.getElementById('modalModificar').style.display = "none";
+        }
+
+        function showModalVerPDF(id) {
+            document.getElementById('pdfViewer').src = `ver_pdf.php?id=${id}`;
+            document.getElementById('modalVerPDF').style.display = "block";
+        }
+
+        function hideModalVerPDF() {
+            document.getElementById('modalVerPDF').style.display = "none";
+            document.getElementById('pdfViewer').src = "";
+        }
+
+        function cargarEmpleados() {
+            // Verifica que los elementos existan antes de acceder a sus valores
+            const filtroId = document.getElementById('filtroId') ? document.getElementById('filtroId').value : '';
+            const filtroNombre = document.getElementById('filtroNombre') ? document.getElementById('filtroNombre').value : '';
+            const filtroPuesto = document.getElementById('filtroPuesto') ? document.getElementById('filtroPuesto').value : '';
+            const filtroFecha = document.getElementById('filtroFecha') ? document.getElementById('filtroFecha').value : '';
+            const filtroSalario = document.getElementById('filtroSalario') ? document.getElementById('filtroSalario').value : '';
+
+            const params = new URLSearchParams();
+            if (filtroId) params.append("filtroId", filtroId);
+            if (filtroNombre) params.append("filtroNombre", filtroNombre);
+            if (filtroPuesto) params.append("filtroPuesto", filtroPuesto);
+            if (filtroFecha) params.append("filtroFecha", filtroFecha);
+            if (filtroSalario) params.append("filtroSalario", filtroSalario);
+
+            const query = params.toString() ? `?${params.toString()}` : "";
+
+            fetch(`listar.php${query}`)
+                .then(response => response.text())
+                .then(data => {
+                    const tablaResultados = document.getElementById("tablaResultados");
+                    if (tablaResultados) {
+                        tablaResultados.innerHTML = data;
+                    } else {
+                        console.error("No se encontró el contenedor 'tablaResultados'");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error al cargar la tabla:", error);
+                });
+        }
+
+
+
+        function borrar() {
+            document.getElementById("empleados-table").innerHTML = "";
+        }
+
+        function verPDF(id) {
+            showModalVerPDF(id);
+        }
+
+        function modificarEmpleado(id, nombre, puesto, fecha_alta, salario) {
+            document.getElementById('modificarId').value = id;
+            document.getElementById('modificarNombre').value = nombre;
+            document.getElementById('modificarPuesto').value = puesto;
+            document.getElementById('modificarFechaAlta').value = fecha_alta;
+            document.getElementById('modificarSalario').value = salario;
+            showModalModificar();
+        }
+
+
+        document.getElementById('modificarForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch("modificar.php", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    hideModalModificar();
+                })
+                .catch(error => {
+                    alert("Error al modificar empleado: " + error);
+                });
+        });
+
+        document.getElementById('empleadoForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch("agregar.php", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    hideModalAgregar();
+                })
+                .catch(error => {
+                    alert("Error al agregar empleado: " + error);
+                });
+        });
+
+        function eliminarEmpleado(id) {
+            if (confirm("¿Estás seguro de que deseas eliminar este empleado?")) {
+                fetch("eliminar.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: new URLSearchParams({ "id": id })
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        alert(data);
+                    })
+                    .catch(error => {
+                        alert("Error al eliminar empleado: " + error);
+                    });
             }
         }
-    }
 
-    function limpiarFiltros() {
-        const inputs = document.querySelectorAll("#empleadosTable input[type='text']");
-        inputs.forEach(input => {
-            input.value = "";
-            filtrarColumna(Array.prototype.indexOf.call(inputs, input), input);
-        });
-    }
+        function filtrarColumna(columna, input) {
+            const filtro = input.value.toLowerCase();
+            const tabla = document.getElementById("empleadosTable");
+            const tr = tabla.getElementsByTagName("tr");
+            for (let i = 1; i < tr.length; i++) {
+                const td = tr[i].getElementsByTagName("td")[columna];
+                if (td) {
+                    const textoValor = td.textContent || td.innerText;
+                    tr[i].style.display = textoValor.toLowerCase().indexOf(filtro) > -1 ? "" : "none";
+                }
+            }
+        }
 
-    function ordenarTabla() {
-        const tabla = document.getElementById("empleadosTable");
-        const filas = Array.from(tabla.rows).slice(1);
-        const criterio = document.getElementById('ordenar').value;
-        const indice = {
-            id: 0,
-            nombre: 1,
-            puesto: 2,
-            fecha_alta: 3,
-            salario: 4
-        }[criterio];
-        filas.sort((a, b) => {
-            const valorA = a.cells[indice].innerText;
-            const valorB = b.cells[indice].innerText;
-            return valorA > valorB ? 1 : -1;
-        });
-        filas.forEach(fila => tabla.appendChild(fila)); 
-    }
-</script>
+        function limpiarFiltros() {
+            const inputs = document.querySelectorAll("#empleadosTable input[type='text']");
+            inputs.forEach(input => {
+                input.value = "";
+                filtrarColumna(Array.prototype.indexOf.call(inputs, input), input);
+            });
+        }
+
+        function ordenarTabla() {
+            const tabla = document.getElementById("empleadosTable");
+            const filas = Array.from(tabla.rows).slice(1);
+            const criterio = document.getElementById('ordenar').value;
+            const indice = {
+                id: 0,
+                nombre: 1,
+                puesto: 2,
+                fecha_alta: 3,
+                salario: 4
+            }[criterio];
+            filas.sort((a, b) => {
+                const valorA = a.cells[indice].innerText;
+                const valorB = b.cells[indice].innerText;
+                return valorA > valorB ? 1 : -1;
+            });
+            filas.forEach(fila => tabla.appendChild(fila));
+        }
+    </script>
 </body>
+
 </html>
