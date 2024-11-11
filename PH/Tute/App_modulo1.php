@@ -14,146 +14,72 @@ if (!isset($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Consorcios</title>
     <style>
+        /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
-            background-color: #626262;
-            color: #000000;
+    background-color: #626262;
+    color: #000000;
+            margin: 0;
+            padding: 20px;
         }
-
+        h1, h2 {
+            text-align: center;
+            color: #FFF;
+        }
         table {
             width: 100%;
+            margin-top: 20px;
             border-collapse: collapse;
+            background-color: #fff;
         }
-
-        table,
-        th,
-        td {
-            border: 1px solid #FFF;
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
         }
-
         th {
             background-color: #e8da0e;
             color: #000000;
         }
-
         td {
+            text-align: center;
             background-color: #F0F0F0;
-            color: #000000;
+    color: #000000;
         }
-
-        form {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+        .add-btn, button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: 5px;
         }
-
+        .add-btn:hover, button:hover {
+            background-color: #45a049;
+        }
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
+            z-index: 1000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
             background-color: #00000074;
+            align-items: center;
+            justify-content: center;
         }
-
+        .modal-content {
+            background-color: #ffd027;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 60%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
         .close {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            cursor: pointer;
-        }
-
-        #pdfModal .modal-content {
-            background-color: #FFF;
-            margin: auto;
-            padding: 20px;
-            width: 80%;
-            max-width: 700px;
-            height: 80%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #pdfModal iframe {
-            flex-grow: 1;
-            width: 100%;
-            height: 100%;
-        }
-
-        #myModal .modal-content {
-            background-color: #ffd027;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-        }
-
-        #myModal .close {
-            color: #ff0000;
             float: right;
             font-size: 28px;
-            font-weight: bold;
-        }
-
-        #myModal .close:hover,
-        #myModal .close:focus {
-            color: black;
-            text-decoration: none;
             cursor: pointer;
-        }
-
-        #editModal .modal-content {
-            background-color: #ffd027;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-        }
-
-        #editModal .close {
-            color: #ff0000;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        #editModal .close:hover,
-        #editModal .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-
-        button {
-            padding: 10px;
-            background-color: #e8da0e;
-            color: #000000;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #e8da0e;
         }
     </style>
 </head>
@@ -250,7 +176,7 @@ if (!isset($_SESSION['usuario'])) {
             <h2>Modificar Servicio</h2>
             <form id="modificarForm">
                 <input type="hidden" id="modificarId" name="id">
-
+                
                 <label for="modificarConsorcio">Consorcio:</label>
                 <input type="text" id="modificarConsorcio" name="consorcio" required><br>
 
@@ -272,7 +198,7 @@ if (!isset($_SESSION['usuario'])) {
 
                 <label for="modificarFechaRenovacion">Fecha de Renovación:</label>
                 <input type="date" id="modificarFechaRenovacion" name="fecha_renovacion" required><br>
-
+                
                 <input type="submit" value="Guardar Cambios">
             </form>
         </div>
@@ -419,5 +345,4 @@ if (!isset($_SESSION['usuario'])) {
         }
     </script>
 </body>
-
 </html>
