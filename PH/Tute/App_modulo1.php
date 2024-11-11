@@ -399,7 +399,7 @@ if (!isset($_SESSION['usuario'])) {
         }
 
         function limpiarFiltros() {
-            const inputs = document.querySelectorAll("#filtrosTabla input[type='text']");
+            const inputs = document.querySelectorAll("#filter-input input[type='text']");
             inputs.forEach(input => {
                 input.value = "";
                 filtrarColumna(Array.prototype.indexOf.call(inputs, input), input);
