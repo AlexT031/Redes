@@ -466,7 +466,9 @@ if (!isset($_SESSION['usuario'])) {
             });
         }
 
-
+        function borrar() {
+            document.getElementById("tablaResultados").innerHTML = "";
+        }
     </script>
 </body>
 
