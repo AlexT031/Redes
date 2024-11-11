@@ -1,8 +1,8 @@
 <?php
-$servername = "sql100.thsite.top";
-$username = "thsi_37542157";
-$password = "TbpumB?U";
-$dbname = "thsi_37542157_redes";
+$servername = "localhost";
+$username = "u663826865_wickan";
+$password = "X+uH2*LsfV5";
+$dbname = "u663826865_prueba";
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
