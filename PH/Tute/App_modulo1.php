@@ -156,32 +156,32 @@ if (!isset($_SESSION['usuario'])) {
     </select>
 
     <table>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Puesto</th>
-                <th>Fecha de Alta</th>
-                <th>Salario</th>
-                <th>PDF</th>
-                <th>Acciones</th>
-            </tr>
-            <tr>
-                <td><input type="text" id="filtroId" class="filter-input" placeholder="Filtro ID"></td>
-                <td><input type="text" id="filtroNombre" class="filter-input" placeholder="Filtro Nombre"></td>
-                <td>
-                    <select id="filtroPuesto" class="filter-input">
-                        <option value="">Todos</option>
-                        <option value="Gerente">Gerente</option>
-                        <option value="Supervisor">Supervisor</option>
-                        <option value="Asistente">Asistente</option>
-                        <option value="Operario">Operario</option>
-                    </select>
-                </td>
-                <td><input type="text" id="filtroFecha" class="filter-input" placeholder="Filtro Fecha"></td>
-                <td><input type="text" id="filtroSalario" class="filter-input" placeholder="Filtro Salario"></td>
-                <td></td>
-                <td></td>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Puesto</th>
+            <th>Fecha de Alta</th>
+            <th>Salario</th>
+            <th>PDF</th>
+            <th>Acciones</th>
+        </tr>
+        <tr>
+            <td><input type="text" id="filtroId" class="filter-input" placeholder="Filtro ID"></td>
+            <td><input type="text" id="filtroNombre" class="filter-input" placeholder="Filtro Nombre"></td>
+            <td>
+                <select id="filtroPuesto" class="filter-input">
+                    <option value="">Todos</option>
+                    <option value="Gerente">Gerente</option>
+                    <option value="Supervisor">Supervisor</option>
+                    <option value="Asistente">Asistente</option>
+                    <option value="Operario">Operario</option>
+                </select>
+            </td>
+            <td><input type="text" id="filtroFecha" class="filter-input" placeholder="Filtro Fecha"></td>
+            <td><input type="text" id="filtroSalario" class="filter-input" placeholder="Filtro Salario"></td>
+            <td></td>
+            <td></td>
+        </tr>
         </thead>
         <tbody id="tablaResultados">
             <!-- Aquí se cargarán los resultados -->
@@ -408,8 +408,9 @@ if (!isset($_SESSION['usuario'])) {
 
         function ordenarTabla() {
             const tabla = document.getElementById("empleadosTable");
-            const filas = Array.from(tabla.rows).slice(1);
+            const filas = Array.from(tabla.rows).slice(1); // Excluye el encabezado
             const criterio = document.getElementById('ordenar').value;
+
             const indice = {
                 id: 0,
                 nombre: 1,
@@ -417,13 +418,33 @@ if (!isset($_SESSION['usuario'])) {
                 fecha_alta: 3,
                 salario: 4
             }[criterio];
+
             filas.sort((a, b) => {
-                const valorA = a.cells[indice].innerText;
-                const valorB = b.cells[indice].innerText;
-                return valorA > valorB ? 1 : -1;
+                let valorA = a.cells[indice].innerText.trim();
+                let valorB = b.cells[indice].innerText.trim();
+
+                // Ordenar como número si es ID o salario
+                if (criterio === 'id' || criterio === 'salario') {
+                    valorA = parseFloat(valorA) || 0;
+                    valorB = parseFloat(valorB) || 0;
+                    return valorA - valorB;
+                }
+
+                // Ordenar como fecha si es fecha_alta
+                if (criterio === 'fecha_alta') {
+                    const fechaA = new Date(valorA);
+                    const fechaB = new Date(valorB);
+                    return fechaA - fechaB;
+                }
+
+                // Ordenar como cadena de texto (por defecto)
+                return valorA.localeCompare(valorB);
             });
+
+            // Reinserta las filas ordenadas en la tabla
             filas.forEach(fila => tabla.appendChild(fila));
         }
+
     </script>
 </body>
 
