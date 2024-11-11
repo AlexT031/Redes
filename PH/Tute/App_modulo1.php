@@ -278,7 +278,7 @@ if (!isset($_SESSION['usuario'])) {
         <div id="modal-content">
             <button id="close-button" onclick="closeModal()">✖</button>
             <h2>Respuesta del servidor</h2>
-            <iframe id="modal-message" width="100%" height="500px"></iframe>
+            <div id="modal-message" width="100%" height="500px"></div>
         </div>
     </div>
 
