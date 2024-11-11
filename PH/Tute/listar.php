@@ -41,15 +41,6 @@ $stmt->execute();
 
 // Generación de la tabla con los registros de servicios
 echo "<table border='1'>";
-echo "<tr>
-        <th>ID</th>
-        <th>Consorcio</th>
-        <th>Empresa de Luz</th>
-        <th>Empresa de Agua</th>
-        <th>Fecha de Renovación</th>
-        <th>PDF</th>
-        <th>Acciones</th>
-      </tr>";
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $id = htmlspecialchars($row['id'], ENT_QUOTES);
     $consorcio = htmlspecialchars($row['consorcio'], ENT_QUOTES);
