@@ -7,7 +7,6 @@ if (!isset($_SESSION['usuario'])) {
 
 include 'db_connect.php';
 
-// Filtros para los campos de la tabla servicios
 $filtroId = isset($_GET['filtroId']) ? $_GET['filtroId'] : '';
 $filtroConsorcio = isset($_GET['filtroConsorcio']) ? $_GET['filtroConsorcio'] : '';
 $filtroLuz = isset($_GET['filtroLuz']) ? $_GET['filtroLuz'] : '';
@@ -17,7 +16,6 @@ $filtroFechaRenovacion = isset($_GET['filtroFechaRenovacion']) ? $_GET['filtroFe
 $query = "SELECT * FROM servicios";
 $conditions = [];
 
-// Construcción de los filtros según los campos
 if ($filtroId) $conditions[] = "id LIKE :filtroId";
 if ($filtroConsorcio) $conditions[] = "consorcio LIKE :filtroConsorcio";
 if ($filtroLuz) $conditions[] = "empresa_luz = :filtroLuz";
@@ -30,7 +28,6 @@ if (count($conditions) > 0) {
 
 $stmt = $conn->prepare($query);
 
-// Asignación de los valores de los filtros
 if ($filtroId) $stmt->bindValue(':filtroId', "%$filtroId%");
 if ($filtroConsorcio) $stmt->bindValue(':filtroConsorcio', "%$filtroConsorcio%");
 if ($filtroLuz) $stmt->bindValue(':filtroLuz', $filtroLuz);
@@ -39,7 +36,6 @@ if ($filtroFechaRenovacion) $stmt->bindValue(':filtroFechaRenovacion', "%$filtro
 
 $stmt->execute();
 
-// Generación de la tabla con los registros de servicios
 echo "<table border='1'>";
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $id = htmlspecialchars($row['id'], ENT_QUOTES);
