@@ -146,6 +146,14 @@ if (!isset($_SESSION['usuario'])) {
         </div>
     </div>
 
+    <div id="modalRespuesta" class="modal">
+        <div class="modal-message">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Respuesta Servidor</h2>
+            <textarea id="pdfViewer" width="800px" height="600px"></textarea>
+        </div>
+    </div>
+
     <script>
         function showModalAgregar() {
             document.getElementById('modalAgregar').style.display = "flex";
@@ -274,6 +282,29 @@ if (!isset($_SESSION['usuario'])) {
                         alert("Error al eliminar Consorcio: " + error);
                     });
             }
+        }
+
+        function openModal(data) {
+            const messageDiv = document.getElementById('modal-message');
+
+            if (data.status === "success") {
+                messageDiv.innerHTML = 
+                <p>${data.message}</p>
+                <p><strong>ID:</strong> ${data.data.id}</p>
+                <p><strong>consorcio:</strong> ${data.data.consorcio}</p>
+                <p><strong>empresa_luz:</strong> ${data.data.empresa_luz}</p>
+                <p><strong>empresa_agua:</strong> ${data.data.empresa_agua}</p>
+                <p><strong>fecha_renovacion:</strong> ${data.data.fecha_renovacion}</p>
+            ;
+            } else {
+                messageDiv.innerHTML = <p>${data.message}</p>;
+            }
+
+            document.getElementById('modalRespuesta').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modalRespuesta').style.display = 'none';
         }
     </script>
 </body>
