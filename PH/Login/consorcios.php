@@ -147,12 +147,12 @@ if (!isset($_SESSION['usuario'])) {
     </div>
 
     <div id="modalRespuesta" class="modal">
-    <div id="modal-content">
-        <button id="close-button" onclick="closeModal()">✖</button>
-        <h2>Respuesta del servidor</h2>
-        <div id="modal-message"></div>
+        <div class="modal-content" id="modal-content">
+            <span class="close" id="close-button" onclick="closeModal()">✖</span>
+            <h2>Respuesta del servidor</h2>
+            <div id="modal-message"></div>
+        </div>
     </div>
-</div>
 
 
     <script>
@@ -285,13 +285,13 @@ if (!isset($_SESSION['usuario'])) {
                     });
             }
         }
-        
+
 
         function openModal(data) {
-        const messageDiv = document.getElementById('modal-message');
-        
-        if (data.status === "success") {
-            messageDiv.innerHTML = `
+            const messageDiv = document.getElementById('modal-message');
+
+            if (data.status === "success") {
+                messageDiv.innerHTML = `
                 <p>${data.status}</p>
                 <p>${data.message}</p>
                 <p><strong>ID:</strong> ${data.data.id}</p>
@@ -300,15 +300,15 @@ if (!isset($_SESSION['usuario'])) {
                 <p><strong>empresa_agua:</strong> ${data.data.empresa_agua}</p>
                 <p><strong>fecha_renovacion:</strong> ${data.data.fecha_renovacion}</p>
             `;
-        } else {
-            messageDiv.innerHTML = `<p>${data.message}</p>`;
+            } else {
+                messageDiv.innerHTML = `<p>${data.message}</p>`;
+            }
+            document.getElementById('modalRespuesta').style.display = 'flex';
         }
-        document.getElementById('modalRespuesta').style.display = 'flex';
-    }
 
-    function closeModal() {
-        document.getElementById('modalRespuesta').style.display = 'none';
-    }
+        function closeModal() {
+            document.getElementById('modalRespuesta').style.display = 'none';
+        }
 
     </script>
 </body>
