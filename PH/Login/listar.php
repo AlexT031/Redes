@@ -45,7 +45,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $fecha_renovacion = htmlspecialchars($row['fecha_renovacion'], ENT_QUOTES);
 
     echo "<tr>";
-    echo "<td>{$id}</td>";
+    echo "<td class=\"ocultar\">{$id}</td>";
     echo "<td>{$consorcio}</td>";
     echo "<td>{$empresa_luz}</td>";
     echo "<td>{$empresa_agua}</td>";
