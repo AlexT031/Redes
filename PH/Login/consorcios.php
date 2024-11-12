@@ -218,15 +218,13 @@ if (!isset($_SESSION['usuario'])) {
                 method: "POST",
                 body: formData
             })
-                .then(response => response.json())
+                .then(response => response.text())
                 .then(data => {
-                    alert(JSON.stringify(data, null, 2));
-
+                    alert(data);
                     hideModalAgregar();
                 })
                 .catch(error => {
-                    console.error("Error al agregar servicio:", error);
-                    alert("Error al agregar servicio.");
+                    alert("Error al agregar servicio: " + error);
                 });
         });
 
