@@ -292,6 +292,7 @@ if (!isset($_SESSION['usuario'])) {
         
         if (data.status === "success") {
             messageDiv.innerHTML = `
+                <p>${data.status}</p>
                 <p>${data.message}</p>
                 <p><strong>ID:</strong> ${data.data.id}</p>
                 <p><strong>consorcio:</strong> ${data.data.consorcio}</p>
