@@ -23,7 +23,7 @@ if (!isset($_SESSION['usuario'])) {
         <p>Contador de sesión: <?php echo $_SESSION['contador']; ?></p>
     </div>
 
-    <form action="App_modulo1.php" method="post">
+    <form action="consorcios.php" method="post">
         <button type="submit">Ingrese a la aplicación</button>
     </form>
     
