@@ -146,6 +146,15 @@ if (!isset($_SESSION['usuario'])) {
         </div>
     </div>
 
+    <div id="modalRespuesta">
+    <div id="modal-content">
+        <button id="close-button" onclick="closeModal()">✖</button>
+        <h2>Respuesta del servidor</h2>
+        <div id="modal-message"></div>
+    </div>
+</div>
+
+
     <script>
         function showModalAgregar() {
             document.getElementById('modalAgregar').style.display = "flex";
@@ -229,6 +238,7 @@ if (!isset($_SESSION['usuario'])) {
                 .then(data => {
                     alert(data.message);
                     hideModalModificar();
+                    openModal(data);
                 })
                 .catch(error => {
                     console.error("Error al modificar servicio:", error);
@@ -276,6 +286,29 @@ if (!isset($_SESSION['usuario'])) {
             }
         }
         
+
+        function openModal(data) {
+        const messageDiv = document.getElementById('modal-message');
+        
+        if (data.status === "success") {
+            messageDiv.innerHTML = `
+                <p>${data.message}</p>
+                <p><strong>ID:</strong> ${data.data.id}</p>
+                <p><strong>consorcio:</strong> ${data.data.consorcio}</p>
+                <p><strong>empresa_luz:</strong> ${data.data.empresa_luz}</p>
+                <p><strong>empresa_agua:</strong> ${data.data.empresa_agua}</p>
+                <p><strong>fecha_renovacion:</strong> ${data.data.fecha_renovacion}</p>
+            `;
+        } else {
+            messageDiv.innerHTML = `<p>${data.message}</p>`;
+        }
+        document.getElementById('modalRespuesta').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('modalRespuesta').style.display = 'none';
+    }
+
     </script>
 </body>
 
