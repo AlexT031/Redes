@@ -211,7 +211,6 @@ if (!isset($_SESSION['usuario'])) {
                 .then(data => {
                     alert(data);
                     hideModalAgregar();
-                    cargarServicios();
                 })
                 .catch(error => {
                     alert("Error al agregar servicio: " + error);
@@ -230,7 +229,6 @@ if (!isset($_SESSION['usuario'])) {
                 .then(data => {
                     alert(data.message);
                     hideModalModificar();
-                    cargarServicios();
                 })
                 .catch(error => {
                     console.error("Error al modificar servicio:", error);
