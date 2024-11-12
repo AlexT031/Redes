@@ -22,6 +22,9 @@ if (!isset($_SESSION['usuario'])) {
     <button onclick="cargarServicios()">Cargar Tabla</button>
     <button onclick="borrar()">Borrar Tabla</button>
     <button onclick="limpiarFiltros()">Limpiar Filtros</button>
+    <form action="destruirsesion.php" method="post">
+        <button type="submit">Terminar sesión</button>
+    </form>
 
     <table>
         <thead>
