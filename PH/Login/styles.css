@@ -69,7 +69,6 @@ button:hover {
 .modal-content {
     background-color: #ffd027;
     padding: 20px;
-    border-radius: 8px;
     max-width: 60%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     text-align: center;
