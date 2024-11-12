@@ -80,3 +80,9 @@ button:hover {
     font-size: 28px;
     cursor: pointer;
 }
+
+@media (max-width: 768px) {
+    .ocultar {
+        display: none;
+    }
+}

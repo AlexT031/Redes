@@ -31,7 +31,7 @@ if (!isset($_SESSION['usuario'])) {
     <table>
         <thead>
             <tr>
-                <th>ID</th>
+                <th class="ocultar">ID</th>
                 <th>Consorcio</th>
                 <th>Empresa de Luz</th>
                 <th>Empresa de Agua</th>
@@ -41,7 +41,7 @@ if (!isset($_SESSION['usuario'])) {
                 <th>Eliminar</th>
             </tr>
             <tr>
-                <td><input type="text" id="filtroId" placeholder="Filtro ID"></td>
+                <td class="ocultar"><input type="text" id="filtroId" placeholder="Filtro ID"></td>
                 <td><input type="text" id="filtroConsorcio" placeholder="Filtro Consorcio"></td>
                 <td>
                     <select id="filtroLuz">
