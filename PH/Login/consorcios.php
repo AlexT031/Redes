@@ -37,7 +37,8 @@ if (!isset($_SESSION['usuario'])) {
                 <th>Empresa de Agua</th>
                 <th>Fecha de Renovación</th>
                 <th>PDF</th>
-                <th>Acciones</th>
+                <th>Modificar</th>
+                <th>Eliminar</th>
             </tr>
             <tr>
                 <td><input type="text" id="filtroId" placeholder="Filtro ID"></td>
@@ -61,6 +62,7 @@ if (!isset($_SESSION['usuario'])) {
                     </select>
                 </td>
                 <td><input type="date" id="filtroFechaRenovacion"></td>
+                <td></td>
                 <td></td>
                 <td></td>
             </tr>
