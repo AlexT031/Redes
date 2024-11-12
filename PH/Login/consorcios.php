@@ -146,7 +146,7 @@ if (!isset($_SESSION['usuario'])) {
         </div>
     </div>
 
-    <div id="modalRespuesta">
+    <div id="modalRespuesta" class="modal">
     <div id="modal-content">
         <button id="close-button" onclick="closeModal()">✖</button>
         <h2>Respuesta del servidor</h2>
