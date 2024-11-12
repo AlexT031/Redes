@@ -23,5 +23,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo "Error al agregar Consorcio.";
     }
+
+    if ($stmt->execute()) {
+        $data = [
+            "status" => "success",
+            "message" => "Consorcio agregado exitosamente.",
+            "data" => [
+                "id" => $conn->insert_id,
+                "consorcio" => $consorcio,
+                "empresa_luz" => $empresa_luz,
+                "empresa_agua" => $empresa_agua,
+                "fecha_renovacion" => $fecha_renovacion,
+                "pdf" => $pdf
+            ]
+        ];
+    } else {
+        $data = [
+            "status" => "error",
+            "message" => "Error al agregar el consorcio."
+        ];
+    }
+
+    echo json_encode($data);
+    exit;
 }
 ?>
