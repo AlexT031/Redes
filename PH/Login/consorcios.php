@@ -18,13 +18,15 @@ if (!isset($_SESSION['usuario'])) {
 
 <body>
     <h1>Gestión de Consorcios</h1>
-    <button class="add-btn" onclick="showModalAgregar()">Agregar Nuevo Consorcio</button>
-    <button onclick="cargarServicios()">Cargar Tabla</button>
-    <button onclick="borrar()">Borrar Tabla</button>
-    <button onclick="limpiarFiltros()">Limpiar Filtros</button>
-    <form action="destruirsesion.php" method="post">
-        <button type="submit">Terminar sesión</button>
-    </form>
+    <div style="display: flex; gap: 10px; align-items: center;">
+        <button class="add-btn" onclick="showModalAgregar()">Agregar Nuevo Consorcio</button>
+        <button onclick="cargarServicios()">Cargar Tabla</button>
+        <button onclick="borrar()">Borrar Tabla</button>
+        <button onclick="limpiarFiltros()">Limpiar Filtros</button>
+        <form action="destruirsesion.php" method="post" style="margin: 0;">
+            <button type="submit">Terminar sesión</button>
+        </form>
+    </div>
 
     <table>
         <thead>
